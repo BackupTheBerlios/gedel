@@ -5,6 +5,8 @@
  */
 package ecole.gui.eleve;
 
+import java.sql.SQLException;
+
 import javax.swing.JEditorPane;
 
 import ecole.databean.CantineDatabean;
@@ -15,22 +17,30 @@ import ecole.datametier.ClassesMetier;
 import ecole.datametier.ElevesMetier;
 import ecole.utils.DateTools;
 import ecole.utils.Formatter;
+import ecole.utils.StringTools;
 
 /**
  * Construction de la fiche eleve qui apparait dans le panneau de droite.
+ * Ce composant est un JEditorPane HTML.
  * @author jemore
  */
 public class FicheEleve
 {
+    /** eleve a afficher **/
     private EleveDatabean eleve;
+    
+    /** composant swing contenant les infos **/
     private JEditorPane edit;
     
+    /** objet d'acces aux information de Classe **/
     private ClassesMetier classeMetier;
+    
+    /** objet d'acces aux information de Cantine **/
     private CantineMetier cantineMetier;
 
     
     /**
-     * 
+     * Construction de l'objet. Crée le composant swing et les classes métiers. 
      */
     public FicheEleve(EleveDatabean eleve)
     {
@@ -42,6 +52,13 @@ public class FicheEleve
         cantineMetier = new CantineMetier();
     }
     
+    /**
+     * Retourne une chaine représentant du HTML altérnant 2 couleurs (en fonction de nbline)
+     * @param nbline
+     * @return du html a utiliser dans un TD
+     * @author jerome forestier @ sqli
+     * @date 29 sept. 2004
+     */
     private String bgColor(int nbline)
     {
     	if (nbline % 2 == 0)
@@ -50,7 +67,16 @@ public class FicheEleve
     		return "bgcolor=#FFFFFF";
     }
     
-    public JEditorPane getEditorPanel() throws Exception
+    /**
+     * Retourne le composant swing sur lequel on affiche les informations
+     * de l'elève
+     * @return JEditorPane
+     * @throws Exception si erreur de parametrage interne
+     * @throws SQLException si pb d'acces aux données
+     * @author jerome forestier @ sqli
+     * @date 29 sept. 2004
+     */
+    public JEditorPane getEditorPanel() throws SQLException, Exception
     {
         StringBuffer html = new StringBuffer();
 		ClasseDatabean classe = classeMetier.getClasseByClasseId(eleve.getClasseid());
@@ -98,7 +124,7 @@ public class FicheEleve
         	html.append("tarif " + c.getPrixname() + " (" + Formatter.doubleToStringLocale(c.getPrix()) + "€); ");
         	html.append(" validité ");
         	html.append(DateTools.SDF_D2M2Y4.format(c.getDatevalidite()));
-        	html.append("; "+c.getNbrjours()+ " jour(s)");
+        	html.append("; "+c.getNbrjours()+ " jour" + StringTools.pluriel("", "s", c.getNbrjours()));
         	html.append("<br>");
         }
         
