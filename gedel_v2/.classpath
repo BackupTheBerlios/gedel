@@ -8,5 +8,7 @@
     <classpathentry exported="true" kind="lib" path="lib/jcalendar.jar" sourcepath="/DavidSchool_v2/lib/jcalendar_src.zip"/>
     <classpathentry exported="true" kind="lib" path="lib/looks-1.2.2.jar"/>
     <classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.eclipse.swt.win32_2.1.3/ws/win32/swt.jar"/>
+    <classpathentry kind="lib" path="lib/qflib_12.jar"/>
+    <classpathentry kind="lib" path="lib/qfpp.jar"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>
