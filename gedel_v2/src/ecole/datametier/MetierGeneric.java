@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ecole.databean.DatabeanGeneric;
+import ecole.db.DBTools;
 import ecole.gui.utils.Callbacker;
 import ecole.utils.logger.Logger;
 
@@ -264,6 +265,18 @@ public abstract class MetierGeneric
 		progressBarSetValue(i);		
 		return list;
 	}
-
+    
+    /**
+     * Echape une chaine de caratere.
+     * Les caracteres échapés sont ' en \' , " en \".
+     * @param str
+     * @return la chaine echapper
+     * @author jerome forestier @ sqli
+     * @date 5 oct. 2004
+     */
+    protected String escape_string(String str)
+    {
+        return DBTools.escape_string(str);
+    }
 	
 }

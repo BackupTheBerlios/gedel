@@ -48,7 +48,6 @@ import com.jgoodies.plaf.Options;
 import ecole.databean.AtelierDatabean;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
-import ecole.databean.DatabeanGeneric;
 import ecole.databean.EleveDatabean;
 import ecole.datametier.AteliersMetier;
 import ecole.datametier.CantineMetier;
@@ -59,7 +58,7 @@ import ecole.datametier.TarifsAteliersMetier;
 import ecole.datametier.TarifsCantinesMetier;
 import ecole.db.DatabaseConnection;
 import ecole.exceptions.NonUniquePrimaryKeyException;
-import ecole.gui.dialog.AtelierDialog2;
+import ecole.gui.dialog.AtelierDialog;
 import ecole.gui.dialog.CantineDialog;
 import ecole.gui.dialog.ClasseDialog;
 import ecole.gui.dialog.ConfigDialog;
@@ -968,6 +967,13 @@ public class EcoleApp extends javax.swing.JFrame
 		progressRect.y = 0;
 		jProgressBar.paintImmediately(progressRect);
 	}
+    
+    private void operationTermine(String message)
+    {
+        setStatus(message);
+        GUITools.setCursorNormal(this);
+        DialogAlert.DialogOK(this, message);
+    }
 
 	/** Auto-generated event handler method */
 	protected void menuOutilsGCActionPerformed(ActionEvent evt)
@@ -1090,12 +1096,8 @@ public class EcoleApp extends javax.swing.JFrame
 				GUITools.setCursorWait(this);
 				ElevesMetier metier = new ElevesMetier();
 				metier.insert(e);
-				String res =
-					"Eleve " + e.getNom() + " " + e.getPrenom() + " ajouté";
-				setStatus(res);
-				DialogAlert.DialogOK(this, res);
-				// Recharger la combo des éleves
-				reloadListEleve();
+                reloadListEleve();
+                operationTermine("Elève " + e.getNomPrenom() + " ajouté");								
 			}
 		} catch (Exception e)
 		{
@@ -1128,11 +1130,7 @@ public class EcoleApp extends javax.swing.JFrame
 				metier.delete(e.getId());
 				cbEleves.removeItemAt(idx);
 				listEleves.remove(idx);
-				String res =
-					"Eleve " + e.getNom() + " " + e.getPrenom() + " supprimé";
-				setStatus(res);
-				GUITools.setCursorNormal(this);
-				DialogAlert.DialogOK(this, res);
+                operationTermine("Elève " + e.getNomPrenom() + " supprimé");
 			}
 		} catch (Exception e)
 		{
@@ -1163,15 +1161,12 @@ public class EcoleApp extends javax.swing.JFrame
 					e = null;
 					GUITools.setCursorWait(this);
 					ElevesMetier metier = new ElevesMetier();
-					metier.update(nouvel_eleve);					
-					String res =
-						"Eleve " + nouvel_eleve.getNom() + " " + nouvel_eleve.getPrenom() + " modifié";
-					setStatus(res);
-					reloadListEleve();
-					GUITools.setCursorNormal(this);
-										
-					cbEleves.setSelectedIndex(getSelectedIdxOfEleve(nouvel_eleve.getId()));
-					DialogAlert.DialogOK(this, res);
+					metier.update(nouvel_eleve);
+                    
+                    					
+					reloadListEleve();														
+					cbEleves.setSelectedIndex(getSelectedIdxOfEleve(nouvel_eleve.getId()));					
+                    operationTermine("Elève " + nouvel_eleve.getNomPrenom() + " ajouté");
 				}
 			}
 		} catch (Exception e)
@@ -1227,9 +1222,7 @@ public class EcoleApp extends javax.swing.JFrame
                 GUITools.setCursorWait(this);
                 ClassesMetier metier = new ClassesMetier();
                 metier.insert(c);
-                String res = "Classe de " + c.getClasse_nom() +" ajoutée";
-                setStatus(res);
-                DialogAlert.DialogOK(this, res);
+                operationTermine("Classe " + c.getClasse_nom() + " ajoutée");                
                 // Recharger la combo des classes
                 reloadListClasses();
             }
@@ -1264,12 +1257,8 @@ public class EcoleApp extends javax.swing.JFrame
                     c = null;
                     GUITools.setCursorWait(this);
                     ClassesMetier metier = new ClassesMetier();
-                    metier.update(nouvel_classe);                    
-                    String res =
-                        "Classe " + nouvel_classe.getClasse_nom() + " modifiée";
-                    setStatus(res);
-                    GUITools.setCursorNormal(this);
-                    DialogAlert.DialogOK(this, res);
+                    metier.update(nouvel_classe);
+                    operationTermine("Classe " + c.getClasse_nom() + " modifiée");                    
                     reloadListClasses();
                 }
             }
@@ -1307,11 +1296,7 @@ public class EcoleApp extends javax.swing.JFrame
                 metier.delete(c.getId());
                 cbClasses.removeItemAt(idx);
                 listEleves.remove(idx);
-                String res =
-                    "Classe " + c.getClasse_nom() + " supprimée";
-                setStatus(res);
-                GUITools.setCursorNormal(this);
-                DialogAlert.DialogOK(this, res);
+                operationTermine("Classe " + c.getClasse_nom() + " supprimée");
             }
         } catch (Exception e)
         {
@@ -1490,18 +1475,23 @@ public class EcoleApp extends javax.swing.JFrame
 		
 	}
 
+    
+
 	/**
 	 * Creation d'un atelier
 	 */
 	protected void menuAtelierNewActionPerformed(ActionEvent evt){
 		try
 		{
-			AtelierDialog2 dialog = new AtelierDialog2(this);
+			AtelierDialog dialog = new AtelierDialog(this);
 			AtelierDatabean a = (AtelierDatabean)dialog.saisir();
 			if (null != a)
 			{
 				GUITools.setCursorWait(this);
-				
+				AteliersMetier metier = new AteliersMetier();
+                metier.insert(a);
+                metier = null;
+                operationTermine("Atelier "+a.getAtelier_nom()+" crée");
 			}
 		} catch (Exception e)
 		{

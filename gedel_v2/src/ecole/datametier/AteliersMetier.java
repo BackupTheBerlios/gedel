@@ -4,6 +4,7 @@
  */
 package ecole.datametier;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -84,4 +85,24 @@ public class AteliersMetier extends MetierGeneric
 		if (ATELIER_V.equals(type)) return AtelierDatabean.ATELIER_V;
 		return '\0';
 	}
+
+    /**
+     * Insertion d'un nouvel atelier
+     * le bean est modifié pour affecter l'ID inseré
+     * @return int l'id de l'atelier inseré.
+     * @author jerome forestier @ sqli
+     * @date 5 oct. 2004
+     */
+    public int insert(AtelierDatabean atelier) throws SQLException
+    {
+        String q = null;
+        
+        q = "insert into refatelier set atelier_nom='" + escape_string(atelier.getAtelier_nom())+"', " +            " type='" + escape_string(atelier.getType()+"")+ "', " +            " jour='" + escape_string(atelier.getJour())+ "'";
+        PreparedStatement pst = prepareStatementAutoInc(q);
+        pst.executeUpdate(q);
+        int id = getAutoincrement(pst);          
+        atelier.setId(id);
+        pst.close();
+        return id;
+    }
 }

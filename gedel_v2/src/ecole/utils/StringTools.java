@@ -40,4 +40,6 @@ public final class StringTools
         if (n > 1) return pluriel;
         else return singulier;
     }
+    
+
 }

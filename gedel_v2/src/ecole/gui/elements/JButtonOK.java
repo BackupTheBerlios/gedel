@@ -72,6 +72,5 @@ public class JButtonOK extends javax.swing.JButton {
 	}
 	/** Auto-generated event handler method */
 	protected void rootActionPerformed(ActionEvent evt){
-		System.out.println(evt.getSource());
 	}
 }

@@ -40,4 +40,20 @@ public final class DBTools
     {
         return new java.sql.Date(date.getTime());
     }
+    
+    /**
+     * Echapement des caracteres ' par \' et " par \"
+     * @param str
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 5 oct. 2004
+     */
+    public final static String escape_string(String str)
+    {
+        String s = str.replaceAll("'", "\\\\'");
+        s = s.replaceAll("\"", "\\\\\"");
+        return s;
+    }
+    
+
 }
