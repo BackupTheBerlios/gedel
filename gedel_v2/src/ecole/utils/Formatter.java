@@ -8,6 +8,7 @@ package ecole.utils;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.text.ParseException;
 
 /**
  * Classe utilitaire contenant des methodes statiques
@@ -70,4 +71,35 @@ public class Formatter
         initFormatter();
         return montantFormatterLocal.format(d);
     }    
+    
+    public static double stringToDouble(String str) throws ParseException
+    {
+        initFormatter();
+        try
+        {
+            str = str.replaceAll(",", ".");
+            str = str.replaceAll(" ", "");
+            return montantFormatter.parse(str).doubleValue();
+        }
+        catch (ParseException e)
+        {
+            try
+            {
+                return montantFormatter.parse(str).doubleValue();
+            }
+            catch (ParseException e1)
+            {                
+                try {
+                    return new Double(str).doubleValue();
+                } catch( Exception e2)
+                {
+                    throw new ParseException(str +" n'est pas un double", 0);
+                }
+            }
+        }
+    }
+    
+    
+
+
 }

@@ -278,5 +278,17 @@ public abstract class MetierGeneric
     {
         return DBTools.escape_string(str);
     }
+    
+    /**
+     * Echapement et mise en forme d'un double.
+     * @param d
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 11 oct. 2004
+     */
+    protected String escape_string(double d)
+    {
+        return DBTools.doubleToString(d);
+    }
 	
 }

@@ -50,11 +50,12 @@ import ecole.databean.AtelierInscritDatabean;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
+import ecole.databean.TarifAtelierDatabean;
+import ecole.databean.TarifCantineDatabean;
 import ecole.datametier.AteliersMetier;
 import ecole.datametier.CantineMetier;
 import ecole.datametier.ClassesMetier;
 import ecole.datametier.ElevesMetier;
-import ecole.datametier.MetierGeneric;
 import ecole.datametier.TarifsAteliersMetier;
 import ecole.datametier.TarifsCantinesMetier;
 import ecole.db.DatabaseConnection;
@@ -65,6 +66,8 @@ import ecole.gui.dialog.CantineDialog;
 import ecole.gui.dialog.ClasseDialog;
 import ecole.gui.dialog.ConfigDialog;
 import ecole.gui.dialog.EleveDialog;
+import ecole.gui.dialog.TarifAtelierDialog;
+import ecole.gui.dialog.TarifCantineDialog;
 import ecole.gui.fiches.EleveFiche;
 import ecole.gui.listes.EleveAtelierClasseListe;
 import ecole.gui.listes.EleveAtelierListe;
@@ -195,6 +198,8 @@ public class EcoleApp extends javax.swing.JFrame
 	private List listEleves;
     private List listClasses;
     private List listAteliers;
+    private List listTarifsAtelier;
+    private List listTarifsCantine;
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -237,8 +242,8 @@ public class EcoleApp extends javax.swing.JFrame
 			this.getContentPane().setLayout(thisLayout);
 			thisLayout.setHgap(0);
 			thisLayout.setVgap(0);
-			thisLayout.setColumns(1);
 			thisLayout.setRows(1);
+			thisLayout.setColumns(1);
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setDefaultLookAndFeelDecorated(false);
 			this.setTitle("GEDEL - Gestion Des Elèves");
@@ -271,8 +276,8 @@ public class EcoleApp extends javax.swing.JFrame
 			jPanel1.add(jStatusBar, BorderLayout.SOUTH);
 	
 			jProgressBar.setValue(0);
-			jProgressBar.setIndeterminate(false);
 			jProgressBar.setStringPainted(false);
+			jProgressBar.setIndeterminate(false);
 			jProgressBar.setPreferredSize(new java.awt.Dimension(88,15));
 			jProgressBar.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
 			jProgressBar.setDoubleBuffered(false);
@@ -322,8 +327,8 @@ public class EcoleApp extends javax.swing.JFrame
 			});
 	
 			bElevesAtelier.setText("Atelier");
-			bElevesAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			bElevesAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
+			bElevesAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			panelEleves.add(bElevesAtelier, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 5, 5, 5), 0, 0));
 			bElevesAtelier.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
@@ -333,8 +338,8 @@ public class EcoleApp extends javax.swing.JFrame
 	
 			bElevesCantine.setText("Cantine");
 			bElevesCantine.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/cantine.gif")));
-			bElevesCantine.setDoubleBuffered(true);
 			bElevesCantine.setOpaque(false);
+			bElevesCantine.setDoubleBuffered(true);
 			bElevesCantine.setName("");
 			panelEleves.add(bElevesCantine, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 5, 5, 5), 0, 0));
 			bElevesCantine.addActionListener( new ActionListener() {
@@ -368,8 +373,8 @@ public class EcoleApp extends javax.swing.JFrame
 			});
 	
 			bClassesListeAtelier.setText("Liste ateliers");
-			bClassesListeAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			bClassesListeAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
+			bClassesListeAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			panelClasses.add(bClassesListeAtelier, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 10, 0, new Insets(0, 0, 0, 0), 0, 0));
 			bClassesListeAtelier.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
@@ -428,10 +433,20 @@ public class EcoleApp extends javax.swing.JFrame
 			bTarifsAteliersModifTarif.setText("Modif. tarif");
 			bTarifsAteliersModifTarif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_modif.gif")));
 			panelTarifsAteliers.add(bTarifsAteliersModifTarif, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 0, 0, 0), 0, 0));
+			bTarifsAteliersModifTarif.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					bTarifsAteliersModifTarifActionPerformed(evt);
+				}
+			});
 	
 			bTarifsAteliersSupprTarif.setText("Suppr. tarif");
 			bTarifsAteliersSupprTarif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_suppr.gif")));
 			panelTarifsAteliers.add(bTarifsAteliersSupprTarif, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 10, 0, new Insets(0, 0, 0, 0), 0, 0));
+			bTarifsAteliersSupprTarif.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					bTarifsAteliersSupprTarifActionPerformed(evt);
+				}
+			});
 	
 			GridBagLayout panelTarifsCantineLayout = new GridBagLayout();
 			panelTarifsCantine.setLayout(panelTarifsCantineLayout);
@@ -450,10 +465,20 @@ public class EcoleApp extends javax.swing.JFrame
 			bTarifsCantineModif.setText("Modif. tarif");
 			bTarifsCantineModif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_modif.gif")));
 			panelTarifsCantine.add(bTarifsCantineModif, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 0, 0, 0), 0, 0));
+			bTarifsCantineModif.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					bTarifsCantineModifActionPerformed(evt);
+				}
+			});
 	
 			bTarifCantineSuppr.setText("Suppr. tarif");
 			bTarifCantineSuppr.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_suppr.gif")));
 			panelTarifsCantine.add(bTarifCantineSuppr, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 10, 0, new Insets(0, 0, 0, 0), 0, 0));
+			bTarifCantineSuppr.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					bTarifCantineSupprActionPerformed(evt);
+				}
+			});
 	
 			jScrollPanDroite.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			jScrollPanDroite.setPreferredSize(new java.awt.Dimension(149,126));
@@ -572,8 +597,8 @@ public class EcoleApp extends javax.swing.JFrame
 	
 			menuEleves.setText("Elèves");
 			menuEleves.setDisplayedMnemonicIndex(1);
-			menuEleves.setHorizontalTextPosition(SwingConstants.TRAILING);
 			menuEleves.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
+			menuEleves.setHorizontalTextPosition(SwingConstants.TRAILING);
 			jMenuBar1.add(menuEleves);
 	
 			menuElevesAjouter.setText("Ajouter un élève");
@@ -719,14 +744,29 @@ public class EcoleApp extends javax.swing.JFrame
 			menuAtelierTarifNew.setText("Créer un tarif d'atelier");
 			menuAtelierTarifNew.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_new.gif")));
 			jMenu1.add(menuAtelierTarifNew);
+			menuAtelierTarifNew.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuAtelierTarifNewActionPerformed(evt);
+				}
+			});
 	
 			menuAtelierTarifModif.setText("Modifier le tarif de l'atelier selectionné");
 			menuAtelierTarifModif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_modif.gif")));
 			jMenu1.add(menuAtelierTarifModif);
+			menuAtelierTarifModif.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuAtelierTarifModifActionPerformed(evt);
+				}
+			});
 	
 			menuAtelierTarifSuppr.setText("Supprimer le tarif de l'atelier selectionné");
 			menuAtelierTarifSuppr.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_suppr.gif")));
 			jMenu1.add(menuAtelierTarifSuppr);
+			menuAtelierTarifSuppr.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuAtelierTarifSupprActionPerformed(evt);
+				}
+			});
 	
 			menuCantine.setText("Cantine");
 			menuCantine.setDisplayedMnemonicIndex(2);
@@ -736,6 +776,11 @@ public class EcoleApp extends javax.swing.JFrame
 			menuCantineAjouter.setText("Ajouter ou supprimer un élève");
 			menuCantineAjouter.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/cantine.gif")));
 			menuCantine.add(menuCantineAjouter);
+			menuCantineAjouter.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuCantineAjouterActionPerformed(evt);
+				}
+			});
 	
 			jSeparator8.setVisible(true);
 			menuCantine.add(jSeparator8);
@@ -754,16 +799,31 @@ public class EcoleApp extends javax.swing.JFrame
 			menuCantineTarifNew.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_new.gif")));
 			menuCantineTarifNew.setBounds(new java.awt.Rectangle(0,0,0,0));
 			jMenu2.add(menuCantineTarifNew);
+			menuCantineTarifNew.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuCantineTarifNewActionPerformed(evt);
+				}
+			});
 	
 			menuCantineTarifModif.setText("Modifier le tarif de cantine selectionné");
 			menuCantineTarifModif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_modif.gif")));
 			menuCantineTarifModif.setBounds(new java.awt.Rectangle(0,0,0,0));
 			jMenu2.add(menuCantineTarifModif);
+			menuCantineTarifModif.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuCantineTarifModifActionPerformed(evt);
+				}
+			});
 	
 			menuCantineTarifSuppr.setText("Supprimer le tarif de cantine selectionné");
 			menuCantineTarifSuppr.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/tarif_suppr.gif")));
 			menuCantineTarifSuppr.setBounds(new java.awt.Rectangle(0,0,0,0));
 			jMenu2.add(menuCantineTarifSuppr);
+			menuCantineTarifSuppr.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuCantineTarifSupprActionPerformed(evt);
+				}
+			});
 	
 			menuGestion.setText("Gestion");
 			menuGestion.setDisplayedMnemonicIndex(0);
@@ -877,11 +937,11 @@ public class EcoleApp extends javax.swing.JFrame
 		GUITools.setCursorWait(this);
 		try
 		{
-			Callbacker callbacker = new Callbacker(this);
-			MetierGeneric metier;
             reloadListClasses();
             reloadListAteliers();
-
+            reloadListTarifsCantine();
+            reloadListTarifsAtelier();
+/*
 			metier = new TarifsAteliersMetier();
 			metier.setCallbacker(callbacker);
 			ComboBoxFiller.addItems(
@@ -899,7 +959,7 @@ public class EcoleApp extends javax.swing.JFrame
 				metier.getClass(),
 				"getTarifNom");
 			metier = null;
-
+*/
 			reloadListEleve();
 			System.gc();
 		} catch (Exception ex)
@@ -1143,6 +1203,36 @@ public class EcoleApp extends javax.swing.JFrame
             // Transformation de la liste en Map
             //mapClasses = DatabeanTools.createMapFromList(listClasses);
         GUITools.setCursorNormal(this);           
+    }
+    
+    private void reloadListTarifsAtelier() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException
+    {
+        GUITools.setCursorWait(this);
+        TarifsAteliersMetier metier = new TarifsAteliersMetier();
+        metier.setCallbacker(new Callbacker(this));
+        listTarifsAtelier = metier.getAll();
+        ComboBoxFiller.addItems(
+            cbTarifsAteliers,
+            listTarifsAtelier,
+            metier.getClass(),
+            "getTarifNom");
+        metier = null;
+        GUITools.setCursorNormal(this);                
+    }
+    
+    private void reloadListTarifsCantine() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SQLException
+    {
+        GUITools.setCursorWait(this);
+        TarifsCantinesMetier metier = new TarifsCantinesMetier();
+        metier.setCallbacker(new Callbacker(this));
+        listTarifsCantine = metier.getAll();
+        ComboBoxFiller.addItems(
+            cbTarifsCantine,
+            listTarifsCantine,
+            metier.getClass(),
+            "getTarifNom");
+        metier = null;  
+        GUITools.setCursorNormal(this);
     }
 
 	/** Auto-generated event handler method */
@@ -1752,5 +1842,227 @@ public class EcoleApp extends javax.swing.JFrame
         {
             GUITools.setCursorNormal(this);
         }   
+	}
+
+	/** Auto-generated event handler method */
+	protected void menuCantineAjouterActionPerformed(ActionEvent evt){
+		bElevesCantineActionPerformed(evt);
+	}
+
+	/**
+     * Creation d'un nouveau tarif de cantine
+	 */
+	protected void menuCantineTarifNewActionPerformed(ActionEvent evt){
+        try
+        {
+            TarifCantineDialog dialog = new TarifCantineDialog(this);
+            TarifCantineDatabean tarif = (TarifCantineDatabean)dialog.saisir();
+            if (null != tarif)
+            {
+                GUITools.setCursorWait(this);
+                TarifsCantinesMetier metier = new TarifsCantinesMetier();
+                metier.insert(tarif);
+                reloadListTarifsCantine();
+                operationTermine("Tarif de cantine " + tarif.getTarif_nom() + " crée");
+            }            
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }		
+	}
+
+	/**
+     * Nouveau tarif atelier
+	 */
+	protected void menuAtelierTarifNewActionPerformed(ActionEvent evt){
+		try
+        {
+            TarifAtelierDialog dialog = new TarifAtelierDialog(this);
+            TarifAtelierDatabean tarif = (TarifAtelierDatabean)dialog.saisir();
+            if (null != tarif)
+            {
+                GUITools.setCursorWait(this);
+                TarifsAteliersMetier metier = new TarifsAteliersMetier();
+                metier.insert(tarif);
+                reloadListTarifsAtelier();
+                operationTermine("Tarif de l'atelier " + tarif.getTarif_nom() + " crée");
+            }            
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }
+	}
+
+	/**
+     * Modification du tarif atelier selectionné
+	 */
+	protected void menuAtelierTarifModifActionPerformed(ActionEvent evt){
+		try
+        {
+            int idx = cbTarifsAteliers.getSelectedIndex();
+            if (idx != -1)
+            {
+                TarifAtelierDatabean ancien_tarif = (TarifAtelierDatabean)listTarifsAtelier.get(idx);
+                if( ancien_tarif != null)
+                {
+                    TarifAtelierDialog dialog = new TarifAtelierDialog(this);                    
+                    TarifAtelierDatabean nouveau_tarif = dialog.modifier(ancien_tarif);
+                    if (null != nouveau_tarif)
+                    {
+                        GUITools.setCursorWait(this);
+                        TarifsAteliersMetier metier = new TarifsAteliersMetier();
+                        metier.update(nouveau_tarif);
+                        reloadListTarifsAtelier();
+                        cbTarifsAteliers.setSelectedIndex(idx);
+                        operationTermine("Tarif de l'atelier " + nouveau_tarif.getTarif_nom() + " modifié");
+                    }            
+                }
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }
+	}
+
+	/**
+     * Suppression du tarif atelier selectionné
+	 */
+	protected void menuAtelierTarifSupprActionPerformed(ActionEvent evt){
+		try
+        {
+            int idx = cbTarifsAteliers.getSelectedIndex();
+            if (idx != -1)
+            {
+                TarifAtelierDatabean tarif = (TarifAtelierDatabean)listTarifsAtelier.get(idx);
+                if( tarif != null)
+                {
+                    TarifAtelierDialog dialog = new TarifAtelierDialog(this);                                        
+                    if (true == dialog.supprimer(tarif))
+                    {
+                        GUITools.setCursorWait(this);
+                        TarifsAteliersMetier metier = new TarifsAteliersMetier();
+                        metier.delete(tarif);
+                        listTarifsAtelier.remove(idx);
+                        cbTarifsAteliers.removeItemAt(idx);                        
+                        operationTermine("Tarif de l'atelier " + tarif.getTarif_nom() + " supprimé");
+                    }            
+                }
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }
+	}
+
+	protected void bTarifsAteliersModifTarifActionPerformed(ActionEvent evt){
+		menuAtelierTarifModifActionPerformed(evt);
+	}
+
+	/** Auto-generated event handler method */
+	protected void bTarifsAteliersSupprTarifActionPerformed(ActionEvent evt){
+		menuAtelierTarifSupprActionPerformed(evt);
+	}
+
+	/** Auto-generated event handler method */
+	protected void bTarifsCantineModifActionPerformed(ActionEvent evt){
+		try
+        {
+            int idx = cbTarifsCantine.getSelectedIndex();
+            if (idx != -1)
+            {
+                TarifCantineDatabean ancien_tarif = (TarifCantineDatabean)listTarifsCantine.get(idx);
+                if( ancien_tarif != null)
+                {
+                    TarifCantineDialog dialog = new TarifCantineDialog(this);                    
+                    TarifCantineDatabean nouveau_tarif = dialog.modifier(ancien_tarif);
+                    if (null != nouveau_tarif)
+                    {
+                        GUITools.setCursorWait(this);
+                        TarifsCantinesMetier metier = new TarifsCantinesMetier();
+                        metier.update(nouveau_tarif);
+                        reloadListTarifsCantine();
+                        cbTarifsCantine.setSelectedIndex(idx);
+                        operationTermine("Tarif de cantine " + nouveau_tarif.getTarif_nom() + " modifié");
+                    }            
+                }
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }
+	}
+
+	/** Auto-generated event handler method */
+	protected void bTarifCantineSupprActionPerformed(ActionEvent evt){
+		try
+        {
+            int idx = cbTarifsCantine.getSelectedIndex();
+            if (idx != -1)
+            {
+                TarifCantineDatabean tarif = (TarifCantineDatabean)listTarifsCantine.get(idx);
+                if( tarif != null)
+                {
+                    TarifCantineDialog dialog = new TarifCantineDialog(this);                                        
+                    if (true == dialog.supprimer(tarif))
+                    {
+                        GUITools.setCursorWait(this);
+                        TarifsCantinesMetier metier = new TarifsCantinesMetier();
+                        metier.delete(tarif);
+                        listTarifsCantine.remove(idx);
+                        cbTarifsCantine.removeItemAt(idx);                        
+                        operationTermine("Tarif de cantine " + tarif.getTarif_nom() + " supprimé");
+                    }            
+                }
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }
+	}
+
+	/** Auto-generated event handler method */
+	protected void menuCantineTarifModifActionPerformed(ActionEvent evt){
+		bTarifsCantineModifActionPerformed(evt);
+	}
+
+	/** Auto-generated event handler method */
+	protected void menuCantineTarifSupprActionPerformed(ActionEvent evt){
+		bTarifCantineSupprActionPerformed(evt);
 	}
 }

@@ -5,9 +5,11 @@
 package ecole.db;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Classe utilitaire pour manipuler des objets de la BD.
@@ -17,6 +19,7 @@ import java.util.Date;
 public final class DBTools
 {
 	private static final DateFormat SDF_DB = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private static final NumberFormat DOUBLE_FMT = NumberFormat.getInstance(Locale.ENGLISH);
 	
 	/**
 	 * Format de la date : yyyy-mm-dd hh:mm:ss
@@ -54,6 +57,17 @@ public final class DBTools
         s = s.replaceAll("\"", "\\\\\"");
         return s;
     }
-    
+
+    /**
+     * Transforme un double en format acceptable par le BD
+     * @param d
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 11 oct. 2004
+     */    
+    public final static String doubleToString(double d)
+    {
+        return DOUBLE_FMT.format(d);
+    }
 
 }
