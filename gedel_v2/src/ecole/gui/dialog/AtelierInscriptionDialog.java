@@ -150,15 +150,15 @@ public class AtelierInscriptionDialog extends DialogGeneric
     public boolean inscrireAtelier(EleveDatabean eleve, AtelierInscritDatabean atelierInscrit)
     {
         // On pré-coche les ateliers inscrit
-        List listAtelierInscrit = atelierInscrit.getListAtelierId();
+        List listAtelierInscrit = atelierInscrit.getListAtelierDatabean();
         Iterator i = listAtelierInscrit.iterator();
         while (i.hasNext())
         {
-            Integer idAtelierInscrit = (Integer)i.next();
+            int idAtelierInscrit = ((AtelierDatabean)i.next()).getId();
             for (int i_atelier = 0; i_atelier < listAtelier.size(); i_atelier++)
             {
                 AtelierDatabean atelier = (AtelierDatabean)listAtelier.get(i_atelier);
-                if (idAtelierInscrit.intValue() == atelier.getId())
+                if (idAtelierInscrit == atelier.getId())
                 {
                     // Cochons...
                     allCheckBoxes[i_atelier].setSelected(true);

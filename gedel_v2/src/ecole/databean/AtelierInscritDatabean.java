@@ -20,7 +20,7 @@ public class AtelierInscritDatabean extends DatabeanGeneric
     private double prix;
     private Date datevalidite;
     private int nbrJours; 
-    private List listAtelierId; // List d'Integer contenant les ID des ateliers
+    private List listAtelierDatabean; // List d'Integer contenant les ID des ateliers
     /* (non-Javadoc)
      * @see ecole.databean.DatabeanGeneric#getPrimaryKey()
      */
@@ -51,13 +51,13 @@ public class AtelierInscritDatabean extends DatabeanGeneric
     }
 
     /**
-     * @return List d'Integer des ID des ateliers
+     * @return List d'AtelierDatabean
      * @author jerome forestier @ sqli
      * @date 7 oct. 2004
      */
-    public List getListAtelierId()
+    public List getListAtelierDatabean()
     {
-        return listAtelierId;
+        return listAtelierDatabean;
     }
 
     /**
@@ -115,9 +115,9 @@ public class AtelierInscritDatabean extends DatabeanGeneric
      * @author jerome forestier @ sqli
      * @date 7 oct. 2004
      */
-    public void setListAtelierId(List list)
+    public void setListAtelierDatabean(List list)
     {
-        listAtelierId = list;
+        listAtelierDatabean = list;
     }
 
     /**

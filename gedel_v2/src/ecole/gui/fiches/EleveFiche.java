@@ -6,12 +6,17 @@
 package ecole.gui.fiches;
 
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JEditorPane;
 
+import ecole.databean.AtelierDatabean;
+import ecole.databean.AtelierInscritDatabean;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
+import ecole.datametier.AteliersMetier;
 import ecole.datametier.CantineMetier;
 import ecole.datametier.ClassesMetier;
 import ecole.datametier.ElevesMetier;
@@ -32,11 +37,14 @@ public class EleveFiche
     /** composant swing contenant les infos **/
     private JEditorPane edit;
     
-    /** objet d'acces aux information de Classe **/
+    /** objet d'acces aux informations de Classe **/
     private ClassesMetier classeMetier;
     
-    /** objet d'acces aux information de Cantine **/
+    /** objet d'acces aux informations de Cantine **/
     private CantineMetier cantineMetier;
+    
+    /** objet d'acces aux informations des inscriptions aux atelier **/
+    private AteliersMetier atelierMetier;
 
     
     /**
@@ -50,6 +58,7 @@ public class EleveFiche
         edit.setContentType("text/html");
         classeMetier = new ClassesMetier();
         cantineMetier = new CantineMetier();
+        atelierMetier = new AteliersMetier();
     }
     
     /**
@@ -101,7 +110,7 @@ public class EleveFiche
 			eleve.getVille(), eleve.getTelephone1(),
 			eleve.getTelephone2(),eleve.getTelephone3(),
 			classe.getClasse_nom(), dateToString(eleve.getDateentree()), 
-			"?"};
+			getAtliersInscrit()};
 
 		if (data_libelle.length != data_value.length)
 			throw new Exception("Les libellés et les données sont de taille différentes");			
@@ -133,9 +142,26 @@ public class EleveFiche
         	html.append("<br>");
         }
         
-        
         edit.setText(html.toString());
         return edit;
+    }
+
+    private String getAtliersInscrit() throws SQLException
+    {
+        AtelierInscritDatabean ateliersInscrit = atelierMetier.getAteliersInscritForEleve(eleve);
+        String str = "";
+        List listAtelierInscrit = ateliersInscrit.getListAtelierDatabean();
+        Iterator i = listAtelierInscrit.iterator();
+        while (i.hasNext())
+        {
+            AtelierDatabean atelier = (AtelierDatabean)i.next(); 
+            str += atelier.getAtelier_nom() + ", ";
+        }
+        if (!"".equals(str))
+        {
+            return str.substring(0, str.length() - 2);
+        }
+        return str;
     }
     
     

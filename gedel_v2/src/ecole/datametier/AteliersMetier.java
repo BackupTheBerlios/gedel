@@ -206,12 +206,13 @@ public class AteliersMetier extends MetierGeneric
     /**
      * Retourne la liste des ateliers auxquels un eleve est inscrit
      * @param eleve
-     * @return List de AtelierDatabean
+     * @return AtelierInscritDatabean
      * @author jerome forestier @ sqli
      * @date 7 oct. 2004
      */
     public AtelierInscritDatabean getAteliersInscritForEleve(EleveDatabean eleve) throws SQLException
     {
+        /*
         AtelierInscritDatabean atelierInscrit = new AtelierInscritDatabean();
         atelierInscrit.setEleve_id(eleve.getId());
         
@@ -234,7 +235,39 @@ public class AteliersMetier extends MetierGeneric
             }
         }
         atelierInscrit.setListAtelierId(list);        
-        return atelierInscrit;        
+        return atelierInscrit; 
+        */
+        
+        String q = "select eleve_id, atelier_id, prixname, prix, datevalidite, nbrjours, atelier_nom, type, jour "
+        + " from atelier A, refatelier R "
+        + " where eleve_id = ? "
+        + " and A.atelier_id = R.id";
+        AtelierInscritDatabean atelierInscrit = new AtelierInscritDatabean();
+        List list = new ArrayList();
+        
+        PreparedStatement pst = prepareStatement(q);
+        pst.setInt(1, eleve.getId());
+        ResultSet rs = pst.executeQuery();
+        boolean flag = false; // Detection du premier passage
+        while(rs.next())
+        {        
+            if (!flag)
+            {
+                flag = true;
+                atelierInscrit.setDatevalidite(rs.getDate("datevalidite"));
+                atelierInscrit.setNbrJours(rs.getInt("nbrjours"));
+                atelierInscrit.setPrix(rs.getDouble("prix"));
+                atelierInscrit.setPrixName(rs.getString("prixname"));
+            }
+            AtelierDatabean atelier = new AtelierDatabean();
+            atelier.setAtelier_nom(rs.getString("atelier_nom"));
+            atelier.setId(rs.getInt("atelier_id"));
+            atelier.setJour(rs.getString("jour"));
+            atelier.setType(getTypeFromString(rs.getString("type")));
+            list.add(atelier);
+        }
+        atelierInscrit.setListAtelierDatabean(list);        
+        return atelierInscrit;      
     }
     
     
