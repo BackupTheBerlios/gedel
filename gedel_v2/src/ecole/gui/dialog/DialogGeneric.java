@@ -15,12 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import ecole.databean.DatabeanGeneric;
+import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.NiceDialogAlert;
 import ecole.gui.utils.GUITools;
 
 /**
  * Classe ancetre des boites de dialogues.
  * Les implémentations des boites de dialogues doivent implementées DialogGeneric et les méthodes abstraites.
+ * De plus, il est nécessaire de surchargés les méthodes <code>saisir</code>, <code>modifier</code>
+ * et <code>supprimer</code>. <br/>
+ * Se baser sur la classe <code>AtelierDialog</code>, qui implémente cet objet ancètre.
  * 
  * @author jemore @ home
  */
@@ -47,6 +51,9 @@ public abstract class DialogGeneric
     
     private String titleWindow = " titleWindow ";
     private String textWindow = " textWindow ";
+    
+    /** Mis a true quand la GUI a été initialisé au moins une fois **/
+    private boolean guiInitied = false;
 
     /**
      * Initialise les champs de saisie avec les valeurs présentes dans le bean.
@@ -64,8 +71,9 @@ public abstract class DialogGeneric
     public abstract void initInput();
     
     /**
-     * Récupere dans les composants d'interface, les valeurs saisies, et rempli un bean 
-     * @return un héritier de DatabeanGeneric dont les champs contiennent les valeurs saisies
+     * Récupere dans les composants d'interface, les valeurs saisies, et rempli un bean .
+     * @note : n'oubliez pas de renseigner l'ID si il existe
+     * @return un héritier de DatabeanGeneric dont les champs contiennent les valeurs saisies.     
      * @author jerome forestier @ sqli
      * @date 4 oct. 2004
      */
@@ -101,6 +109,25 @@ public abstract class DialogGeneric
 
 		initGUI();
 	}
+    
+    /**
+     * Constructeur avec uniquement les labels. Les composants devront etre affectés plus tard.
+     * @param mainWindow
+     * @param labels
+     */
+    public DialogGeneric(
+        Window mainWindow,
+        JLabel[] labels)
+    {
+       
+        this.mainWindow = mainWindow;
+        this.dialog_fields_input = null;
+        this.dialog_fields_label = labels;
+        nbChampsDeSaisie = dialog_fields_label.length;
+        panelLayout = new GridLayout(nbChampsDeSaisie, 1);
+
+        
+    }    
 
     /**
      * Initialisation de l'interface.
@@ -121,8 +148,10 @@ public abstract class DialogGeneric
         // Ajout des composants
         for (int i = 0; i < nbChampsDeSaisie; i++)
         {
-            panelGauche.add(dialog_fields_label[i]);
-            panelDroite.add(dialog_fields_input[i]);
+            if (dialog_fields_label != null) 
+                panelGauche.add(dialog_fields_label[i]);
+            if (dialog_fields_input != null)
+                panelDroite.add(dialog_fields_input[i]);
         }       
 
         mainPanel.add(panelGauche, BorderLayout.WEST);
@@ -131,7 +160,7 @@ public abstract class DialogGeneric
 
         mainPanel.setAutoscrolls(true);
         mainPanel.setBorder(new TitledBorder(null, "--- placer le texte ici ---", TitledBorder.LEADING, TitledBorder.TOP));
-		
+		guiInitied = true;
 	}
     
     /**
@@ -167,6 +196,7 @@ public abstract class DialogGeneric
      * Affichage de la fenêtre de saisie.
      * Crée une boite de dialogue de saisie modal. Tant que l'utilisateur ne clique par sur Annuler
      * ou ne rentre pas des données valide, la boite est affichée.
+     * Cette méthode doit etre surchargé. N'oubliez pas d'appeler le super.
 	 * @return un héritier de DatabeanGeneric
 	 * @author jerome forestier @ sqli
 	 * @date 4 oct. 2004
@@ -220,9 +250,87 @@ public abstract class DialogGeneric
         finally
         {
             GUITools.setCursorNormal(mainWindow);
-        }
-        
+        }        
 	}
+    
+    /**
+     * Affichage de la fenêtre de saisie, pour modification. Les champs sont prérempli
+     * avec le contenu du bean.
+     * Crée une boite de dialogue de saisie modal. Tant que l'utilisateur ne clique par sur Annuler
+     * ou ne rentre pas des données valide, la boite est affichée.
+     * Cette méthode doit etre surchargé. N'oubliez pas d'appeler le super.
+     * @param databean le bean qui va servir a pré-remplir les champs. 
+     * @return un héritier de DatabeanGeneric. Le bean est nouveau. Il ne s'agit pas du bean d'entree modifiée.
+     * @author jerome forestier @ sqli
+     * @date 4 oct. 2004
+     */
+    public DatabeanGeneric modifier(DatabeanGeneric databean)
+    {
+        try 
+        {
+            GUITools.setCursorWait(mainWindow);        
+            abstractInitInput(databean);  // Pré-remplissage.          
+            mainPanel.setBorder(
+                new TitledBorder(
+                    null, 
+                    textWindow, 
+                    TitledBorder.LEADING, 
+                    TitledBorder.TOP));
+            GUITools.setCursorNormal(mainWindow);
+            while (true)
+            {
+                
+                int value =
+                    NiceDialogAlert.showMessageDialog(
+                        mainWindow,
+                        titleWindow,
+                        mainPanel,
+                        JOptionPane.INFORMATION_MESSAGE,
+                        NiceDialogAlert.OK_BUTTON | NiceDialogAlert.CANCEL_BUTTON,
+                        NiceDialogAlert.CANCEL_BUTTON);
+
+                if (NiceDialogAlert.OK_BUTTON == value)
+                {
+                    // On a cliqué sur ok
+                    DatabeanGeneric databean_result = populateDatabean();
+                    String err = isDatabeanValid(databean_result);
+                    if (null != err)
+                    {
+                        errmsg.setText(err);
+                        errmsg.setForeground(new java.awt.Color(255, 0, 0));
+                    } 
+                    else
+                    {                        
+                        return databean_result;
+                    }                    
+                }
+                else
+                {
+                    return null;
+                }                
+            }
+        }      
+        finally
+        {
+            GUITools.setCursorNormal(mainWindow);
+        }        
+    }
+    
+    /**
+     * Suppression du bean. 
+     * Affiche une boite de confirmation OK / ANNULER. 
+     * @param databean Pas vraiment utile...
+     * @param libelle a afficher dans la boite de dialog
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public boolean supprimer(DatabeanGeneric databean, String libelle)
+    {
+        return DialogAlert.DialogWarningYesNo(
+                    mainWindow,
+                    libelle) ;
+    }
 	
     /**
      * @return l'id du bean
@@ -293,6 +401,7 @@ public abstract class DialogGeneric
     public void setDialog_fields_input(JComponent[] components)
     {
         dialog_fields_input = components;
+        initGUI();
     }
 
     /**

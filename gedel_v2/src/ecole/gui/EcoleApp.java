@@ -46,6 +46,7 @@ import com.jgoodies.plaf.FontSizeHints;
 import com.jgoodies.plaf.Options;
 
 import ecole.databean.AtelierDatabean;
+import ecole.databean.AtelierInscritDatabean;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
@@ -59,6 +60,7 @@ import ecole.datametier.TarifsCantinesMetier;
 import ecole.db.DatabaseConnection;
 import ecole.exceptions.NonUniquePrimaryKeyException;
 import ecole.gui.dialog.AtelierDialog;
+import ecole.gui.dialog.AtelierInscriptionDialog;
 import ecole.gui.dialog.CantineDialog;
 import ecole.gui.dialog.ClasseDialog;
 import ecole.gui.dialog.ConfigDialog;
@@ -190,6 +192,7 @@ public class EcoleApp extends javax.swing.JFrame
 	 */
 	private List listEleves;
     private List listClasses;
+    private List listAteliers;
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -232,8 +235,8 @@ public class EcoleApp extends javax.swing.JFrame
 			this.getContentPane().setLayout(thisLayout);
 			thisLayout.setHgap(0);
 			thisLayout.setVgap(0);
-			thisLayout.setColumns(1);
 			thisLayout.setRows(1);
+			thisLayout.setColumns(1);
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setDefaultLookAndFeelDecorated(false);
 			this.setTitle("GEDEL - Gestion Des Elèves");
@@ -266,8 +269,8 @@ public class EcoleApp extends javax.swing.JFrame
 			jPanel1.add(jStatusBar, BorderLayout.SOUTH);
 	
 			jProgressBar.setValue(0);
-			jProgressBar.setIndeterminate(false);
 			jProgressBar.setStringPainted(false);
+			jProgressBar.setIndeterminate(false);
 			jProgressBar.setPreferredSize(new java.awt.Dimension(88,15));
 			jProgressBar.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
 			jProgressBar.setDoubleBuffered(false);
@@ -317,14 +320,19 @@ public class EcoleApp extends javax.swing.JFrame
 			});
 	
 			bElevesAtelier.setText("Atelier");
-			bElevesAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			bElevesAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
+			bElevesAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			panelEleves.add(bElevesAtelier, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 5, 5, 5), 0, 0));
+			bElevesAtelier.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					bElevesAtelierActionPerformed(evt);
+				}
+			});
 	
 			bElevesCantine.setText("Cantine");
 			bElevesCantine.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/cantine.gif")));
-			bElevesCantine.setDoubleBuffered(true);
 			bElevesCantine.setOpaque(false);
+			bElevesCantine.setDoubleBuffered(true);
 			bElevesCantine.setName("");
 			panelEleves.add(bElevesCantine, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 5, 5, 5), 0, 0));
 			bElevesCantine.addActionListener( new ActionListener() {
@@ -358,8 +366,8 @@ public class EcoleApp extends javax.swing.JFrame
 			});
 	
 			bClassesListeAtelier.setText("Liste ateliers");
-			bClassesListeAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			bClassesListeAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
+			bClassesListeAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
 			panelClasses.add(bClassesListeAtelier, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 10, 0, new Insets(0, 0, 0, 0), 0, 0));
 	
 			GridBagLayout panelAteliersLayout = new GridBagLayout();
@@ -380,6 +388,11 @@ public class EcoleApp extends javax.swing.JFrame
 			jButton5.setText("Modifier atelier");
 			jButton5.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier_modif.gif")));
 			panelAteliers.add(jButton5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 0, 0, 0), 0, 0));
+			jButton5.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					jButton5ActionPerformed(evt);
+				}
+			});
 	
 			jButton6.setText("Liste d'élèves");
 			jButton6.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
@@ -547,8 +560,8 @@ public class EcoleApp extends javax.swing.JFrame
 	
 			menuEleves.setText("Elèves");
 			menuEleves.setDisplayedMnemonicIndex(1);
-			menuEleves.setHorizontalTextPosition(SwingConstants.TRAILING);
 			menuEleves.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
+			menuEleves.setHorizontalTextPosition(SwingConstants.TRAILING);
 			jMenuBar1.add(menuEleves);
 	
 			menuElevesAjouter.setText("Ajouter un élève");
@@ -584,6 +597,11 @@ public class EcoleApp extends javax.swing.JFrame
 			menuElevesInscrire.setText("Inscrire l'élève sélectionné à un atelier");
 			menuElevesInscrire.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
 			menuEleves.add(menuElevesInscrire);
+			menuElevesInscrire.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuElevesInscrireActionPerformed(evt);
+				}
+			});
 	
 			menuClasses.setText("Classes");
 			menuClasses.setDisplayedMnemonicIndex(0);
@@ -649,10 +667,20 @@ public class EcoleApp extends javax.swing.JFrame
 			menuAtelierModif.setText("Modifier l'atelier selectionné");
 			menuAtelierModif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier_modif.gif")));
 			menuAteliers.add(menuAtelierModif);
+			menuAtelierModif.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuAtelierModifActionPerformed(evt);
+				}
+			});
 	
 			menuAtelierSuppr.setText("Supprimer l'atelier selectionné");
 			menuAtelierSuppr.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier_suppr.gif")));
 			menuAteliers.add(menuAtelierSuppr);
+			menuAtelierSuppr.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuAtelierSupprActionPerformed(evt);
+				}
+			});
 	
 			menuAteliers.add(jSeparator5);
 	
@@ -830,15 +858,7 @@ public class EcoleApp extends javax.swing.JFrame
 			Callbacker callbacker = new Callbacker(this);
 			MetierGeneric metier;
             reloadListClasses();
-
-			metier = new AteliersMetier();
-			metier.setCallbacker(callbacker);
-			ComboBoxFiller.addItems(
-				cbAteliers,
-				metier.getAll(),
-				metier.getClass(),
-				"getAtelierNom");
-			metier = null;
+            reloadListAteliers();
 
 			metier = new TarifsAteliersMetier();
 			metier.setCallbacker(callbacker);
@@ -1083,7 +1103,25 @@ public class EcoleApp extends javax.swing.JFrame
             // Transformation de la liste en Map
             //mapClasses = DatabeanTools.createMapFromList(listClasses);
         GUITools.setCursorNormal(this);
-    }    
+    } 
+    
+    private void reloadListAteliers() throws SQLException, IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
+    {
+            GUITools.setCursorWait(this);
+            AteliersMetier metier = new AteliersMetier();
+            listAteliers = metier.getAll();
+            Callbacker callbacker = new Callbacker(this);
+            metier.setCallbacker(callbacker);
+            ComboBoxFiller.addItems(
+                cbAteliers,
+                listAteliers,
+                metier.getClass(),
+                "getAtelierNom");
+            metier = null;
+            // Transformation de la liste en Map
+            //mapClasses = DatabeanTools.createMapFromList(listClasses);
+        GUITools.setCursorNormal(this);           
+    }
 
 	/** Auto-generated event handler method */
 	protected void menuElevesAjouterActionPerformed(ActionEvent evt)
@@ -1117,6 +1155,7 @@ public class EcoleApp extends javax.swing.JFrame
 		try
 		{
 			int idx = cbEleves.getSelectedIndex();
+            if (-1 == idx) return;
 			EleveDatabean e = (EleveDatabean) listEleves.get(idx);
 			if (DialogAlert
 				.DialogWarningYesNo(
@@ -1283,6 +1322,7 @@ public class EcoleApp extends javax.swing.JFrame
         try
         {
             int idx = cbClasses.getSelectedIndex();
+            if (-1 == idx) return;
             ClasseDatabean c = (ClasseDatabean) listClasses.get(idx);
             if (DialogAlert
                 .DialogWarningYesNo(
@@ -1483,6 +1523,7 @@ public class EcoleApp extends javax.swing.JFrame
 	protected void menuAtelierNewActionPerformed(ActionEvent evt){
 		try
 		{
+            int idx = cbAteliers.getSelectedIndex(); // On conserve l'atlier selectionner, pour se repositionner dessus apres l'ajout
 			AtelierDialog dialog = new AtelierDialog(this);
 			AtelierDatabean a = (AtelierDatabean)dialog.saisir();
 			if (null != a)
@@ -1491,6 +1532,8 @@ public class EcoleApp extends javax.swing.JFrame
 				AteliersMetier metier = new AteliersMetier();
                 metier.insert(a);
                 metier = null;
+                reloadListAteliers();
+                cbAteliers.setSelectedIndex(idx);
                 operationTermine("Atelier "+a.getAtelier_nom()+" crée");
 			}
 		} catch (Exception e)
@@ -1503,5 +1546,118 @@ public class EcoleApp extends javax.swing.JFrame
 			GUITools.setCursorNormal(this);
 		}
 
+	}
+
+	/**
+     * Modification de l'atelier selectionné
+	 */
+	protected void menuAtelierModifActionPerformed(ActionEvent evt){
+        try
+        {
+            int idx = cbAteliers.getSelectedIndex();
+            if (idx == -1) return;
+            AtelierDatabean atelier = (AtelierDatabean) listAteliers.get(idx); 
+            AtelierDialog dialog = new AtelierDialog(this);
+            AtelierDatabean nouveau_a = (AtelierDatabean)dialog.modifier(atelier);
+            if (null != nouveau_a)
+            {
+                GUITools.setCursorWait(this);
+                AteliersMetier metier = new AteliersMetier();
+                metier.update(nouveau_a);
+                metier = null;
+                reloadListAteliers();
+                cbAteliers.setSelectedIndex(idx); // On reselectionne le même. Si le nom a changé, l'emplacement peut etre différetn, mais tant pis.
+                operationTermine("Atelier "+nouveau_a.getAtelier_nom()+" modifié");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        } finally
+        {
+            GUITools.setCursorNormal(this);
+        }		
+	}
+
+	/**
+     * Suppression de l'atelier selectionné.
+	 */
+	protected void menuAtelierSupprActionPerformed(ActionEvent evt)
+    {
+        try
+        {
+            int idx = cbAteliers.getSelectedIndex();
+            if (-1 == idx) return;
+            AtelierDatabean atelier = (AtelierDatabean) listAteliers.get(idx); 
+            AtelierDialog dialog = new AtelierDialog(this);
+            if (true == dialog.supprimer(atelier))
+            {
+                GUITools.setCursorWait(this);
+                AteliersMetier metier = new AteliersMetier();
+                metier.delete(atelier.getId());
+                metier = null;
+                listAteliers.remove(idx);
+                cbAteliers.removeItemAt(idx);
+                operationTermine("Atelier "+atelier.getAtelier_nom()+" supprimé");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        } finally
+        {
+            GUITools.setCursorNormal(this);
+        }		
+	}
+
+	/** Auto-generated event handler method */
+	protected void jButton5ActionPerformed(ActionEvent evt){
+		menuAtelierSupprActionPerformed(evt);
+	}
+
+	/**
+     * Inscrire un élève a un atelier
+	 * @param evt
+	 * @author jerome forestier @ sqli
+	 * @date 7 oct. 2004
+	 */
+	protected void menuElevesInscrireActionPerformed(ActionEvent evt){
+        try 
+        {
+            int idx_eleve = cbEleves.getSelectedIndex();
+            if (-1 == idx_eleve) return;
+            AteliersMetier metier = new AteliersMetier();
+            EleveDatabean eleve = (EleveDatabean) listEleves.get(idx_eleve);
+            AtelierInscriptionDialog dialog = new AtelierInscriptionDialog(this);
+            AtelierInscritDatabean atelierInscrit = metier.getAteliersInscritForEleve(eleve);
+            if (dialog.inscrireAtelier(eleve, atelierInscrit))
+            {
+                GUITools.setCursorWait(this);
+                List listAtelierChoisi = dialog.getListAteliersChoisi();
+                
+                metier.updateAteliersForEleve(listAtelierChoisi, 
+                    dialog.getDateValidite(),
+                    dialog.getNbrJours(),
+                    eleve,
+                    dialog.getTarifAtelier());
+                setStatus("Elève " + eleve.getNomPrenom() + " inscrits aux ateliers");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }
+	}
+
+	/** Auto-generated event handler method */
+	protected void bElevesAtelierActionPerformed(ActionEvent evt){
+		menuElevesInscrireActionPerformed(evt);
 	}
 }

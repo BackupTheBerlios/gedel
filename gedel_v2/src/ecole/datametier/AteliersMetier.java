@@ -7,10 +7,17 @@ package ecole.datametier;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import ecole.databean.AtelierDatabean;
+import ecole.databean.AtelierInscritDatabean;
 import ecole.databean.DatabeanGeneric;
+import ecole.databean.EleveDatabean;
+import ecole.databean.TarifAtelierDatabean;
+import ecole.db.DBTools;
 
 /**
  * Manipulation de la table Atelier
@@ -58,6 +65,13 @@ public class AteliersMetier extends MetierGeneric
 		return list;
 	}
 	
+    /**
+     * Retourne le nom de l'atelier du bean. Utilisez notemment pour le remplissage de la combo.
+     * @param atelier
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */    
 	public static final String getAtelierNom(AtelierDatabean a)
 	{
 		return a.getAtelier_nom();
@@ -105,4 +119,125 @@ public class AteliersMetier extends MetierGeneric
         pst.close();
         return id;
     }
+
+    /**
+     * Mise a jour d'un atelier (par son ID)
+     * @param atelier atelier a mettre a jour.
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public void update(AtelierDatabean atelier) throws SQLException
+    {
+        String q = "update refatelier set atelier_nom=?, type=?, jour=? where id=?";
+        int i = 1;
+        PreparedStatement pst = prepareStatement(q);
+        pst.setString(i++, atelier.getAtelier_nom());
+        pst.setString(i++, ""+atelier.getType());
+        pst.setString(i++, atelier.getJour());
+        pst.setInt(i++, atelier.getId());
+        pst.executeUpdate();
+        pst.close();
+    }
+
+    /**
+     * Suppression d'un atelier
+     * @param refatelier_id id dans la table REFATELIER a supprimer
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public void delete(int refatelier_id) throws SQLException
+    {
+        String q = "delete from refatelier where id=?";
+        PreparedStatement pst = prepareStatement(q);
+        pst.setInt(1, refatelier_id);
+        pst.executeUpdate();
+        pst.close();        
+    }
+    
+    /**
+     * Supprime tout les ateliers où l'élève est inscrit
+     * @param eleve
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public void deleteAllAteliersForEleve(EleveDatabean eleve) throws SQLException
+    {
+        String q = "delete from atelier where eleve_id=?";
+        PreparedStatement pst = prepareStatement(q);
+        pst.setInt(1, eleve.getId());
+        pst.executeUpdate();
+        pst.close();
+    }
+
+    /**
+     * Met a jour (ajoute ou supprime) les ateliers auxquels un eleve est inscrit.
+     * On commence par enelver tout les ateliers auxquels l'eleve est inscrit, pui
+     * on ajoute seulement ceux présent dans la liste.
+     * @param listAtelierChoisi une liste de AtelierDatabean
+     * @param eleve l'eleve a inscire
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public void updateAteliersForEleve(List listAtelierChoisi,
+        Date dateValidite,
+        int nbrJours, 
+        EleveDatabean eleve, 
+        TarifAtelierDatabean tarifAtelier) throws SQLException
+    {
+        deleteAllAteliersForEleve(eleve);
+        
+        Iterator i = listAtelierChoisi.iterator();
+        while(i.hasNext())
+        {
+            AtelierDatabean atelier = (AtelierDatabean)i.next();
+            PreparedStatement pst = prepareStatement("insert into atelier " +                " set eleve_id=?, " +                " atelier_id=?, " +                " prixname=?," +                " prix=?," +                " datevalidite=?," +                " nbrjours=?");
+            int n = 1;
+            pst.setInt(n++, eleve.getId());
+            pst.setInt(n++, atelier.getId());
+            pst.setString(n++, tarifAtelier.getTarif_nom());
+            pst.setDouble(n++, tarifAtelier.getPrix());
+            pst.setDate(n++, DBTools.JavaDateToSqlDate(dateValidite));
+            pst.setInt(n++, nbrJours);
+            pst.executeUpdate();
+            pst.close();
+        }
+    }
+
+    /**
+     * Retourne la liste des ateliers auxquels un eleve est inscrit
+     * @param eleve
+     * @return List de AtelierDatabean
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public AtelierInscritDatabean getAteliersInscritForEleve(EleveDatabean eleve) throws SQLException
+    {
+        AtelierInscritDatabean atelierInscrit = new AtelierInscritDatabean();
+        atelierInscrit.setEleve_id(eleve.getId());
+        
+        List list = new ArrayList();
+        PreparedStatement pst = prepareStatement("select * from atelier where eleve_id = ?");
+        pst.setInt(1, eleve.getId());
+        ResultSet rs = pst.executeQuery();
+        boolean flag = false; // 
+        while(rs.next())
+        {
+            Integer id = new Integer(rs.getInt("atelier_id"));
+            list.add(id);
+            if (!flag)
+            {
+                flag = true;
+                atelierInscrit.setDatevalidite(rs.getDate("datevalidite"));
+                atelierInscrit.setNbrJours(rs.getInt("nbrjours"));
+                atelierInscrit.setPrix(rs.getDouble("prix"));
+                atelierInscrit.setPrixName(rs.getString("prixname"));
+            }
+        }
+        atelierInscrit.setListAtelierId(list);        
+        return atelierInscrit;        
+    }
+    
+    
+
+
 }

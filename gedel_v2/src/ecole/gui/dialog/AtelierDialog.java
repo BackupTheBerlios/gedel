@@ -66,6 +66,12 @@ public class AtelierDialog extends DialogGeneric
         cbType.setSelectedIndex(0);
     }
     
+    /**
+     * Transforme la selection de la combo des type en un CHAR acceptable par la base
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
     private char cbTypeToType()
     {
         int idx = cbType.getSelectedIndex();
@@ -87,6 +93,7 @@ public class AtelierDialog extends DialogGeneric
             a.setAtelier_nom(nom.getText());
             a.setJour(jour.getText().toUpperCase());
             a.setType(cbTypeToType());
+            a.setId(this.getId());
         }
         catch(Exception e)
         {
@@ -104,7 +111,7 @@ public class AtelierDialog extends DialogGeneric
         if (null == a)
             return "La saisie est incorrect";
         if ("".equals(a.getAtelier_nom()))
-            return "Le libellé de l'atelier est invalide";
+            return "Le nom de l'atelier est invalide";
         if ("".equals(a.getJour()))
             return "Le ou les jours de l'atelier sont incorrects";                  
         return null;
@@ -115,5 +122,23 @@ public class AtelierDialog extends DialogGeneric
         this.setTextWindow("Saisissez un atelier");
         return (AtelierDatabean)super.saisir();
     }
+    
+    public DatabeanGeneric modifier(AtelierDatabean atelier)
+    {
+        this.setId(atelier.getId());
+        this.setTextWindow("Modifier un atelier");
+        return (AtelierDatabean)super.modifier((DatabeanGeneric)atelier);
+    }
+
+    /**
+     * @param atelier
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 7 oct. 2004
+     */
+    public boolean supprimer(AtelierDatabean atelier)
+    {
+        return super.supprimer(atelier, "Voulez-vous supprimer l'atelier " +atelier.getAtelier_nom()+" ?");
+    }    
 
 }

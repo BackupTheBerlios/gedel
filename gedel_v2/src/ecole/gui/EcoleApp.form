@@ -171,10 +171,10 @@
 					<Properties>
 						<Property name="text" type="String" value="Elèves"/>
 						<Property name="displayedMnemonicIndex" type="int" value="1"/>
-						<Property name="horizontalTextPosition" type="int" value="11"/>
 						<Property name="icon" type="Icon">
 							<Icon name="\icons\eleve.gif"/>
 						</Property>
+						<Property name="horizontalTextPosition" type="int" value="11"/>
 					</Properties>
 					<SubComponents>
 						<Component class="javax.swing.JMenuItem" name="menuElevesAjouter">
@@ -234,6 +234,7 @@
 								<LayoutConstraint/>
 							</Constraints>
 							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuElevesInscrireActionPerformed"/>
 							</Events>
 							<Properties>
 								<Property name="text" type="String" value="Inscrire l'élève sélectionné à un atelier"/>
@@ -371,6 +372,7 @@
 								<LayoutConstraint/>
 							</Constraints>
 							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuAtelierModifActionPerformed"/>
 							</Events>
 							<Properties>
 								<Property name="text" type="String" value="Modifier l'atelier selectionné"/>
@@ -384,6 +386,7 @@
 								<LayoutConstraint/>
 							</Constraints>
 							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuAtelierSupprActionPerformed"/>
 							</Events>
 							<Properties>
 								<Property name="text" type="String" value="Supprimer l'atelier selectionné"/>
@@ -667,8 +670,8 @@
 					<Layout class="Grid">
 						<Property name="hgap" type="int" value="0"/>
 						<Property name="vgap" type="int" value="0"/>
-						<Property name="columns" type="int" value="1"/>
 						<Property name="rows" type="int" value="1"/>
+						<Property name="columns" type="int" value="1"/>
 					</Layout>
 					<Events>
 					</Events>
@@ -715,8 +718,8 @@
 		<Layout class="Grid">
 			<Property name="hgap" type="int" value="0"/>
 			<Property name="vgap" type="int" value="0"/>
-			<Property name="columns" type="int" value="1"/>
 			<Property name="rows" type="int" value="1"/>
+			<Property name="columns" type="int" value="1"/>
 		</Layout>
 		<Events>
 			<EventHandler event="windowClosing" listener="java.awt.event.WindowListener" handler="EcoleAppWindowClosing"/>
@@ -782,8 +785,8 @@
 								</Events>
 								<Properties>
 									<Property name="value" type="int" value="0"/>
-									<Property name="indeterminate" type="boolean" value="false"/>
 									<Property name="stringPainted" type="boolean" value="false"/>
+									<Property name="indeterminate" type="boolean" value="false"/>
 									<Property name="preferredSize" type="Dimension">
 										<Dimension value="[88, 15]"/>
 									</Property>
@@ -848,8 +851,8 @@
 								<SubComponents>
 									<Component class="javax.swing.JScrollPane" name="jScrollPanGauche">
 										<Constraints>
-											<Constraint class="java.lang.String"/>
 											<Constraint position="left"/>
+											<Constraint class="java.lang.String"/>
 											<LayoutConstraint class="java.lang.String">
 												<Property name="position" type="String" value="left"/>
 											</LayoutConstraint>
@@ -987,13 +990,14 @@
 																	</LayoutConstraint>
 																</Constraints>
 																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="bElevesAtelierActionPerformed"/>
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Atelier"/>
-																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																	<Property name="icon" type="Icon">
 																		<Icon name="\icons\atelier.gif"/>
 																	</Property>
+																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																</Properties>
 															</Component>
 															<Component class="javax.swing.JButton" name="bElevesCantine">
@@ -1023,8 +1027,8 @@
 																	<Property name="icon" type="Icon">
 																		<Icon name="\icons\cantine.gif"/>
 																	</Property>
-																	<Property name="doubleBuffered" type="boolean" value="true"/>
 																	<Property name="opaque" type="boolean" value="false"/>
+																	<Property name="doubleBuffered" type="boolean" value="true"/>
 																	<Property name="name" type="String" value=""/>
 																</Properties>
 															</Component>
@@ -1165,10 +1169,10 @@
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Liste ateliers"/>
-																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																	<Property name="icon" type="Icon">
 																		<Icon name="\icons\atelier.gif"/>
 																	</Property>
+																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																</Properties>
 															</Component>
 														</SubComponents>
@@ -1276,6 +1280,7 @@
 																	</LayoutConstraint>
 																</Constraints>
 																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="jButton5ActionPerformed"/>
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Modifier atelier"/>
@@ -1619,8 +1624,8 @@
 									</Component>
 									<Component class="javax.swing.JScrollPane" name="jScrollPanDroite">
 										<Constraints>
-											<Constraint class="java.lang.String"/>
 											<Constraint position="right"/>
+											<Constraint class="java.lang.String"/>
 											<LayoutConstraint class="java.lang.String">
 												<Property name="position" type="String" value="right"/>
 											</LayoutConstraint>
