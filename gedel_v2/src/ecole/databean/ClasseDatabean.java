@@ -9,7 +9,7 @@ package ecole.databean;
  * @author jemore
  *
  */
-public class ClasseDatabean extends GenericDatabean
+public class ClasseDatabean extends DatabeanGeneric
 {
 	// Champs mappé sur la base
 	private int id; 				// int 10 unsigned, pk

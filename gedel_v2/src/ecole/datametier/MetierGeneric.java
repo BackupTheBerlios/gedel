@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import ecole.databean.GenericDatabean;
+import ecole.databean.DatabeanGeneric;
 import ecole.gui.utils.Callbacker;
 import ecole.utils.logger.Logger;
 
@@ -23,23 +23,23 @@ import ecole.utils.logger.Logger;
  * @author Jerome
  *
  */
-public abstract class GenericMetier
+public abstract class MetierGeneric
 {
 	private Logger logger = Logger.getInstance();
 	
 	/**
 	 * Cette methode doit etre implémentée par un ancetre de GenericMetier.
-	 * Elle retourne un nouveau héritier de GenericDatabean a partir d'un resultset
+	 * Elle retourne un nouveau héritier de DatabeanGeneric a partir d'un resultset
 	 * @param rs
 	 * @return
 	 * @throws SQLException
 	 * @author jemore
 	 */
-	protected abstract GenericDatabean populateAllField(ResultSet rs) throws SQLException;
+	protected abstract DatabeanGeneric populateAllField(ResultSet rs) throws SQLException;
 	
 	/**
 	 * Cette méthode doit etre implémentée par un ancêtre de GenericMetier.
-	 * Elle retourne une List d'héritier de GenericDatabean, qui doivent
+	 * Elle retourne une List d'héritier de DatabeanGeneric, qui doivent
 	 * correspondre a tout les élèments de la table de la BD, non filtré. 
 	 * @return
 	 * @throws SQLException
@@ -58,7 +58,7 @@ public abstract class GenericMetier
 	 * @throws SQLException
 	 * 
 	 */
-	public GenericMetier()
+	public MetierGeneric()
 	{
 		super();
 	}
@@ -239,7 +239,7 @@ public abstract class GenericMetier
 	/**
 	 * Parcours un resultset et applique la methode abstraite populateAllField()
 	 * @param rs resultset 
-	 * @return une List de GenericDatabean retournée par le populateAllField() abstrait
+	 * @return une List de DatabeanGeneric retournée par le populateAllField() abstrait
 	 * @throws SQLException
 	 * @author jemore
 	 */
@@ -251,7 +251,7 @@ public abstract class GenericMetier
 		int i = 0;
 		while (rs.next())
 		{
-			GenericDatabean e = populateAllField(rs);
+			DatabeanGeneric e = populateAllField(rs);
 			list.add(e);
 			i++;
 			if (i % 25 == 0)

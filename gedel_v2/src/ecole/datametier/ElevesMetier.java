@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ecole.databean.EleveDatabean;
-import ecole.databean.GenericDatabean;
+import ecole.databean.DatabeanGeneric;
 import ecole.db.DBTools;
 
 /**
  * @author jemore
  *
  */
-public class ElevesMetier extends GenericMetier
+public class ElevesMetier extends MetierGeneric
 {
     public final static String SEXE_H = "H";
     public final static String SEXE_F = "F";
@@ -46,7 +46,7 @@ public class ElevesMetier extends GenericMetier
 	/* (non-Javadoc)
 	 * @see ecole.datametier.GenericMetier#populateAllField(java.sql.ResultSet)
 	 */
-	protected GenericDatabean populateAllField(ResultSet rs) throws SQLException 
+	protected DatabeanGeneric populateAllField(ResultSet rs) throws SQLException 
 	{
 		EleveDatabean e = new EleveDatabean();
 		e.setId(rs.getInt("id"));

@@ -27,7 +27,7 @@ import ecole.utils.DateTools;
  * EleveTable
  * @author jerome forestier @ sqli
  */
-public class EleveTable extends GenericEcoleTable
+public class EleveListe extends ListeGeneric
 {
 	/** Libellés des colonnes **/
 	private final static String[] COLUMN_NAMES = 
@@ -45,7 +45,7 @@ public class EleveTable extends GenericEcoleTable
     /**
      * @param app
      */
-    public EleveTable(EcoleApp app)
+    public EleveListe(EcoleApp app)
     {
         this();
         this.ecoleApp = app;
@@ -54,13 +54,13 @@ public class EleveTable extends GenericEcoleTable
     /**
      * @param columnNames
      */
-    public EleveTable()
+    public EleveListe()
     {
         super(COLUMN_NAMES);
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleTable#getValueField(java.lang.Object, int)
+     * @see ecole.gui.listes.ListeGeneric#getValueField(java.lang.Object, int)
      */
     public Object getValueField(Object object, int fieldIndex)
     {
@@ -76,7 +76,7 @@ public class EleveTable extends GenericEcoleTable
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleTable#getColumnWidth(int)
+     * @see ecole.gui.listes.ListeGeneric#getColumnWidth(int)
      */
     public int getColumnWidth(int columnIndex)
     {
@@ -87,7 +87,7 @@ public class EleveTable extends GenericEcoleTable
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleTable#getColumnRenderer(javax.swing.table.TableColumn, int)
+     * @see ecole.gui.listes.ListeGeneric#getColumnRenderer(javax.swing.table.TableColumn, int)
      */
     public TableCellRenderer getColumnRenderer(TableColumn col, int columnIndex)
     {
@@ -110,7 +110,7 @@ public class EleveTable extends GenericEcoleTable
     }
     
      /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleTable#handleDoubleClick(int, java.lang.Object)
+     * @see ecole.gui.listes.ListeGeneric#handleDoubleClick(int, java.lang.Object)
      */
     public void handleDoubleClick(int indexSelected, Object objectSelected)
     {
@@ -121,7 +121,7 @@ public class EleveTable extends GenericEcoleTable
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleTable#handleSelected(int, java.lang.Object)
+     * @see ecole.gui.listes.ListeGeneric#handleSelected(int, java.lang.Object)
      */
     public void handleSelected(int indexSelected, Object objectSelected)
     {
@@ -130,7 +130,7 @@ public class EleveTable extends GenericEcoleTable
 
     /* (non-Javadoc)
      * Colonne de tri initial (Nom)
-     * @see ecole.gui.listes.GenericEcoleTable#getIntialSortedColumn()
+     * @see ecole.gui.listes.ListeGeneric#getIntialSortedColumn()
      */
     public int getIntialSortedColumn()
     {        
@@ -139,7 +139,7 @@ public class EleveTable extends GenericEcoleTable
 
     /* (non-Javadoc)
      * ordre de tri initial
-     * @see ecole.gui.listes.GenericEcoleTable#getIntialSortedOrder()
+     * @see ecole.gui.listes.ListeGeneric#getIntialSortedOrder()
      */
     public int getIntialSortedOrder()
     {

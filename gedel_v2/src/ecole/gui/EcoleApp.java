@@ -45,6 +45,7 @@ import com.cloudgarden.layout.AnchorLayout;
 import com.jgoodies.plaf.FontSizeHints;
 import com.jgoodies.plaf.Options;
 
+import ecole.databean.AtelierDatabean;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
@@ -52,17 +53,18 @@ import ecole.datametier.AteliersMetier;
 import ecole.datametier.CantineMetier;
 import ecole.datametier.ClassesMetier;
 import ecole.datametier.ElevesMetier;
-import ecole.datametier.GenericMetier;
+import ecole.datametier.MetierGeneric;
 import ecole.datametier.TarifsAteliersMetier;
 import ecole.datametier.TarifsCantinesMetier;
 import ecole.db.DatabaseConnection;
 import ecole.exceptions.NonUniquePrimaryKeyException;
-import ecole.gui.cantine.DialogCantine;
-import ecole.gui.classe.DialogClasse;
-import ecole.gui.config.DialogConfig;
-import ecole.gui.eleve.DialogEleve;
-import ecole.gui.eleve.FicheEleve;
-import ecole.gui.listes.EleveTable;
+import ecole.gui.dialog.AtelierDialog;
+import ecole.gui.dialog.CantineDialog;
+import ecole.gui.dialog.ClasseDialog;
+import ecole.gui.dialog.ConfigDialog;
+import ecole.gui.dialog.EleveDialog;
+import ecole.gui.fiche.EleveFiche;
+import ecole.gui.listes.EleveListe;
 import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.FrameException;
 import ecole.gui.predefinedframe.SplashScreen;
@@ -188,9 +190,6 @@ public class EcoleApp extends javax.swing.JFrame
 	 */
 	private List listEleves;
     private List listClasses;
-    //private Map mapEleves; // map de EleveDatabean, dont la clé est l'ID (sous forme de String)
-    //private Map mapClasses; // map de ClasseDatabean, dont la clé est l'ID (sous forme de String)
-
 	/**
 	* Initializes the GUI.
 	* Auto-generated code - any changes you make will disappear.
@@ -233,8 +232,8 @@ public class EcoleApp extends javax.swing.JFrame
 			this.getContentPane().setLayout(thisLayout);
 			thisLayout.setHgap(0);
 			thisLayout.setVgap(0);
-			thisLayout.setRows(1);
 			thisLayout.setColumns(1);
+			thisLayout.setRows(1);
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setDefaultLookAndFeelDecorated(false);
 			this.setTitle("GEDEL - Gestion Des Elèves");
@@ -267,8 +266,8 @@ public class EcoleApp extends javax.swing.JFrame
 			jPanel1.add(jStatusBar, BorderLayout.SOUTH);
 	
 			jProgressBar.setValue(0);
-			jProgressBar.setStringPainted(false);
 			jProgressBar.setIndeterminate(false);
+			jProgressBar.setStringPainted(false);
 			jProgressBar.setPreferredSize(new java.awt.Dimension(88,15));
 			jProgressBar.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
 			jProgressBar.setDoubleBuffered(false);
@@ -318,14 +317,14 @@ public class EcoleApp extends javax.swing.JFrame
 			});
 	
 			bElevesAtelier.setText("Atelier");
-			bElevesAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
 			bElevesAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
+			bElevesAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
 			panelEleves.add(bElevesAtelier, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 5, 5, 5), 0, 0));
 	
 			bElevesCantine.setText("Cantine");
 			bElevesCantine.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/cantine.gif")));
-			bElevesCantine.setOpaque(false);
 			bElevesCantine.setDoubleBuffered(true);
+			bElevesCantine.setOpaque(false);
 			bElevesCantine.setName("");
 			panelEleves.add(bElevesCantine, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 5, 5, 5), 0, 0));
 			bElevesCantine.addActionListener( new ActionListener() {
@@ -359,8 +358,8 @@ public class EcoleApp extends javax.swing.JFrame
 			});
 	
 			bClassesListeAtelier.setText("Liste ateliers");
-			bClassesListeAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
 			bClassesListeAtelier.setHorizontalTextPosition(SwingConstants.TRAILING);
+			bClassesListeAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
 			panelClasses.add(bClassesListeAtelier, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, 10, 0, new Insets(0, 0, 0, 0), 0, 0));
 	
 			GridBagLayout panelAteliersLayout = new GridBagLayout();
@@ -548,8 +547,8 @@ public class EcoleApp extends javax.swing.JFrame
 	
 			menuEleves.setText("Elèves");
 			menuEleves.setDisplayedMnemonicIndex(1);
-			menuEleves.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
 			menuEleves.setHorizontalTextPosition(SwingConstants.TRAILING);
+			menuEleves.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
 			jMenuBar1.add(menuEleves);
 	
 			menuElevesAjouter.setText("Ajouter un élève");
@@ -641,6 +640,11 @@ public class EcoleApp extends javax.swing.JFrame
 			menuAtelierNew.setText("Créer un nouvel atelier");
 			menuAtelierNew.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier_new.gif")));
 			menuAteliers.add(menuAtelierNew);
+			menuAtelierNew.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuAtelierNewActionPerformed(evt);
+				}
+			});
 	
 			menuAtelierModif.setText("Modifier l'atelier selectionné");
 			menuAtelierModif.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier_modif.gif")));
@@ -787,7 +791,7 @@ public class EcoleApp extends javax.swing.JFrame
             System.err.println("Can't set look & feel:" + e);
         }
         */
-        DialogConfig d = new DialogConfig(this);
+        ConfigDialog d = new ConfigDialog(this);
         d.setUserLooknfeelFromConfig();
         d = null;
     }
@@ -824,7 +828,7 @@ public class EcoleApp extends javax.swing.JFrame
 		try
 		{
 			Callbacker callbacker = new Callbacker(this);
-			GenericMetier metier;
+			MetierGeneric metier;
             reloadListClasses();
 
 			metier = new AteliersMetier();
@@ -1007,7 +1011,7 @@ public class EcoleApp extends javax.swing.JFrame
 	{
 		try
 		{
-			DialogConfig dialog = new DialogConfig(this);
+			ConfigDialog dialog = new ConfigDialog(this);
 			if (dialog.askUserDBConfig())
 			{
 				DatabaseConnection.getInstance().closeConnection();
@@ -1079,7 +1083,7 @@ public class EcoleApp extends javax.swing.JFrame
 	{
 		try
 		{
-			EleveDatabean e = DialogEleve.getInstance().saisirEleve(this);
+			EleveDatabean e = EleveDialog.getInstance().saisirEleve(this);
 			if (null != e)
 			{
 				GUITools.setCursorWait(this);
@@ -1152,7 +1156,7 @@ public class EcoleApp extends javax.swing.JFrame
 			EleveDatabean e = this.currentEleve;
 			if (null != e)
 			{
-				EleveDatabean nouvel_eleve = DialogEleve.getInstance().modifEleve(this, e);
+				EleveDatabean nouvel_eleve = EleveDialog.getInstance().modifEleve(this, e);
 				if (null != nouvel_eleve)
 				{
 					e = null;
@@ -1189,7 +1193,7 @@ public class EcoleApp extends javax.swing.JFrame
 	protected void menuLnFActionPerformed(ActionEvent evt){
         try
         {
-            DialogConfig dialog = new DialogConfig(this);
+            ConfigDialog dialog = new ConfigDialog(this);
             dialog.askUserLooknfeel();
             {
                 //DatabaseConnection.getInstance().closeConnection();
@@ -1216,7 +1220,7 @@ public class EcoleApp extends javax.swing.JFrame
 	protected void menuClassesNewActionPerformed(ActionEvent evt){
 		try
         {
-            ClasseDatabean c = DialogClasse.getInstance().saisirClasse(this);
+            ClasseDatabean c = ClasseDialog.getInstance().saisirClasse(this);
             if (null != c)
             {
                 GUITools.setCursorWait(this);
@@ -1253,7 +1257,7 @@ public class EcoleApp extends javax.swing.JFrame
             ClasseDatabean c = (ClasseDatabean) listClasses.get(idx);
             if (null != c)
             {
-                ClasseDatabean nouvel_classe = DialogClasse.getInstance().modifClasse(this, c);
+                ClasseDatabean nouvel_classe = ClasseDialog.getInstance().modifClasse(this, c);
                 if (null != nouvel_classe)
                 {
                     c = null;
@@ -1334,7 +1338,7 @@ public class EcoleApp extends javax.swing.JFrame
             CantineMetier metier = new CantineMetier();
             c = metier.getCantineForEleve(e.getId());
             if (null != c) c.setAffecte(true);
-            c = DialogCantine.getInstance().saisir(this, c, e);
+            c = CantineDialog.getInstance().saisir(this, c, e);
             if (null != c)
             {
                     GUITools.setCursorWait(this);
@@ -1380,7 +1384,7 @@ public class EcoleApp extends javax.swing.JFrame
 	        	int classe_id = e.getClasseid();
 	        	//ClasseDatabean c = metier.getClasseByClasseId(classe_id);
 	        	selectClasse(classe_id);
-	            FicheEleve fiche = new FicheEleve(e);
+	            EleveFiche fiche = new EleveFiche(e);
 	            JEditorPane ficheEdit = fiche.getEditorPanel();
 	            jScrollPanDroite.setViewportView(ficheEdit);
                 setStatus("Fiche de l'élève " + e.getNomPrenom());
@@ -1412,7 +1416,7 @@ public class EcoleApp extends javax.swing.JFrame
             if (null != c)
             {
                 GUITools.setCursorWait(this);
-                EleveTable table = new EleveTable(this);
+                EleveListe table = new EleveListe(this);
                 table.parClasse(c);
                 jScrollPanDroite.setViewportView(table.getTable());
                 setStatus("Liste des élèves de la classe " + c.getClasse_nom());
@@ -1483,5 +1487,30 @@ public class EcoleApp extends javax.swing.JFrame
 		System.out.println("Eleve selectionné " + eleveDatabean);
 		this.currentEleve = eleveDatabean;
 		
+	}
+
+	/**
+	 * Creation d'un atelier
+	 */
+	protected void menuAtelierNewActionPerformed(ActionEvent evt){
+		try
+		{
+			AtelierDialog dialog = new AtelierDialog(this);
+			AtelierDatabean a = dialog.saisir();
+			if (null != a)
+			{
+				GUITools.setCursorWait(this);
+				
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			setStatus(e.getMessage());
+			FrameException.showException(e);
+		} finally
+		{
+			GUITools.setCursorNormal(this);
+		}
+
 	}
 }

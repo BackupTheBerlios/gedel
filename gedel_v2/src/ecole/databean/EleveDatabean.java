@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Jerome
  *
  */
-public final class EleveDatabean extends GenericDatabean {
+public final class EleveDatabean extends DatabeanGeneric {
     private	int 	id;			// int 10
     private	String	nom;		// varchar(50)
     private	String	prenom;		// varchar(50)

@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ecole.databean.TarifAtelierDatabean;
-import ecole.databean.GenericDatabean;
+import ecole.databean.DatabeanGeneric;
 
 /**
  * @author jemore
  *
  */
-public class TarifsAteliersMetier extends GenericMetier
+public class TarifsAteliersMetier extends MetierGeneric
 {
 
 	/**
@@ -29,7 +29,7 @@ public class TarifsAteliersMetier extends GenericMetier
 	/* (non-Javadoc)
 	 * @see ecole.datametier.GenericMetier#populateAllField(java.sql.ResultSet)
 	 */
-	protected GenericDatabean populateAllField(ResultSet rs) throws SQLException
+	protected DatabeanGeneric populateAllField(ResultSet rs) throws SQLException
 	{
 		TarifAtelierDatabean t = new TarifAtelierDatabean();
 		t.setId(rs.getInt("id"));

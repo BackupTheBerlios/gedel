@@ -3,7 +3,7 @@
  *
  * 
  */
-package ecole.gui.cantine;
+package ecole.gui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -32,7 +32,7 @@ import ecole.gui.utils.GUITools;
 /**
  * @author jemore
  */
-public class DialogCantine
+public class CantineDialog
 {
     // Libellé des champs de saisie
     private final static JLabel[] allFieldLabels = { new JLabel("Cantine"), new JLabel("Tarif"), new JLabel("Date de validité"), new JLabel("Nombre de jours")};
@@ -56,17 +56,17 @@ public class DialogCantine
 
     private JLabel errmsg = new JLabel();
 
-    private final static DialogCantine instance = new DialogCantine();
+    private final static CantineDialog instance = new CantineDialog();
 
-    private DialogCantine()
+    private CantineDialog()
     {
         initGUI();
     }
 
-    public static DialogCantine getInstance()
+    public static CantineDialog getInstance()
     {
         // return instance;
-        return new DialogCantine();
+        return new CantineDialog();
     }
 
     private void initAllField()

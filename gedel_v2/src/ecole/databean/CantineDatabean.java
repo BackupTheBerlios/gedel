@@ -11,7 +11,7 @@ import java.util.Date;
  * Représente un élément de la table cantine
  * @author jemore
  */
-public class CantineDatabean extends GenericDatabean
+public class CantineDatabean extends DatabeanGeneric
 {
     private int eleve_id;
     private String prixname;

@@ -13,7 +13,7 @@ import java.util.Map;
 import ecole.exceptions.NonUniquePrimaryKeyException;
 
 /**
- * DatabeanTools
+ * Classe utilitaire de manipulation des objets hérités de DatabeanGeneric
  * @author jerome forestier @ sqli
  */
 public final class DatabeanTools
@@ -25,7 +25,7 @@ public final class DatabeanTools
      * </p>
      * Si une clé primaire est en double dans la map, une exception est levé.<br>
      * Si la clé primaire est null, l'objet n'est pas ajouté dans la map.
-     * @param list de GenericDatabean (ou d'héritier)
+     * @param list de DatabeanGeneric (ou d'héritier)
      * @return Map contenant les databean
      * @author jerome forestier @ sqli
      * @date 1 oct. 2004
@@ -34,10 +34,10 @@ public final class DatabeanTools
     {
         Map map = new HashMap(listDatabean.size());
         Iterator i = listDatabean.iterator();
-        GenericDatabean bean;
+        DatabeanGeneric bean;
         while (i.hasNext())
         {
-            bean = (GenericDatabean)i.next();
+            bean = (DatabeanGeneric)i.next();
             String key = bean.getPrimaryKey();
             if (key != null)
             {

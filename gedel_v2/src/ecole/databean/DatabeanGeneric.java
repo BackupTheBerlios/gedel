@@ -8,7 +8,7 @@ package ecole.databean;
  * les champs de la BD avec les objets java.
  * @author Jerome
  */
-public abstract class GenericDatabean {
+public abstract class DatabeanGeneric {
     
     /**
      * Doit retourner pour le bean, la clé unique. Null si aucune clé n'existe.

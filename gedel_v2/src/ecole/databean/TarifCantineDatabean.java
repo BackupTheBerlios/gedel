@@ -9,7 +9,7 @@ package ecole.databean;
  * Représente un élement de la table tarif_cantine
  * @author jemore 
  */
-public class TarifCantineDatabean extends GenericDatabean
+public class TarifCantineDatabean extends DatabeanGeneric
 {
 	int id;
 	String tarif_nom;

@@ -11,13 +11,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ecole.databean.CantineDatabean;
-import ecole.databean.GenericDatabean;
+import ecole.databean.DatabeanGeneric;
 import ecole.db.DBTools;
 
 /**
  * @author jemore
  */
-public class CantineMetier extends GenericMetier
+public class CantineMetier extends MetierGeneric
 {
 
     /**
@@ -31,7 +31,7 @@ public class CantineMetier extends GenericMetier
     /* (non-Javadoc)
      * @see ecole.datametier.GenericMetier#populateAllField(java.sql.ResultSet)
      */
-    protected GenericDatabean populateAllField(ResultSet rs) throws SQLException
+    protected DatabeanGeneric populateAllField(ResultSet rs) throws SQLException
     {
         throw new SQLException("Cette methode n'est pas implémentée");
     }

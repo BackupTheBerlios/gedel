@@ -2,7 +2,7 @@
  * Created on 15 sept. 2004
  *
  */
-package ecole.gui.config;
+package ecole.gui.dialog;
 
 import java.awt.Window;
 import java.io.InputStream;
@@ -26,7 +26,7 @@ import ecole.gui.predefinedframe.DialogInput;
  * 
  * @author jemore
  */
-public final class DialogConfig
+public final class ConfigDialog
 {
     Window parentWindow = null;
 
@@ -35,12 +35,12 @@ public final class DialogConfig
      * fenetre appelante
      *
      */
-    public DialogConfig()
+    public ConfigDialog()
     {
         loadConfig();
     }
 
-    private static final String INTERNAL_PROPERTIES_FILE = "DialogConfig.properties";
+    private static final String INTERNAL_PROPERTIES_FILE = "ConfigDialog.properties";
     private Properties config = new Properties();
 
     /**
@@ -48,7 +48,7 @@ public final class DialogConfig
      * de dialogues
      * @param parentWindow fenetre appelante
      */
-    public DialogConfig(Window parentWindow)
+    public ConfigDialog(Window parentWindow)
     {
         this.parentWindow = parentWindow;
         loadConfig();

@@ -1,4 +1,4 @@
-package ecole.gui.eleve;
+package ecole.gui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -35,14 +35,14 @@ import ecole.utils.StringTools;
  * d'une fichier élève.
  * Cette classe est un singleton.
  * <code>
- * DialogEleve d = DialogEleve.getInstance();
+ * EleveDialog d = EleveDialog.getInstance();
  * d.saisirEleve();
  * </code>
  * @pattern singleton
  * @author jemore
  *
  */
-public final class DialogEleve
+public final class EleveDialog
 {
 
 	private final static JLabel[] allFieldLabels =
@@ -60,14 +60,14 @@ public final class DialogEleve
 			new JLabel("Classe"),
 			new JLabel("Date d'entrée"),
 			};
-	private final static DialogEleve instance = new DialogEleve();
+	private final static EleveDialog instance = new EleveDialog();
 
-	private DialogEleve()
+	private EleveDialog()
 	{
 		initGUI();
 	}
 
-	public static DialogEleve getInstance()
+	public static EleveDialog getInstance()
 	{
 		return instance;
 	}

@@ -3,7 +3,7 @@
  *
  * 
  */
-package ecole.gui.eleve;
+package ecole.gui.fiche;
 
 import java.sql.SQLException;
 
@@ -24,7 +24,7 @@ import ecole.utils.StringTools;
  * Ce composant est un JEditorPane HTML.
  * @author jemore
  */
-public class FicheEleve
+public class EleveFiche
 {
     /** eleve a afficher **/
     private EleveDatabean eleve;
@@ -42,7 +42,7 @@ public class FicheEleve
     /**
      * Construction de l'objet. Crée le composant swing et les classes métiers. 
      */
-    public FicheEleve(EleveDatabean eleve)
+    public EleveFiche(EleveDatabean eleve)
     {
         this.eleve = eleve;
         edit = new JEditorPane();

@@ -25,7 +25,7 @@ import ecole.gui.elements.TableSorter;
  * Les objets hérités doivent implémenter les methode abstract.
  * @author jerome forestier @ sqli
  */
-public abstract class GenericEcoleTable
+public abstract class ListeGeneric
 {
     private JTable table;
 
@@ -37,7 +37,7 @@ public abstract class GenericEcoleTable
      * Constructeur avec les libellés des colonnes en parametres
      * @param columnNames
      */
-    public GenericEcoleTable(String[] columnNames)
+    public ListeGeneric(String[] columnNames)
     {
         setColumnNames(columnNames);
     }

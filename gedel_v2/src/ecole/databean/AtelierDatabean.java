@@ -9,12 +9,16 @@ package ecole.databean;
  * @author jemore
  *
  */
-public class AtelierDatabean extends GenericDatabean
+public class AtelierDatabean extends DatabeanGeneric
 {
 	private int id;
 	private String atelier_nom;
 	private char type;
 	private String jour;
+	
+	public final static char ATELIER_P = 'P'; // Périscolaire
+	public final static char ATELIER_E = 'E'; // Etude
+	public final static char ATELIER_V = 'V'; // Ville
 	/**
 	 * @return
 	 * @author jemore

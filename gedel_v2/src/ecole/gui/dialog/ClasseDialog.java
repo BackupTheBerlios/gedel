@@ -3,7 +3,7 @@
  *
  * 
  */
-package ecole.gui.classe;
+package ecole.gui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -23,7 +23,7 @@ import ecole.utils.StringTools;
 /**
  * @author jemore
  */
-public class DialogClasse
+public class ClasseDialog
 {
     private final static JLabel[] allFieldLabels =
     {
@@ -44,14 +44,14 @@ public class DialogClasse
     private final JPanel panelDroite = new JPanel();
 
 
-    private final static DialogClasse instance = new DialogClasse();
+    private final static ClasseDialog instance = new ClasseDialog();
 
-    private DialogClasse()
+    private ClasseDialog()
     {
         initGUI();
     }
 
-    public static DialogClasse getInstance()
+    public static ClasseDialog getInstance()
     {
         return instance;
     }

@@ -11,13 +11,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import ecole.databean.ClasseDatabean;
-import ecole.databean.GenericDatabean;
+import ecole.databean.DatabeanGeneric;
 
 /**
  * @author jemore @ home
  *
  */
-public class ClassesMetier extends GenericMetier
+public class ClassesMetier extends MetierGeneric
 {
 
 	public ClassesMetier()
@@ -28,13 +28,13 @@ public class ClassesMetier extends GenericMetier
 	/* (non-Javadoc)
 	 * @see ecole.datametier.GenericMetier#populateAllField(java.sql.ResultSet)
 	 */
-	protected GenericDatabean populateAllField(ResultSet rs) throws SQLException
+	protected DatabeanGeneric populateAllField(ResultSet rs) throws SQLException
 	{
 		ClasseDatabean c = new ClasseDatabean();
 		c.setId(rs.getInt("id"));
 		c.setClasse_nom(rs.getString("classe_nom"));
 		c.setInstituteur(rs.getString("instituteur"));
-		return (GenericDatabean) c;
+		return (DatabeanGeneric) c;
 	}
 
 	/* (non-Javadoc)

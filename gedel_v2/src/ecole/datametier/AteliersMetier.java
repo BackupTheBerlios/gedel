@@ -9,16 +9,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 import ecole.databean.AtelierDatabean;
-import ecole.databean.GenericDatabean;
+import ecole.databean.DatabeanGeneric;
 
 /**
  * Manipulation de la table Atelier
  * @author jemore
  *
  */
-public class AteliersMetier extends GenericMetier
+public class AteliersMetier extends MetierGeneric
 {
-
+	public final static String ATELIER_P = "P"; // Périscolaire
+	public final static String ATELIER_E = "E"; // Etude
+	public final static String ATELIER_V = "V"; // Ville
 	/**
 	 * @throws SQLException
 	 */
@@ -30,7 +32,7 @@ public class AteliersMetier extends GenericMetier
 	/* (non-Javadoc)
 	 * @see ecole.datametier.GenericMetier#populateAllField(java.sql.ResultSet)
 	 */
-	protected GenericDatabean populateAllField(ResultSet rs)
+	protected DatabeanGeneric populateAllField(ResultSet rs)
 		throws SQLException
 	{
 		AtelierDatabean a = new AtelierDatabean();
@@ -60,4 +62,26 @@ public class AteliersMetier extends GenericMetier
 		return a.getAtelier_nom();
 	}
 
+	/**
+	 * Retourne le type d'atelier
+	 * @param e
+	 * @return ATELIER_P ou ATELIER_E ou ATELIER_V ou ""
+	 * @author jemore
+	 */
+	public final static String getType(AtelierDatabean a)
+	{
+		String type = "" + a.getType();
+		if (ATELIER_P.equals(type)) return ATELIER_P;
+		if (ATELIER_E.equals(type)) return ATELIER_E;
+		if (ATELIER_V.equals(type)) return ATELIER_V;
+        return "";
+	}
+	
+	public final static char getTypeFromString(String type)
+	{
+		if (ATELIER_P.equals(type)) return AtelierDatabean.ATELIER_P;
+		if (ATELIER_E.equals(type)) return AtelierDatabean.ATELIER_E;
+		if (ATELIER_V.equals(type)) return AtelierDatabean.ATELIER_V;
+		return '\0';
+	}
 }
