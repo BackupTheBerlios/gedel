@@ -6,8 +6,6 @@
 package ecole.gui.listes;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,34 +14,28 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import ecole.databean.AtelierDatabean;
-import ecole.databean.AtelierInscritDatabean;
-import ecole.databean.ClasseDatabean;
-import ecole.databean.EleveDatabean;
-import ecole.datametier.AteliersMetier;
 import ecole.datametier.ElevesMetier;
 import ecole.gui.EcoleApp;
 import ecole.gui.elements.TableSorter;
-import ecole.gui.listes.renderer.ListAtelierRenderer;
-import ecole.gui.listes.renderer.NbrJoursRenderer;
 
 /**
- * Liste des élèves et de leurs ateliers, pour la classe selectionnée.
- * Cette liste contient tout les eleves de la classe selectionnée, et 
- * indique les ateliers et l'etude pour chaque élève.
+ * Liste des élèves et leur classe, pour l'atelier selectionné.
+ * Cette liste contient tout les eleves ainsi que leur classe qui sont
+ * inscrit a l'atelier demandé.
  * @author jerome forestier @ sqli
  */
 public class EleveAtelierListe extends ListeGeneric
 {
     /** Libellés des colonnes **/
     private final static String[] COLUMN_NAMES = 
-        new String[] {"Nom", "Prénom", "Ateliers", "Etude"};
+        new String[] {"Nom", "Prénom", "Classe"};
         
     /** Class des colonnes (pour les comparateurs) **/
     private final static Class[]  COLUMN_CLASSES = 
-        new Class[] {String.class, String.class, String.class, Integer.class };
+        new Class[] {String.class, String.class, String.class};
         
     private final static DefaultTableCellRenderer[]  COLUMN_RENDERER =
-        new DefaultTableCellRenderer[] {null, null, new ListAtelierRenderer(), new NbrJoursRenderer() };
+        new DefaultTableCellRenderer[] {null, null, null};
 
     /** fenetre parente **/
     private EcoleApp ecoleApp;
@@ -73,26 +65,10 @@ public class EleveAtelierListe extends ListeGeneric
      * @author jerome forestier @ sqli
      * @date 1 oct. 2004
      */
-    public void parClasse(ClasseDatabean classeDatabean) throws SQLException
+    public void parAtelier(AtelierDatabean atelier) throws SQLException
     {
-        ElevesMetier metier = new ElevesMetier(); 
-        AteliersMetier metierAtelier = new AteliersMetier();
-        List listEleve = metier.getElevesAndNumberOfAtelierAtelierByClasse(classeDatabean.getId()); // Liste des élèves de la classe
-        //this.setData(listEleve.toArray()); // Tableau de EleveDatabean
-        // Pour tout ces élèves, on récupere les ateliers inscrits (on les mets dans une Map dont la clé est le bean eleve)
-        mapEleveAtelier = new HashMap();
-        Iterator i = listEleve.iterator();
-        while (i.hasNext())
-        {
-            EleveDatabean e = (EleveDatabean)i.next();
-            if (e.getNbAtelierInscrit() > 0) {
-                AtelierInscritDatabean atelierInscrit = metierAtelier.getAteliersInscritForEleve(e);
-                if (atelierInscrit.getListAtelierDatabean().size() != 0)
-                {
-                    mapEleveAtelier.put(e, atelierInscrit);
-                }
-            }
-        }
+        ElevesMetier metier = new ElevesMetier();
+        List listEleve = metier.getElevesAndClassesByAtelier(atelier.getId());
         this.setData(listEleve.toArray()); // Tableau de EleveDatabean
     }
     
@@ -103,30 +79,8 @@ public class EleveAtelierListe extends ListeGeneric
      */
     public Object getValueField(Object object, int fieldIndex)
     {
-        EleveDatabean e = (EleveDatabean)object;
-        if (fieldIndex == 0) return e.getNom();
-        if (fieldIndex == 1) return e.getPrenom();
-        AtelierInscritDatabean atelierInscrit = (AtelierInscritDatabean)mapEleveAtelier.get(e);
-        if (atelierInscrit == null) return null;
-        if (fieldIndex == 2){            
-            return atelierInscrit.getListAtelierDatabean();
-        }
-        if (fieldIndex == 3) {
-            // Les ateliers sont il Etude ?
-            Iterator i = atelierInscrit.getListAtelierDatabean().iterator();
-            while (i.hasNext())
-            {
-                AtelierDatabean a = (AtelierDatabean)i.next();
-                if (a.isEtude())
-                {
-                    //return new Boolean(true);
-                    return ""+atelierInscrit.getNbrJours()+" j";
-                }
-                    
-            }
-            return "";
-        }
-        return null;
+    	String[] elem = (String[])object;
+    	return elem[fieldIndex];    	
     }
 
     /* (non-Javadoc)
@@ -134,8 +88,8 @@ public class EleveAtelierListe extends ListeGeneric
      */
     public int getColumnWidth(int columnIndex)
     {
-        if (columnIndex == 3)
-            return 1; // Etude : taille minimale
+        if (columnIndex == 2)
+            return 1; // classe taille minimale
         return -1;
     }
 

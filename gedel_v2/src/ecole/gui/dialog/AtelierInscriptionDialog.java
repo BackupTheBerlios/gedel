@@ -116,6 +116,12 @@ public class AtelierInscriptionDialog extends DialogGeneric
      */
     public void initInput(DatabeanGeneric databean)
     {
+    	if (databean != null)
+    	{
+    		AtelierInscritDatabean atelier = (AtelierInscritDatabean)databean; 
+    		nbJours.setValue(new Integer(atelier.getNbrJours()));
+    	}
+    	
     }
 
     /* (non-Javadoc)
@@ -151,6 +157,7 @@ public class AtelierInscriptionDialog extends DialogGeneric
     public boolean inscrireAtelier(EleveDatabean eleve, AtelierInscritDatabean atelierInscrit)
     {
         // On pré-coche les ateliers inscrit
+        initInput(atelierInscrit);
         List listAtelierInscrit = atelierInscrit.getListAtelierDatabean();
         Iterator i = listAtelierInscrit.iterator();
         while (i.hasNext())

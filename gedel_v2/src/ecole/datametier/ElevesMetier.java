@@ -178,6 +178,38 @@ public class ElevesMetier extends MetierGeneric
     }
     
     /**
+     * Retourne une List de String[3] contenant le Nom, Prenom, Classe
+     * des élèves inscrit a un atelier
+     * @param atelier_id
+     * @return
+     * @author jemore @ home
+     * @date 9 oct. 2004
+     */
+    public List getElevesAndClassesByAtelier(int atelier_id) throws SQLException 
+    {
+    	/**
+    	 * select E.nom, E.prenom, C.classe_nom
+from eleve E, atelier A, classe C where
+A.atelier_id = 1 and
+A.eleve_id = E.id and
+E.classeid = C.ID
+
+    	 */
+    	List res = new ArrayList();
+    	PreparedStatement pst = prepareStatement("select E.nom, E.prenom, C.classe_nom " +    		"from eleve E, atelier A, classe C where" +    		" A.atelier_id = ? and" +    		" A.eleve_id = E.id and" +    		" E.classeid = C.ID");
+		pst.setInt(1, atelier_id);
+ 		ResultSet rs = pst.executeQuery();
+        while(rs.next())
+        {
+        	String[] elem = new String[3];
+        	elem[0] = rs.getString("nom");
+        	elem[1] = rs.getString("prenom");
+        	elem[2] = rs.getString("classe_nom");
+        	res.add(elem);
+        }        
+        return res;		
+    }
+    /**
      * Liste des élèves inscrit dans une classe, en renseignant dans le bean
      * le nb d'atelier auxquels l'elève est inscrit. Seul ID, Nom, Prenom est renseigné dans
      * l'EleveDatabean

@@ -39,7 +39,8 @@ public class ListAtelierRenderer extends DefaultTableCellRenderer
                 }
                 
             }
-            setText(res.substring(0, res.length() - 2));
+            if (res.length() > 2)
+            	setText(res.substring(0, res.length() - 2));
         }
         else
             setText("");

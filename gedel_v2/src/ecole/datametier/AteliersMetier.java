@@ -252,17 +252,23 @@ public class AteliersMetier extends MetierGeneric
         PreparedStatement pst = prepareStatement(q);
         pst.setInt(1, eleve.getId());
         ResultSet rs = pst.executeQuery();
+        int maxNbrjours = 0;
         boolean flag = false; // Detection du premier passage
         while(rs.next())
-        {        
+        {   
+        	int nbJours = rs.getInt("nbrjours");
+        	if (nbJours > maxNbrjours)
+        	{
+        		maxNbrjours = nbJours;    
+        	}
             if (!flag)
             {
                 flag = true;
                 atelierInscrit.setDatevalidite(rs.getDate("datevalidite"));
-                atelierInscrit.setNbrJours(rs.getInt("nbrjours"));
                 atelierInscrit.setPrix(rs.getDouble("prix"));
                 atelierInscrit.setPrixName(rs.getString("prixname"));
             }
+           	
             AtelierDatabean atelier = new AtelierDatabean();
             atelier.setAtelier_nom(rs.getString("atelier_nom"));
             atelier.setId(rs.getInt("atelier_id"));
@@ -270,6 +276,7 @@ public class AteliersMetier extends MetierGeneric
             atelier.setType(getTypeFromString(rs.getString("type")));
             list.add(atelier);
         }
+        atelierInscrit.setNbrJours(maxNbrjours);
         atelierInscrit.setListAtelierDatabean(list);        
         return atelierInscrit;      
     }

@@ -171,10 +171,10 @@
 					<Properties>
 						<Property name="text" type="String" value="Elèves"/>
 						<Property name="displayedMnemonicIndex" type="int" value="1"/>
+						<Property name="horizontalTextPosition" type="int" value="11"/>
 						<Property name="icon" type="Icon">
 							<Icon name="\icons\eleve.gif"/>
 						</Property>
-						<Property name="horizontalTextPosition" type="int" value="11"/>
 					</Properties>
 					<SubComponents>
 						<Component class="javax.swing.JMenuItem" name="menuElevesAjouter">
@@ -410,6 +410,7 @@
 								<LayoutConstraint/>
 							</Constraints>
 							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuAtelierListeEleveActionPerformed"/>
 							</Events>
 							<Properties>
 								<Property name="text" type="String" value="Liste des élèves par ateliers"/>
@@ -671,8 +672,8 @@
 					<Layout class="Grid">
 						<Property name="hgap" type="int" value="0"/>
 						<Property name="vgap" type="int" value="0"/>
-						<Property name="rows" type="int" value="1"/>
 						<Property name="columns" type="int" value="1"/>
+						<Property name="rows" type="int" value="1"/>
 					</Layout>
 					<Events>
 					</Events>
@@ -719,8 +720,8 @@
 		<Layout class="Grid">
 			<Property name="hgap" type="int" value="0"/>
 			<Property name="vgap" type="int" value="0"/>
-			<Property name="rows" type="int" value="1"/>
 			<Property name="columns" type="int" value="1"/>
+			<Property name="rows" type="int" value="1"/>
 		</Layout>
 		<Events>
 			<EventHandler event="windowClosing" listener="java.awt.event.WindowListener" handler="EcoleAppWindowClosing"/>
@@ -786,8 +787,8 @@
 								</Events>
 								<Properties>
 									<Property name="value" type="int" value="0"/>
-									<Property name="stringPainted" type="boolean" value="false"/>
 									<Property name="indeterminate" type="boolean" value="false"/>
+									<Property name="stringPainted" type="boolean" value="false"/>
 									<Property name="preferredSize" type="Dimension">
 										<Dimension value="[88, 15]"/>
 									</Property>
@@ -995,10 +996,10 @@
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Atelier"/>
+																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																	<Property name="icon" type="Icon">
 																		<Icon name="\icons\atelier.gif"/>
 																	</Property>
-																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																</Properties>
 															</Component>
 															<Component class="javax.swing.JButton" name="bElevesCantine">
@@ -1028,8 +1029,8 @@
 																	<Property name="icon" type="Icon">
 																		<Icon name="\icons\cantine.gif"/>
 																	</Property>
-																	<Property name="opaque" type="boolean" value="false"/>
 																	<Property name="doubleBuffered" type="boolean" value="true"/>
+																	<Property name="opaque" type="boolean" value="false"/>
 																	<Property name="name" type="String" value=""/>
 																</Properties>
 															</Component>
@@ -1167,13 +1168,14 @@
 																	</LayoutConstraint>
 																</Constraints>
 																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="bClassesListeAtelierActionPerformed"/>
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Liste ateliers"/>
+																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																	<Property name="icon" type="Icon">
 																		<Icon name="\icons\atelier.gif"/>
 																	</Property>
-																	<Property name="horizontalTextPosition" type="int" value="11"/>
 																</Properties>
 															</Component>
 														</SubComponents>
@@ -1313,6 +1315,7 @@
 																	</LayoutConstraint>
 																</Constraints>
 																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="jButton6ActionPerformed"/>
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Liste d'élèves"/>

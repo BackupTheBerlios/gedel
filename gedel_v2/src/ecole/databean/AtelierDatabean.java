@@ -100,15 +100,18 @@ public class AtelierDatabean extends DatabeanGeneric
     }
 
     /**
-     * L'atelier est-il de type Etude (doit contenir par le mot "Etude")
+     * L'atelier est-il de type Etude
      * @return true si l'atelier est de type etude
      * @author jerome forestier @ sqli
      * @date 8 oct. 2004
      */
     public boolean isEtude()
     {  
+    	/*
         String e = atelier_nom.toUpperCase();
         return e.indexOf("TUDE") != -1;
+        */
+        return this.type == ATELIER_E; 
     }
 
 }

@@ -208,6 +208,18 @@ public abstract class ListeGeneric
     {
       	return getValueField(rowData[0], columnIndex).getClass();
     }
+    
+    /**
+     * Retourne le nombre de ligne dans le tableau affiché
+     * @return int
+     * @author jemore @ home
+     * @date 9 oct. 2004
+     */
+    public int getNumberOfLines()
+    {
+    	if (null == rowData) return 0;
+    	return rowData.length;
+    }
 
 
     /**
