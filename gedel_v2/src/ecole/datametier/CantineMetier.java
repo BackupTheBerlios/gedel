@@ -23,7 +23,7 @@ public class CantineMetier extends GenericMetier
     /**
      * @throws SQLException
      */
-    public CantineMetier() throws SQLException
+    public CantineMetier()
     {
         super();
     }
@@ -47,7 +47,7 @@ public class CantineMetier extends GenericMetier
     /**
      * Ajout ou update de l'affectation a la cantine
      * @param c
-     * @author jemore
+     * @author JFORESTIER
      */
     public void ajouter(CantineDatabean c) throws SQLException
     {

@@ -14,13 +14,13 @@ import ecole.databean.ClasseDatabean;
 import ecole.databean.GenericDatabean;
 
 /**
- * @author jemore
+ * @author jemore @ home
  *
  */
 public class ClassesMetier extends GenericMetier
 {
 
-	public ClassesMetier() throws SQLException
+	public ClassesMetier()
 	{
 		super();
 	}
@@ -60,7 +60,7 @@ public class ClassesMetier extends GenericMetier
 	 * @param listClassesDisponibles une liste de ClasseDatabean
 	 * @param classeid l'id de la classe a chercher
 	 * @return la position (l'index) dans la liste. -1 si pas trouvé
-	 * @author jemore
+	 * @author jemore @ home
 	 */
 	public int getIdxOfClasseInList(List listClassesDisponibles, int classeid)
 	{
@@ -79,7 +79,7 @@ public class ClassesMetier extends GenericMetier
 
     /**
      * @param c
-     * @author jemore
+     * @author jemore @ home
      */
     public void insert(ClasseDatabean c) throws SQLException
     {
@@ -98,7 +98,7 @@ public class ClassesMetier extends GenericMetier
 
     /**
      * @param nouvel_classe
-     * @author jemore
+     * @author jemore @ home
      */
     public void update(ClasseDatabean c) throws SQLException
     {
@@ -116,12 +116,36 @@ public class ClassesMetier extends GenericMetier
     
        /**
      * @param i
-     * @author jemore
+     * @author jemore @ home
      */
     public void delete(int classeid) throws SQLException
     {
         PreparedStatement pst = prepareStatement("delete from classe where id=?");
         pst.setInt(1, classeid);
         pst.execute();
-    }    	
+    }
+
+	/**
+	 * Retourne un ClasseDatabean correspondant au classe id. Null si n'existe pas
+	 * @param classe_id id de la classe
+	 * @return ClasseDatabean ou null
+	 * @author jemore @ home
+	 */
+	public ClasseDatabean getClasseByClasseId(int classe_id) throws SQLException
+	{
+		ClasseDatabean c = null;
+		PreparedStatement pst = prepareStatement("select * from classe where id=?");
+		pst.setInt(1, classe_id);
+		ResultSet rs = pst.executeQuery();
+		if (rs.next())
+		{
+			c = new ClasseDatabean();
+			c.setClasse_nom(rs.getString("classe_nom"));
+			c.setId(rs.getInt("id"));
+			c.setInstituteur(rs.getString("instituteur"));
+		}
+		rs.close();
+		pst.close();
+		return c;
+	}    	
 }

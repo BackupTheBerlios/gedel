@@ -24,7 +24,6 @@ public final class EleveDatabean extends GenericDatabean {
     private	String  telephone2;	// varchar(11)
     private	String  telephone3;	// varchar(11)
     private	int		classeid;	// int 10
-    private String  classe_nom;
     private	Date	dateentree; // datetime
     
     public static final char SEXE_H = 'H';
@@ -130,7 +129,9 @@ public final class EleveDatabean extends GenericDatabean {
      * @return Returns the sexe.
      */
     public char getSexe() {
-        return sexe;
+    	if (sexe == SEXE_H) return SEXE_H;
+    	if (sexe == SEXE_F) return SEXE_F;
+        return '\0';
     }
     /**
      * @param sexe The sexe to set.
@@ -186,18 +187,8 @@ public final class EleveDatabean extends GenericDatabean {
     public void setVille(String ville) {
         this.ville = ville;
     }
-    /**
-     * @return Returns the classe_nom.
-     */
-    public String getClasse_nom() {
-        return classe_nom;
-    }
-    /**
-     * @param classe_nom The classe_nom to set.
-     */
-    public void setClasse_nom(String classe_nom) {
-        this.classe_nom = classe_nom;
-    }
+
+
     
     public String getNomPrenom()
     {
