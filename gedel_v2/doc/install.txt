@@ -1,0 +1,22 @@
+Installation de Gedel v2.
+
+Pré-requis
+==========
+
+Java
+----
+Vous devez avoir installé le Java Runtime Environement 1.4 ou supérieur.
+Télécharger la version pour votre système d'exploitation ici :
+	http://www.java.com:80/en/download/manual.jsp
+
+MySQL
+-----
+Vous devez avoir installé la base de données MySQL 3.0 ou supérieur.
+Télécharger la version pour votre système d'exploitation ici :
+Version 3.23.58 : http://downloads.mysql.com/archives.php?p=mysql-3.23&v=3.23.58
+Version 4.0 : http://dev.mysql.com/downloads/mysql/4.0.html
+
+Installation
+============
+
+

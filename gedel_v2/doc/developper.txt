@@ -1,0 +1,16 @@
+Instructions pour travailler sur le projet GEDEL.
+-------------------------------------------------
+
+Environnement de developpement recommandé : eclipse 2.1.3
+Plug-ins nécessaires : 
+	jigloo (construction de l'IHM)
+	cvs ssh2 (acces CVS par SSH2)
+	profiler (outils de profilage java)
+
+Ces plugins se trouvent dans le module gedel_devel_ressources.
+
+Les fichiers sources Java se trouvent dans le dossier src/. Les .class générés
+doivent arrivés dans bin/ . Vous devez ajouter les librairies présentes dans lib/
+a votre classpath.
+
+Oganisation du code source
