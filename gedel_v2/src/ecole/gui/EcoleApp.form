@@ -314,11 +314,12 @@
 								<LayoutConstraint/>
 							</Constraints>
 							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuClasseListeEleveActionPerformed"/>
 							</Events>
 							<Properties>
 								<Property name="text" type="String" value="Liste des élèves pour la classe sélectionnée"/>
 								<Property name="icon" type="Icon">
-									<Icon name="\icons\eleve_modif.gif"/>
+									<Icon name="\icons\eleve.gif"/>
 								</Property>
 							</Properties>
 						</Component>
@@ -1131,6 +1132,7 @@
 																	</LayoutConstraint>
 																</Constraints>
 																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="bClassesListeElevesActionPerformed"/>
 																</Events>
 																<Properties>
 																	<Property name="text" type="String" value="Liste élèves"/>

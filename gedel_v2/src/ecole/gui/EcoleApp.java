@@ -31,6 +31,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -60,6 +61,7 @@ import ecole.gui.classe.DialogClasse;
 import ecole.gui.config.DialogConfig;
 import ecole.gui.eleve.DialogEleve;
 import ecole.gui.eleve.FicheEleve;
+import ecole.gui.listes.EleveTable;
 import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.FrameException;
 import ecole.gui.predefinedframe.SplashScreen;
@@ -346,6 +348,11 @@ public class EcoleApp extends javax.swing.JFrame
 			bClassesListeEleves.setText("Liste élèves");
 			bClassesListeEleves.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
 			panelClasses.add(bClassesListeEleves, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 17, 0, new Insets(0, 0, 0, 0), 0, 0));
+			bClassesListeEleves.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					bClassesListeElevesActionPerformed(evt);
+				}
+			});
 	
 			bClassesListeAtelier.setText("Liste ateliers");
 			bClassesListeAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
@@ -610,8 +617,13 @@ public class EcoleApp extends javax.swing.JFrame
 			menuClasses.add(jSeparator3);
 	
 			menuClasseListeEleve.setText("Liste des élèves pour la classe sélectionnée");
-			menuClasseListeEleve.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve_modif.gif")));
+			menuClasseListeEleve.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/eleve.gif")));
 			menuClasses.add(menuClasseListeEleve);
+			menuClasseListeEleve.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuClasseListeEleveActionPerformed(evt);
+				}
+			});
 	
 			menuClasseListeEleveAtelier.setText("Liste des élèves pour la classe sélectionnée + les ateliers");
 			menuClasseListeEleveAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
@@ -1356,5 +1368,42 @@ public class EcoleApp extends javax.swing.JFrame
         {
             GUITools.setCursorNormal(this);
         }		
+	}
+
+	/**
+     * Liste des eleves pour la classe selectionnée
+	 * @param evt
+	 * @author jerome forestier @ sqli
+	 * @date 29 sept. 2004
+	 */
+	protected void menuClasseListeEleveActionPerformed(ActionEvent evt){
+		try
+        {
+            int idx = cbClasses.getSelectedIndex(); // Index classe selectionnée
+            if (-1 == idx) return;
+            ClasseDatabean c = (ClasseDatabean) listClasses.get(idx);
+            if (null != c)
+            {
+                GUITools.setCursorWait(this);
+                EleveTable eleveTable = new EleveTable();
+                eleveTable.parClasse(c);
+                //JTable table = new JTable(eleveTable);
+                jScrollPanDroite.setViewportView(eleveTable.getTable());
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }       
+	}
+
+	/** Auto-generated event handler method */
+	protected void bClassesListeElevesActionPerformed(ActionEvent evt){
+		menuClasseListeEleveActionPerformed(evt);
 	}
 }

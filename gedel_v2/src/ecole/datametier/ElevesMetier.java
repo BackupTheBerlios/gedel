@@ -7,6 +7,7 @@ package ecole.datametier;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ecole.databean.EleveDatabean;
@@ -20,7 +21,7 @@ import ecole.db.DBTools;
 public class ElevesMetier extends GenericMetier
 {
 
-	public ElevesMetier() throws SQLException
+	public ElevesMetier()
 	{
 		super();
 	}
@@ -152,4 +153,25 @@ public class ElevesMetier extends GenericMetier
 		
 	}
 
+    /**
+     * Liste des élèves inscrit dans une classe.
+     * @param classeid id de la classe
+     * @return List de EleveDatabean
+     * @author jerome forestier @ sqli
+     * @date 29 sept. 2004
+     */
+    public List getElevesByClasse(int classeid) throws SQLException
+    {
+        List res = new ArrayList();
+        PreparedStatement pst = prepareStatement("select * from eleve where classeid=?");
+        pst.setInt(1, classeid);
+        ResultSet rs = pst.executeQuery();
+        while(rs.next())
+        {
+            res.add(populateAllField(rs));
+        }
+        rs.close();
+        pst.close();
+        return res;
+    }
 }
