@@ -24,7 +24,7 @@ public class AteliersMetier extends MetierGeneric
 	/**
 	 * @throws SQLException
 	 */
-	public AteliersMetier() throws SQLException
+	public AteliersMetier()
 	{
 		super();		
 	}

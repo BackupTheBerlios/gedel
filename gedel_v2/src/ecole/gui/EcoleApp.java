@@ -48,6 +48,7 @@ import com.jgoodies.plaf.Options;
 import ecole.databean.AtelierDatabean;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
+import ecole.databean.DatabeanGeneric;
 import ecole.databean.EleveDatabean;
 import ecole.datametier.AteliersMetier;
 import ecole.datametier.CantineMetier;
@@ -58,7 +59,7 @@ import ecole.datametier.TarifsAteliersMetier;
 import ecole.datametier.TarifsCantinesMetier;
 import ecole.db.DatabaseConnection;
 import ecole.exceptions.NonUniquePrimaryKeyException;
-import ecole.gui.dialog.AtelierDialog;
+import ecole.gui.dialog.AtelierDialog2;
 import ecole.gui.dialog.CantineDialog;
 import ecole.gui.dialog.ClasseDialog;
 import ecole.gui.dialog.ConfigDialog;
@@ -1495,8 +1496,8 @@ public class EcoleApp extends javax.swing.JFrame
 	protected void menuAtelierNewActionPerformed(ActionEvent evt){
 		try
 		{
-			AtelierDialog dialog = new AtelierDialog(this);
-			AtelierDatabean a = dialog.saisir();
+			AtelierDialog2 dialog = new AtelierDialog2(this);
+			AtelierDatabean a = (AtelierDatabean)dialog.saisir();
 			if (null != a)
 			{
 				GUITools.setCursorWait(this);
