@@ -218,8 +218,10 @@ public final class DialogEleve
 		telephone1.setText(e.getTelephone1());
 		telephone2.setText(e.getTelephone3());
 		telephone3.setText(e.getTelephone3());
-		dob.setDate(e.getDob());
-		dateentree.setDate(e.getDateentree());
+		if (e.getDob() != null)
+			dob.setDate(e.getDob());
+		if (e.getDateentree() != null)
+			dateentree.setDate(e.getDateentree());
 		ClassesMetier metier = new ClassesMetier();
 		listClassesDisponibles = metier.getAll();
 		try

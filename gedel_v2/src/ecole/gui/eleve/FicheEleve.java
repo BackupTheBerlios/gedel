@@ -67,6 +67,11 @@ public class FicheEleve
     		return "bgcolor=#FFFFFF";
     }
     
+    private String dateToString(java.util.Date date)
+    {
+    	if (date == null) return "???";
+    	return  DateTools.SDF_D2M2Y4.format(date); 
+    }
     /**
      * Retourne le composant swing sur lequel on affiche les informations
      * de l'elève
@@ -91,11 +96,11 @@ public class FicheEleve
 			"Atelier(s)"};
 		Object[] data_value = {
 			eleve.getNom(), eleve.getPrenom(), 
-			ElevesMetier.getSexe(eleve), DateTools.SDF_D2M2Y4.format(eleve.getDob()), 
+			ElevesMetier.getSexe(eleve), dateToString(eleve.getDob()), 
 			eleve.getRue(), eleve.getCodepostal(), 
 			eleve.getVille(), eleve.getTelephone1(),
 			eleve.getTelephone2(),eleve.getTelephone3(),
-			classe.getClasse_nom(), DateTools.SDF_D2M2Y4.format(eleve.getDateentree()), 
+			classe.getClasse_nom(), dateToString(eleve.getDateentree()), 
 			"?"};
 
 		if (data_libelle.length != data_value.length)
@@ -123,7 +128,7 @@ public class FicheEleve
         	html.append("<b>Inscription à la cantine</b><br>");
         	html.append("tarif " + c.getPrixname() + " (" + Formatter.doubleToStringLocale(c.getPrix()) + "€); ");
         	html.append(" validité ");
-        	html.append(DateTools.SDF_D2M2Y4.format(c.getDatevalidite()));
+        	html.append(dateToString(c.getDatevalidite()));
         	html.append("; "+c.getNbrjours()+ " jour" + StringTools.pluriel("", "s", c.getNbrjours()));
         	html.append("<br>");
         }

@@ -96,6 +96,7 @@ import ecole.utils.logger.Logger;
 
 public class EcoleApp extends javax.swing.JFrame
 {
+	private EleveDatabean currentEleve;
 	private JMenuItem menuLnF;
 	private JMenuItem menutOutilsBD;
 	private JMenuItem menuAideJava;
@@ -1039,7 +1040,7 @@ public class EcoleApp extends javax.swing.JFrame
 		listEleves = metier.getAll();
 		ComboBoxFiller.addItems(
 			cbEleves,
-			metier.getAll(),
+			listEleves,
 			metier.getClass(),
 			"getNomPrenom");
         // Transformation de la liste en Map
@@ -1148,8 +1149,7 @@ public class EcoleApp extends javax.swing.JFrame
 	{
 		try
 		{
-			int idx = cbEleves.getSelectedIndex();
-			EleveDatabean e = (EleveDatabean) listEleves.get(idx);
+			EleveDatabean e = this.currentEleve;
 			if (null != e)
 			{
 				EleveDatabean nouvel_eleve = DialogEleve.getInstance().modifEleve(this, e);
@@ -1163,8 +1163,9 @@ public class EcoleApp extends javax.swing.JFrame
 						"Eleve " + nouvel_eleve.getNom() + " " + nouvel_eleve.getPrenom() + " modifié";
 					setStatus(res);
 					reloadListEleve();
-					GUITools.setCursorNormal(this);					
-					cbEleves.setSelectedIndex(idx);
+					GUITools.setCursorNormal(this);
+										
+					cbEleves.setSelectedIndex(getSelectedIdxOfEleve(nouvel_eleve.getId()));
 					DialogAlert.DialogOK(this, res);
 				}
 			}
@@ -1179,7 +1180,12 @@ public class EcoleApp extends javax.swing.JFrame
 		}
 	}
 
-	/** Auto-generated event handler method */
+	/**
+	 * Activer la config du look n feel
+	 * @param evt
+	 * @author jemore @ home
+	 * @date 3 oct. 2004
+	 */
 	protected void menuLnFActionPerformed(ActionEvent evt){
         try
         {
@@ -1201,7 +1207,12 @@ public class EcoleApp extends javax.swing.JFrame
         }
 	}
 
-	/** Auto-generated event handler method */
+	/**
+	 * Creer une classe
+	 * @param evt
+	 * @author jemore @ home
+	 * @date 3 oct. 2004
+	 */
 	protected void menuClassesNewActionPerformed(ActionEvent evt){
 		try
         {
@@ -1228,7 +1239,12 @@ public class EcoleApp extends javax.swing.JFrame
         }
 	}
 
-	/** Auto-generated event handler method */
+	/**
+	 * Modifier une classe
+	 * @param evt
+	 * @author jemore @ home
+	 * @date 3 oct. 2004
+	 */
 	protected void menuClasseModifActionPerformed(ActionEvent evt)
     {
         try
@@ -1263,7 +1279,12 @@ public class EcoleApp extends javax.swing.JFrame
         }
 	}
 
-	/** Auto-generated event handler method */
+	/**
+	 * Supprimer une classe
+	 * @param evt
+	 * @author jemore @ home
+	 * @date 3 oct. 2004
+	 */
 	protected void menuClasseSupprActionPerformed(ActionEvent evt){
         try
         {
@@ -1354,6 +1375,7 @@ public class EcoleApp extends javax.swing.JFrame
 	        if (null != e)
 	        {
 	        	GUITools.setCursorWait(this);
+	        	setCurrentEleve(e);
 	        	// Quel est la classe de cet eleve ?
 	        	int classe_id = e.getClasseid();
 	        	//ClasseDatabean c = metier.getClasseByClasseId(classe_id);
@@ -1411,6 +1433,21 @@ public class EcoleApp extends javax.swing.JFrame
 	protected void bClassesListeElevesActionPerformed(ActionEvent evt){
 		menuClasseListeEleveActionPerformed(evt);
 	}
+	
+	public int getSelectedIdxOfEleve(int eleve_id)
+	{
+        int idx = 0;
+        Iterator i = listEleves.iterator();
+        while (i.hasNext())
+        {
+            if (((EleveDatabean)i.next()).getId() == eleve_id)
+            {
+            	return idx;
+            }
+            idx++;
+        }
+        return -1;
+	}
     /**
      * @param eleve_id
      * @author jerome forestier @ sqli
@@ -1418,17 +1455,8 @@ public class EcoleApp extends javax.swing.JFrame
      */
     public void selectEleve(int eleve_id)
     {
-        int idx = 0;
-        Iterator i = listEleves.iterator();
-        while (i.hasNext())
-        {
-            if (((EleveDatabean)i.next()).getId() == eleve_id)
-            {
-                cbEleves.setSelectedIndex(idx);
-                break;
-            }
-            idx ++;
-        }
+        int idx = getSelectedIdxOfEleve(eleve_id);
+        cbEleves.setSelectedIndex(idx);
     }
     
     public void selectClasse(int classe_id)
@@ -1445,4 +1473,15 @@ public class EcoleApp extends javax.swing.JFrame
             idx ++;
         }        
     }
+	/**
+	 * @param databean
+	 * @author jemore @ home
+	 * @date 3 oct. 2004
+	 */
+	public void setCurrentEleve(EleveDatabean eleveDatabean)
+	{
+		System.out.println("Eleve selectionné " + eleveDatabean);
+		this.currentEleve = eleveDatabean;
+		
+	}
 }

@@ -7,6 +7,7 @@ package ecole.gui.listes;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Comparator;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -15,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import ecole.gui.elements.TableSorter;
 
@@ -133,8 +135,9 @@ public abstract class GenericEcoleTable
      */
     public final JTable getTable()
     {
-
-        sorter = new TableSorter(new NonEditableTableModel());
+		TableModel model = new NonEditableTableModel();
+        sorter = new TableSorter(model);
+        sorter.setColumnComparator(String.class, NOCASE_COMPARATOR);        
         table = new JTable(sorter);
         sorter.setTableHeader(table.getTableHeader());
         
@@ -151,6 +154,7 @@ public abstract class GenericEcoleTable
                 TableCellRenderer renderer = getColumnRenderer(col, i);
                 if (renderer != null)
                     col.setCellRenderer(renderer);
+				
             }
         }        
 
@@ -189,7 +193,21 @@ public abstract class GenericEcoleTable
         sorter.setSortingStatus(getIntialSortedColumn(), getIntialSortedOrder());
         return table;
     }
-
+    
+	/**
+	 * Retourne la classe contenue dans la colonne indiquée.
+	 * Le comportement par défaut consiste a retourner la Class de la colonne
+	 * demandée pour la 1ere ligne (indice 0).
+	 * Cette méthode peut etre surchargé. 
+	 * @param columnIndex
+	 * @return
+	 * @author jemore @ home
+	 * @date 3 oct. 2004
+	 */
+	public Class getCustomColumnClass(int columnIndex)
+    {
+      	return getValueField(rowData[0], columnIndex).getClass();
+    }
 
 
     /**
@@ -221,6 +239,12 @@ public abstract class GenericEcoleTable
         {
             return false;
         }
+        
+        public Class getColumnClass(int columnIndex)
+        {
+        	//return getValueField(rowData[0], columnIndex).getClass();
+        	return getCustomColumnClass(columnIndex);
+        }
         /*
         public void setValueAt(Object value, int row, int col)
         {
@@ -230,4 +254,14 @@ public abstract class GenericEcoleTable
         */
     };
 
+	/**
+     * Classe interne définissant un comparateur pour les string 
+     * sans tenir compte de la casse
+     * @author jerome forestier @ sqli
+	 */
+	public static final Comparator NOCASE_COMPARATOR = new Comparator() {
+        public int compare(Object s1, Object s2) {
+            return ((String)s1).compareToIgnoreCase((String)s2);
+        }
+    };
 }

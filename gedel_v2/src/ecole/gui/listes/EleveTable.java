@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -28,6 +29,18 @@ import ecole.utils.DateTools;
  */
 public class EleveTable extends GenericEcoleTable
 {
+	/** Libellés des colonnes **/
+	private final static String[] COLUMN_NAMES = 
+		new String[] {"Nom", "Prénom", "Sexe", "Date"};
+		
+	/** Class des colonnes (pour les comparateurs) **/
+	private final static Class[]  COLUMN_CLASSES = 
+		new Class[] {String.class, String.class, String.class, Date.class };
+		
+	private final static DefaultTableCellRenderer[]  COLUMN_RENDERER =
+		new DefaultTableCellRenderer[] {null, null, new SexeRenderer(), new DateFormatRenderer(DateTools.SDF_D2M2Y4)};
+		
+	/** fenetre parente **/
     private EcoleApp ecoleApp;
     /**
      * @param app
@@ -43,7 +56,7 @@ public class EleveTable extends GenericEcoleTable
      */
     public EleveTable()
     {
-        super(new String[] {"Nom", "Prénom", "Sexe", "Date"});
+        super(COLUMN_NAMES);
     }
 
     /* (non-Javadoc)
@@ -78,16 +91,7 @@ public class EleveTable extends GenericEcoleTable
      */
     public TableCellRenderer getColumnRenderer(TableColumn col, int columnIndex)
     {
-        if (columnIndex == 2) // Colonne Sexe
-        {
-            return new SexeRenderer();
-        }
-        if (columnIndex == 3) // Colonne Date
-       {
-           return new DateFormatRenderer(DateTools.SDF_D2M2Y4);
-       }
-       else
-        return null;
+    	return COLUMN_RENDERER[columnIndex];
     }
 
     /**
@@ -121,11 +125,7 @@ public class EleveTable extends GenericEcoleTable
      */
     public void handleSelected(int indexSelected, Object objectSelected)
     {
-        /*
-        EleveDatabean e = (EleveDatabean)objectSelected;
-        System.out.println("select " + e);
-        ecoleApp.selectEleve(e.getId());
-        */
+        ecoleApp.setCurrentEleve((EleveDatabean)objectSelected);
     }
 
     /* (non-Javadoc)
@@ -146,4 +146,14 @@ public class EleveTable extends GenericEcoleTable
         
         return TableSorter.ASCENDING;
     }
+    
+    /**
+     * Retourne la classe correspondant a la colonne demandée.
+     * Utilise le tableau COLUMN_CLASSES
+     */
+    public Class getCustomColumnClass(int columnIndex)
+    {
+    	return COLUMN_CLASSES[columnIndex];
+    }
+    
 }

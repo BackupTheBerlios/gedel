@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
 Main-Class: ecole.gui.EcoleApp
+Class-Path: lib\looks-1.2.2.jar lib\mysql-connector-java-3.0.14-production-bin.jar lib\jcalendar.jar 
+
 
