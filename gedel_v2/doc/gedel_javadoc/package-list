@@ -1,0 +1,17 @@
+com.cloudgarden.layout
+ecole
+ecole.config
+ecole.databean
+ecole.datametier
+ecole.db
+ecole.gui
+ecole.gui.cantine
+ecole.gui.classe
+ecole.gui.config
+ecole.gui.elements
+ecole.gui.eleve
+ecole.gui.predefinedframe
+ecole.gui.utils
+ecole.utils
+ecole.utils.logger
+test
