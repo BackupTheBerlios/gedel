@@ -788,7 +788,7 @@ public class EcoleApp
     comboLeftAtelier.setVisible(true);
   }
 
-  public void disable(){
+  public void disableInterface(){
     comboTable.setEnabled(false);
     effacer.setEnabled(false);
     sauver.setEnabled(false);
@@ -803,7 +803,7 @@ public class EcoleApp
     if (Evt.getActionCommand().equals("Ins\u00E9rer \u00E9l\u00E8ve")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       StringTokenizer st;
       String dob;
       String day;
@@ -878,7 +878,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Modifier \u00E9l\u00E8ve")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       StringTokenizer st;
       String dob;
       String day;
@@ -976,7 +976,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Suprimer \u00E9l\u00E8ve")) { // Delete student selected in comboBox
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       Student eleveToDelete = getStudentFromCombo();
       String studentName = eleveToDelete.getFName() + " " +
           eleveToDelete.getLName();
@@ -1005,7 +1005,7 @@ public class EcoleApp
     else if (Evt.getSource().equals(comboLeftEleves)) { //action of the eleves comboBox
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       table.setVisible(false);
       textAreaRight.setVisible(true);
       textPane.setViewportView(textAreaRight);
@@ -1017,7 +1017,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Nouvelle classe")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertClasse();
       JOptionPane panel = new JOptionPane(insertClassePanel,
                                           JOptionPane.QUESTION_MESSAGE,
@@ -1057,7 +1057,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Modifier classe")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertClasse();
       Classe classe = this.getClasseFromCombo();
       //System.out.println("classe from combo = " +
@@ -1105,7 +1105,7 @@ public class EcoleApp
     else if (Evt.getSource().equals(comboLeftClasses)) { //action of the classe comboBox
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       printTitle = comboLeftClasses.getSelectedItem() + "";
       this.setTitle("Gestion d'\u00E9cole - " + printTitle);
       table.setVisible(false);
@@ -1137,7 +1137,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Suprimer classe")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       Classe classeToSupr = getClasseFromCombo();
       int rslt = JOptionPane.showConfirmDialog(EcoleApp.this,
           "Etes-vous sur de vouloir suprimer " + classeToSupr.getClasseNom() +
@@ -1168,7 +1168,7 @@ public class EcoleApp
         "Liste d'\u00E9l\u00E8ves par classe")) { //affiche liste eleve pour une classe
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       String currentClasse = comboLeftClasses.getSelectedItem() + "";
       table = new JTable(new TableModelListClasse(_Con, currentClasse)); //NEW
       //sorter.setTableHeader(table.getTableHeader()); //ADDED THIS
@@ -1204,7 +1204,7 @@ public class EcoleApp
              Evt.getActionCommand().equals("Atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       StringTokenizer st;
       String date;
       String day;
@@ -1285,7 +1285,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Nouvel atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertAtelier();
       JOptionPane pane = new JOptionPane(insertAtelierPanel,
                                          JOptionPane.QUESTION_MESSAGE,
@@ -1330,7 +1330,7 @@ public class EcoleApp
         "Liste d'\u00E9l\u00E8ves par atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       String currentAtelier = (String) comboLeftAtelier.getSelectedItem();
       RefAtelier refatelier = new RefAtelier(currentAtelier, _Con);
       int atelierID = refatelier.getAtelierId();
@@ -1359,7 +1359,7 @@ public class EcoleApp
              Evt.getSource().equals(listeAteliers)) { // list atelier par class
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       textAreaRight.setVisible(false);
       String currentClasse = (String) comboLeftClasses.getSelectedItem();
       table = new JTable(new TableModelListAtelierByClasse(_Con, currentClasse)); //NEW
@@ -1383,7 +1383,7 @@ public class EcoleApp
     else if (Evt.getSource().equals(comboLeftAtelier)) { //action of the atelier comboBox
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       textAreaRight.setVisible(true);
       table.setVisible(false);
       textPane.setViewportView(textAreaRight);
@@ -1430,7 +1430,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Suprimer atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       RefAtelier atelierToSupr = getRefAtelierFromCombo();
       String nomAtelier = (String) comboLeftAtelier.getSelectedItem();
       int rslt = JOptionPane.showConfirmDialog(EcoleApp.this,
@@ -1461,7 +1461,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Modifier atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertAtelier();
       String atelier = (String) comboLeftAtelier.getSelectedItem();
       RefAtelier atelierToModify = this.getRefAtelierFromCombo();
@@ -1515,7 +1515,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equals("Nouveau tarif atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertTarifAtelier();
       JOptionPane panel = new JOptionPane(insertTarifAtelierPanel,
                                           JOptionPane.QUESTION_MESSAGE,
@@ -1557,7 +1557,7 @@ public class EcoleApp
     else if (Evt.getSource().equals(comboLeftTarifs)) { //action of the tarifs comboBox
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       textAreaRight.setVisible(true);
       table.setVisible(false);
       textPane.setViewportView(textAreaRight);
@@ -1593,7 +1593,7 @@ public class EcoleApp
              Evt.getSource().equals(suprTarif)) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       TarifsAteliers tarifToDelete = getTarifsAteliersFromCombo();
       String nomTarif = (String) comboLeftTarifs.getSelectedItem();
       int rslt = JOptionPane.showConfirmDialog(EcoleApp.this,
@@ -1624,7 +1624,7 @@ public class EcoleApp
              Evt.getActionCommand().equalsIgnoreCase("Modifier tarif atelier")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertTarifAtelier();
       String nomTarif = (String) comboLeftTarifs.getSelectedItem();
       TarifsAteliers tarifToModify = getTarifsAteliersFromCombo();
@@ -1673,7 +1673,7 @@ public class EcoleApp
     else if (Evt.getActionCommand().equalsIgnoreCase("Nouveau tarif cantine")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertTarifCantine();
       JOptionPane panel = new JOptionPane(insertTarifsCantinePanel,
                                           JOptionPane.QUESTION_MESSAGE,
@@ -1714,7 +1714,7 @@ public class EcoleApp
     else if (Evt.getSource().equals(comboLeftTarifsCantine)) { //action of the tarifs comboBox
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       printTitle = comboLeftTarifsCantine.getSelectedItem() + "";
       this.setTitle("Gestion d'\u00E9cole - " + printTitle);
       //System.out.println("got tarif Cantine");
@@ -1751,7 +1751,7 @@ public class EcoleApp
              Evt.getActionCommand().equalsIgnoreCase("Suprimer tarif cantine")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       TarifsCantine tarifCantineToDelete = getTarifsCantineFromCombo();
       String nomTarifCantine = (String) comboLeftTarifsCantine.getSelectedItem();
       int rslt = JOptionPane.showConfirmDialog(EcoleApp.this,
@@ -1782,7 +1782,7 @@ public class EcoleApp
              Evt.getActionCommand().equalsIgnoreCase("Modifier tarif cantine")) { ////////////////////////////!!!!!!!!
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       insertTarifCantine();
       String nomTarif = (String) comboLeftTarifsCantine.getSelectedItem();
       TarifsCantine tarifCantineToModify = getTarifsCantineFromCombo();
@@ -1834,7 +1834,7 @@ public class EcoleApp
              Evt.getSource().equals(cantineEleve)) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       String date;
       String day;
       String month;
@@ -1917,7 +1917,7 @@ public class EcoleApp
         "Liste d'\u00E9l\u00E8ves par classe/mois")) {
       setCursor(new Cursor(Cursor.WAIT_CURSOR));
       textAreaRight.setCursor(new Cursor(Cursor.WAIT_CURSOR));
-      disable();
+      disableInterface();
       String strMonth = "";
       int days = 0;
       String month = (String) JOptionPane.showInputDialog(this,

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="gedel_v1" default="all" basedir=".">
+	<target name="init">
+		<property name="basePrjDir" value="${basedir}/.." />
+		<echo message="Base project directory is ${basePrjDir}" />
+		
+		<property name="sourceDir" value="${basePrjDir}/src" />
+		<property name="outputDir" value="${basePrjDir}/build/redist" />
+		<path id="project.class.path">
+		    <pathelement location="${basePrjDir}/META-INF/lib"/>
+		    <fileset dir="${basePrjDir}/META-INF/lib">
+		        <include name="**/*.jar"/>
+		        <include name="**/*.zip"/>
+		    </fileset>
+		</path>	
+		
+	</target>
+	   
+	<target name="clean" depends="init">
+		<delete dir="${outputDir}" />
+	</target>
+	
+	<target name="prepare" depends="clean">
+		<mkdir dir="${outputDir}" />
+	</target> 
+	
+	<target name="compile" depends="prepare">
+		<javac srcdir="${sourceDir}" destdir="${outputDir}" 
+			debug="on" 
+			optimize="off" 
+			deprecation="off">
+			<classpath refid="project.class.path"/>    	
+		</javac>
+	</target>
+
+	<target name="packaging" depends="compile">
+		<jar jarfile="${outputDir}/../jar.zip" basedir="${outputDir}" includes="**" excludes="CVS/**">
+			<manifest>
+			  <attribute name="Built-By" value="${user.name}"/>
+			  <attribute name="Main-Class" value="ecole.EcoleApp"/>
+			</manifest>
+    	</jar>
+	</target>
+	
+	<target name="clean_afterpack">
+		<delete dir="${outputDir}" />
+	</target>
+
+	<target name="javadoc">
+		<javadoc packagenames="${packages}"
+			sourcepath="${basedir}/${src.dir}"
+			destdir="${build.javadocs}"
+			author="true"
+			version="true"
+			windowtitle="${Name} API"
+			doctitle="${Name}"
+			bottom="Gedel - version 1."
+		/>
+	</target>
+
+	<target name="all" depends="init,clean,prepare,compile,packaging,clean_afterpack">
+	</target>    
+</project>
