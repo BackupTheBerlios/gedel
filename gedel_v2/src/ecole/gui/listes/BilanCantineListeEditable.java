@@ -22,6 +22,7 @@ import ecole.gui.EcoleApp;
 import ecole.gui.elements.TableSorter;
 import ecole.gui.listes.editor.IntegerEditor;
 import ecole.gui.listes.editor.TypePaimentEditor;
+import ecole.gui.listes.listener.ValueChangeListener;
 import ecole.gui.listes.renderer.*;
 import ecole.utils.DateTools;
 
@@ -41,7 +42,7 @@ public class BilanCantineListeEditable extends ListeEditableGeneric
             java.util.Date.class, Integer.class, Double.class, String.class };
             
     private final static DefaultTableCellRenderer[]  COLUMN_RENDERER =
-        new DefaultTableCellRenderer[] {null, null, null, null, new DateFormatRenderer(DateTools.SDF_D2M2Y4), new IntegerRenderer(), new DoubleRenderer(), null};            
+        new DefaultTableCellRenderer[] {null, null, null, null, new DateFormatRenderer(DateTools.SDF_D2M2Y4), new IntegerRenderer(), new DoubleRenderer(), new TypePaimentRenderer()};            
     
             
     /** fenetre parente **/
@@ -99,7 +100,8 @@ public class BilanCantineListeEditable extends ListeEditableGeneric
         if (fieldIndex == 4) return o.getDateValidite();
         if (fieldIndex == 5) return new Integer(o.getNbrjours());
         if (fieldIndex == 6) return new Double(o.getNbrjours() * o.getCantine().getPrix());
-        if (fieldIndex == 7) return ""+o.getType_payment();
+        if (fieldIndex == 7) return HistoCantineMetier.getTypePaiment(o);
+        //if (fieldIndex == 7) return "abc";
         return "???";
     }
 
@@ -163,17 +165,35 @@ public class BilanCantineListeEditable extends ListeEditableGeneric
         }
         if (columnIndex == 7)
         {
-            return TypePaimentEditor.EDITOR;
+            return new TypePaimentEditor();
         }
         else return null;
     }
+    
+    
+
+
+    
+    
+    
 
     /* (non-Javadoc)
      * @see ecole.gui.listes.ListeEditableGeneric#setValueField(java.lang.Object, java.lang.Object, int)
      */
     public boolean setValueField(Object newValue, Object oldValue, int fieldIndex)
     {
+        HistoCantineDatabean histo = (HistoCantineDatabean) oldValue;
         System.out.println("Champs "+oldValue+ " mise a jour du champ " +fieldIndex+ " -> "+newValue);
+        if (fieldIndex == 7)
+        {
+            histo.setType_payment(TypePaimentEditor.checkBoxValueToBeanValue((String)newValue));
+            return true;
+        }
+            
         return false;
     }
+    
+
+    
+    
 }

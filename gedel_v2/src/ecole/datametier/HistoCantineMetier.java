@@ -23,7 +23,8 @@ import ecole.databean.HistoCantineDatabean;
  */
 public class HistoCantineMetier extends MetierGeneric
 {
-
+    public static final String TYPE_PAIEMENT_C = "C";
+    public static final String TYPE_PAIEMENT_E = "E";
 
     /* (non-Javadoc)
      * @see ecole.datametier.MetierGeneric#populateAllField(java.sql.ResultSet)
@@ -129,6 +130,15 @@ public class HistoCantineMetier extends MetierGeneric
             list.add(histo);
         }     
         return list;
+    }
+    
+    public static final String getTypePaiment(HistoCantineDatabean histo)
+    {
+        if (histo.getType_payment() == HistoCantineDatabean.TYPE_PAYMENT_C)
+            return TYPE_PAIEMENT_C;
+        if (histo.getType_payment() == HistoCantineDatabean.TYPE_PAYMENT_E)
+            return TYPE_PAIEMENT_E;
+        return "" + histo.getType_payment();
     }
 
 }

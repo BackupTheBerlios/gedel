@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import ecole.gui.elements.TableSorter;
+import ecole.gui.listes.listener.ValueChangeListener;
 
 /**
  * ListeEditableGeneric
@@ -31,6 +32,9 @@ public abstract class ListeEditableGeneric
     private TableSorter sorter = new TableSorter();
     private String[] columnNames = null;
     private Object[] rowData = null;
+    
+    /** Listener de changement d'une ligne du tableau **/
+    ValueChangeListener valueChangeListener = null;
 
     /**
      * Constructeur avec les libellés des colonnes en parametres
@@ -164,7 +168,8 @@ public abstract class ListeEditableGeneric
      */
     public final JTable getTable()
     {
-        TableModel model = new EditableTableModel();
+        EditableTableModel model = new EditableTableModel();
+        model.setValueChangeListener(this.valueChangeListener);
         sorter = new TableSorter(model);
         sorter.setColumnComparator(String.class, ListeGeneric.NOCASE_COMPARATOR);
         sorter.setColumnComparator(Integer.class, ListeGeneric.INTEGER_COMPARATOR);
@@ -200,6 +205,14 @@ public abstract class ListeEditableGeneric
         
     }    
     
+    public void addValueChangeListener(ValueChangeListener valueChangeListener)
+    {
+        if (this.valueChangeListener == null)
+            this.valueChangeListener = valueChangeListener;
+        else
+            throw new IllegalStateException("Il ne peut y avoir plusieurs ValueChangeListener sur un objet ListeEditableGeneric");
+    }
+        
     /**
      * 
      * Classe interne définissant un TableModel éditable
@@ -208,6 +221,11 @@ public abstract class ListeEditableGeneric
      */
     class EditableTableModel extends AbstractTableModel
     {
+        ValueChangeListener valueChangeListener;
+        public void setValueChangeListener(ValueChangeListener l)
+        {
+            valueChangeListener = l;
+        }
         public String getColumnName(int column)
         {
             return columnNames[column].toString();
@@ -238,8 +256,15 @@ public abstract class ListeEditableGeneric
         
         public void setValueAt(Object value, int row, int col)
         {            
-            if (setValueField(value, rowData[row], col))            
+            if (setValueField(value, rowData[row], col)) 
+            {   
                 fireTableCellUpdated(row, col);
+                if (null != valueChangeListener)
+                {    
+                    valueChangeListener.onValueChanged();    
+                }
+            }
+                
         }
         
     };    

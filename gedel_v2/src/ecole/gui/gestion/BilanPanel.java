@@ -6,18 +6,16 @@
 package ecole.gui.gestion;
 
 import java.awt.*;
-import java.sql.SQLException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.JTextComponent;
 
-import ecole.databean.ClasseDatabean;
+
 import ecole.databean.HistoCantineDatabean;
 import ecole.datametier.HistoCantineMetier;
 import ecole.gui.EcoleApp;
 import ecole.gui.listes.BilanCantineListeEditable;
-import ecole.gui.listes.EleveListe;
+import ecole.gui.listes.listener.ValueChangeListener;
 import ecole.gui.utils.ComboBoxFiller;
 import ecole.utils.Formatter;
 
@@ -127,6 +125,14 @@ public class BilanPanel extends JPanel
         this.add(mainPanel, BorderLayout.CENTER);
         liste = new BilanCantineListeEditable(ecoleApp);
         liste.process();
+        liste.addValueChangeListener(new ValueChangeListener()
+        {
+            public void onValueChanged()
+            {
+                computeTotal();
+            }
+        }
+        );
         mainPanel.setViewportView(liste.getTable());
         computeTotal();
     }
@@ -167,20 +173,20 @@ public class BilanPanel extends JPanel
         
         html.append("<tr>");
         html.append("<td>Total</td>");
-        html.append("<td>" + Formatter.doubleToStringLocale(histoComputer.total)+"</td>");
+        html.append("<td align=right>" + Formatter.doubleToStringLocale(histoComputer.total)+"</td>");
         html.append("</tr>");
 
         html.append("<tr>");
         html.append("<td>Total cheque</td>");
-        html.append("<td>" + Formatter.doubleToStringLocale(histoComputer.totalCheque)+"</td>");
+        html.append("<td align=right>" + Formatter.doubleToStringLocale(histoComputer.totalCheque)+"</td>");
         html.append("</tr>");
 
         html.append("<tr>");
         html.append("<td>Total espèce</td>");
-        html.append("<td>" + Formatter.doubleToStringLocale(histoComputer.totalEspece)+"</td>");
+        html.append("<td align=right>" + Formatter.doubleToStringLocale(histoComputer.totalEspece)+"</td>");
         html.append("</tr>");
 
-        html.append("</table><br><br><br");
+        html.append("</table>");
         
         edit.setVisible(false);
         //edit.setEditable(false);
