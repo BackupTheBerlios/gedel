@@ -80,6 +80,9 @@ import ecole.gui.utils.Callbacker;
 import ecole.gui.utils.ComboBoxFiller;
 import ecole.gui.utils.GUITools;
 import javax.swing.BoxLayout;
+
+import test.NewJPanel;
+
 import java.awt.FlowLayout;
 import ecole.utils.logger.Logger;
 
@@ -2122,8 +2125,12 @@ public class EcoleApp extends javax.swing.JFrame
 
 	/** Auto-generated event handler method */
 	protected void menuGestionBilanActionPerformed(ActionEvent evt){
+        
 		createPanelGestionBilan();
-        BilanPanel bilan = new BilanPanel();
+        BilanPanel bilan = new BilanPanel(this);
         jScrollPanDroite.setViewportView(bilan);
+        
+        /*NewJPanel p = new NewJPanel();
+        jScrollPanDroite.setViewportView(p);*/
 	}
 }

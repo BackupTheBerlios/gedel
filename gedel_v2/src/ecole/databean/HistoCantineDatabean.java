@@ -13,6 +13,10 @@ import java.util.Date;
  */
 public class HistoCantineDatabean extends DatabeanGeneric
 {
+    private EleveDatabean eleve;
+    private ClasseDatabean classe;
+    private CantineDatabean cantine;
+    
     private int id;
     private String mois_histo; // Varchar 50
     private int id_eleve; 
@@ -22,7 +26,7 @@ public class HistoCantineDatabean extends DatabeanGeneric
     private int id_tarifcantine;
     private Date dateValidite;
     
-    public static final char TYPE_PAYMENT_N = 'N';
+    public static final char TYPE_PAYMENT_C = 'C';
     public static final char TYPE_PAYMENT_E = 'E';
     /* (non-Javadoc)
      * @see ecole.databean.DatabeanGeneric#getPrimaryKey()
@@ -37,7 +41,7 @@ public class HistoCantineDatabean extends DatabeanGeneric
      * @author jerome forestier @ sqli
      * @date 12 oct. 2004
      */
-    public Date getDateValidite()
+    public java.util.Date getDateValidite()
     {
         return dateValidite;
     }
@@ -190,6 +194,68 @@ public class HistoCantineDatabean extends DatabeanGeneric
     public void setType_payment(char c)
     {
         type_payment = c;
+    }
+
+    /**
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public ClasseDatabean getClasse()
+    {
+        return classe;
+    }
+
+    /**
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public EleveDatabean getEleve()
+    {
+        return eleve;
+    }
+
+    /**
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public CantineDatabean getCantine()
+    {
+        return cantine;
+    }
+
+    /**
+     * @param databean
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public void setClasse(ClasseDatabean databean)
+    {
+        classe = databean;
+    }
+
+    /**
+     * @param databean
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public void setEleve(EleveDatabean databean)
+    {
+        eleve = databean;
+    }
+
+
+    /**
+     * @param cantine
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public void setCantine(CantineDatabean cantine)
+    {
+       
+        this.cantine = cantine;        
     }
 
 }

@@ -98,6 +98,18 @@ public class Formatter
             }
         }
     }
+
+
+    /**
+     * @param double1
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    public static String doubleToStringLocale(Double double_)
+    {
+        return doubleToStringLocale(double_.doubleValue());
+    }
     
     
 

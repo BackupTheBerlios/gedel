@@ -5,6 +5,7 @@
  */
 package ecole.gui.listes;
 
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Comparator;
@@ -27,6 +28,7 @@ import ecole.gui.elements.TableSorter;
  */
 public abstract class ListeGeneric
 {
+    public static final Font TABLE_FONT = new Font("",0,12);
     private JTable table;
 
     private TableSorter sorter = new TableSorter();
@@ -137,9 +139,13 @@ public abstract class ListeGeneric
     {
 		TableModel model = new NonEditableTableModel();
         sorter = new TableSorter(model);
-        sorter.setColumnComparator(String.class, NOCASE_COMPARATOR);        
+        sorter.setColumnComparator(String.class, NOCASE_COMPARATOR);  
+        sorter.setColumnComparator(Integer.class, ListeGeneric.INTEGER_COMPARATOR);
+        sorter.setColumnComparator(Double.class, ListeGeneric.DOUBLE_COMPARATOR);               
         table = new JTable(sorter);
+        table.setFont(TABLE_FONT);
         sorter.setTableHeader(table.getTableHeader());
+        table.getTableHeader().setFont(TABLE_FONT);
         
         for (int i = 0; i < this.columnNames.length; i++)
         {
@@ -276,4 +282,18 @@ public abstract class ListeGeneric
             return ((String)s1).compareToIgnoreCase((String)s2);
         }
     };
+    
+    public static final Comparator INTEGER_COMPARATOR = new Comparator() {
+        public int compare(Object s1, Object s2) {
+            return ((Integer)(s1)).compareTo(s2);
+            
+        }
+    };
+    
+    public static final Comparator DOUBLE_COMPARATOR = new Comparator() {
+        public int compare(Object s1, Object s2) {
+            return ((Double)(s1)).compareTo(s2);
+            
+        }
+    };    
 }

@@ -114,10 +114,12 @@ public class EleveListe extends ListeGeneric
      */
     public void handleDoubleClick(int indexSelected, Object objectSelected)
     {
+        if (ecoleApp != null)
+        {
         EleveDatabean e = (EleveDatabean)objectSelected;
         //System.out.println("click " + e);
         ecoleApp.selectEleve(e.getId());
-        
+        }        
     }
 
     /* (non-Javadoc)
@@ -125,7 +127,8 @@ public class EleveListe extends ListeGeneric
      */
     public void handleSelected(int indexSelected, Object objectSelected)
     {
-        ecoleApp.setCurrentEleve((EleveDatabean)objectSelected);
+        if (ecoleApp != null)
+            ecoleApp.setCurrentEleve((EleveDatabean)objectSelected);
     }
 
     /* (non-Javadoc)
