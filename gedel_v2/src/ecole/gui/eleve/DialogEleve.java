@@ -343,7 +343,7 @@ public final class DialogEleve
 		int classe_selected = classes.getSelectedIndex();
 		ClasseDatabean c =
 			(ClasseDatabean) listClassesDisponibles.get(classe_selected);
-		e.setClasse_nom(c.getClasse_nom());
+		//e.setClasse_nom(c.getClasse_nom());
 		e.setClasseid(c.getId());
 		e.setDateentree(dateentree.getDate());
 		return e;

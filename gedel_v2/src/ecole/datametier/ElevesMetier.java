@@ -69,6 +69,19 @@ public class ElevesMetier extends GenericMetier
 	{
 		return e.getNom() + " " + e.getPrenom();
 	}
+	
+	/**
+	 * Retourne le sexe de l'eleve passé en parametre
+	 * @param e
+	 * @return "H" ou "F" ou null 
+	 * @author jemore
+	 */
+	public final static String getSexe(EleveDatabean e)
+	{
+		if (e.getSexe() == '\0') return "";
+		else
+			return ""+e.getSexe();
+	}
 
     /**
      * @param e

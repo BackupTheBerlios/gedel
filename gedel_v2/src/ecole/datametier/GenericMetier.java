@@ -58,7 +58,7 @@ public abstract class GenericMetier
 	 * @throws SQLException
 	 * 
 	 */
-	public GenericMetier() throws SQLException
+	public GenericMetier()
 	{
 		super();
 	}

@@ -10,7 +10,6 @@ import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
@@ -27,7 +26,7 @@ public class JEcoleDateChooser extends JDateChooser
 {
 
     private static final String DATE_FORMAT = "d MMMMM yyyy";
-
+	private static final Color SELECTED_COLOR = new Color(0,255,0);
 
     public JEcoleDateChooser(JCalendar calendar)
     {
@@ -39,20 +38,15 @@ public class JEcoleDateChooser extends JDateChooser
         );
             
             
-            
+		this.jcalendar.getDayChooser().setSelectedColor(SELECTED_COLOR);            
         JComboBox cbMonth = (JComboBox)this.jcalendar.getMonthChooser().getComboBox();
         cbMonth.setMaximumRowCount(12);
-        
-        this.jcalendar.getDayChooser().setSelectedColor(new Color(0,255,0));
     }
     
     public JEcoleDateChooser()
     {
         this((JCalendar)null);
     }
-
-
-
     public JEcoleDateChooser(Date date)
     {
         this((JCalendar)null);
@@ -60,22 +54,5 @@ public class JEcoleDateChooser extends JDateChooser
         cal.setDate(date);
     }
     
-    public void setSelectedColor(Color selectedColor)
-    {
-        this.jcalendar.getDayChooser().setSelectedColor(selectedColor);
-    }
-
-    /**
-     * Creates a JFrame with a JEcoleDateChooser inside and can be used for testing.
-     *
-     * @param s The command line arguments
-     */
-    public static void main(String[] s) {
-        JFrame frame = new JFrame("JEcoleDateChooser");
-        JEcoleDateChooser dateChooser = new JEcoleDateChooser();
-        frame.getContentPane().add(dateChooser);
-        frame.pack();
-        frame.setVisible(true);
-    }
     
 }

@@ -1144,9 +1144,10 @@ public class EcoleApp extends javax.swing.JFrame
 					String res =
 						"Eleve " + nouvel_eleve.getNom() + " " + nouvel_eleve.getPrenom() + " modifié";
 					setStatus(res);
-					GUITools.setCursorNormal(this);
-					DialogAlert.DialogOK(this, res);
 					reloadListEleve();
+					GUITools.setCursorNormal(this);					
+					cbEleves.setSelectedIndex(idx);
+					DialogAlert.DialogOK(this, res);
 				}
 			}
 		} catch (Exception e)
@@ -1308,7 +1309,7 @@ public class EcoleApp extends javax.swing.JFrame
                         metier.retirer(c);
                     }
                     GUITools.setCursorNormal(this);
-                
+                	cbElevesActionPerformed(null);
             }
         } catch (Exception e)
         {
@@ -1321,15 +1322,39 @@ public class EcoleApp extends javax.swing.JFrame
         }
 	}
 
-	/** Auto-generated event handler method */
+	/**
+	 * Changement de la liste déroulante des eleves : on affiche une fiche
+	 * eleve sur le panneau de droite;
+	 * @param evt
+	 * @author jemore
+	 */
 	protected void cbElevesActionPerformed(ActionEvent evt){
-		int idx = cbEleves.getSelectedIndex();
-        EleveDatabean e = (EleveDatabean)listEleves.get(idx);
-        if (null != e)
+		try {		
+			int idx = cbEleves.getSelectedIndex();
+			if (-1 == idx) return;
+	        EleveDatabean e = (EleveDatabean)listEleves.get(idx);
+	        if (null != e)
+	        {
+	        	GUITools.setCursorWait(this);
+	        	// Quel est la classe de cet eleve ?
+	        	ClassesMetier metier = new ClassesMetier();	        	
+	        	int classe_id = e.getClasseid();
+	        	ClasseDatabean c = metier.getClasseByClasseId(classe_id);
+	        	
+	            FicheEleve fiche = new FicheEleve(e);
+	            JEditorPane ficheEdit = fiche.getEditorPanel();
+	            jScrollPanDroite.setViewportView(ficheEdit);
+	            GUITools.setCursorNormal(this);           
+	        }
+		}catch(Exception e)
+		{
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+		}
+		finally
         {
-            FicheEleve fiche = new FicheEleve(e);
-            JEditorPane ficheEdit = fiche.getEditorPanel();
-            jScrollPanDroite.setViewportView(ficheEdit);           
-        }
+            GUITools.setCursorNormal(this);
+        }		
 	}
 }
