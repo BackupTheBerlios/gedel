@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form style="Swing" ide="eclipse" builder="jigloo" version="2.7.2">
+<ExtraComponents>
+		<Component class="javax.swing.JMenuBar" name="jMenuBar1">
+			<Constraints>
+				<LayoutConstraint/>
+			</Constraints>
+			<Events>
+			</Events>
+			<Properties>
+				<Property name="bounds" type="Rectangle">
+					<Rectangle value="[0, 0, 620, 23]"/>
+				</Property>
+			</Properties>
+			<SubComponents>
+				<Component class="javax.swing.JMenu" name="menuFichier">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Layout class="Flow">
+						<Property name="alignment" type="int" value="1"/>
+						<Property name="hgap" type="int" value="5"/>
+						<Property name="vgap" type="int" value="5"/>
+					</Layout>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Fichier"/>
+						<Property name="displayedMnemonicIndex" type="int" value="0"/>
+						<Property name="doubleBuffered" type="boolean" value="true"/>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuImprimer">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Imprimer"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\print.gif"/>
+								</Property>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuApercu">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Aperçu avant impression"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\PrintPreview.gif"/>
+								</Property>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator2">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuReinit">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuReinitActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Ré-initialiser l'interface"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\reinit.gif"/>
+								</Property>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator1">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuQuitter">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuQuitterActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Quitter"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\quitter.gif"/>
+								</Property>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuEdition">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Edition"/>
+						<Property name="displayedMnemonicIndex" type="int" value="0"/>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuCopier">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Copier"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\copy.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuCouper">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Couper"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\cut.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuColler">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Coller"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\paste.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuEleves">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Elèves"/>
+						<Property name="displayedMnemonicIndex" type="int" value="1"/>
+						<Property name="icon" type="Icon">
+							<Icon name="\icons\eleve.gif"/>
+						</Property>
+						<Property name="horizontalTextPosition" type="int" value="11"/>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuElevesAjouter">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuElevesAjouterActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Ajouter un élève"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\eleve_new.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuElevesModif">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuElevesModifActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Modifier l'élève sélectionné"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\eleve_modif.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuElevesSupprimer">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuElevesSupprimerActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Supprimer l'élève selectionné"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\eleve_suppr.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator4">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuElevesInscrire">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Inscrire l'élève sélectionné à un atelier"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\atelier.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuClasses">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Classes"/>
+						<Property name="displayedMnemonicIndex" type="int" value="0"/>
+						<Property name="icon" type="Icon">
+							<Icon name="\icons\classe.gif"/>
+						</Property>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuClassesNew">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuClassesNewActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Créer une nouvelle classe"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\classe_new.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuClasseModif">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuClasseModifActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Modifier la classe sélectionnée"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\classe_modif.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuClasseSuppr">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuClasseSupprActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Supprimer la classe sélectionnée"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\classe_suppr.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator3">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuClasseListeEleve">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Liste des élèves pour la classe sélectionnée"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\eleve_modif.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuClasseListeEleveAtelier">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Liste des élèves pour la classe sélectionnée + les ateliers"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\atelier.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuAteliers">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Ateliers"/>
+						<Property name="displayedMnemonicIndex" type="int" value="0"/>
+						<Property name="icon" type="Icon">
+							<Icon name="\icons\atelier.gif"/>
+						</Property>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuAtelierNew">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Créer un nouvel atelier"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\atelier_new.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuAtelierModif">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Modifier l'atelier selectionné"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\atelier_modif.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuAtelierSuppr">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Supprimer l'atelier selectionné"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\atelier_suppr.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator5">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuAtelierListeEleve">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Liste des élèves par ateliers"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\eleve.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator6">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenu" name="jMenu1">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Tarifs"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\tarif.gif"/>
+								</Property>
+							</Properties>
+							<SubComponents>
+								<Component class="javax.swing.JMenuItem" name="menuAtelierTarifNew">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Créer un tarif d'atelier"/>
+										<Property name="icon" type="Icon">
+											<Icon name="\icons\tarif_new.gif"/>
+										</Property>
+									</Properties>
+								</Component>
+								<Component class="javax.swing.JMenuItem" name="menuAtelierTarifModif">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Modifier le tarif de l'atelier selectionné"/>
+										<Property name="icon" type="Icon">
+											<Icon name="\icons\tarif_modif.gif"/>
+										</Property>
+									</Properties>
+								</Component>
+								<Component class="javax.swing.JMenuItem" name="menuAtelierTarifSuppr">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Supprimer le tarif de l'atelier selectionné"/>
+										<Property name="icon" type="Icon">
+											<Icon name="\icons\tarif_suppr.gif"/>
+										</Property>
+									</Properties>
+								</Component>
+							</SubComponents>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuCantine">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Cantine"/>
+						<Property name="displayedMnemonicIndex" type="int" value="2"/>
+						<Property name="icon" type="Icon">
+							<Icon name="\icons\cantine.gif"/>
+						</Property>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuCantineAjouter">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Ajouter ou supprimer un élève"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\cantine.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator8">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="visible" type="boolean" value="true"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuCantineListeEleve">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Liste d'élève par classe / mois"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\eleve.gif"/>
+								</Property>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JSeparator" name="jSeparator7">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenu" name="jMenu2">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Tarifs"/>
+								<Property name="icon" type="Icon">
+									<Icon name="\icons\tarif.gif"/>
+								</Property>
+							</Properties>
+							<SubComponents>
+								<Component class="javax.swing.JMenuItem" name="menuCantineTarifNew">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Créer un tarif de cantine"/>
+										<Property name="icon" type="Icon">
+											<Icon name="\icons\tarif_new.gif"/>
+										</Property>
+										<Property name="bounds" type="Rectangle">
+											<Rectangle value="[0, 0, 0, 0]"/>
+										</Property>
+									</Properties>
+								</Component>
+								<Component class="javax.swing.JMenuItem" name="menuCantineTarifModif">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Modifier le tarif de cantine selectionné"/>
+										<Property name="icon" type="Icon">
+											<Icon name="\icons\tarif_modif.gif"/>
+										</Property>
+										<Property name="bounds" type="Rectangle">
+											<Rectangle value="[0, 0, 0, 0]"/>
+										</Property>
+									</Properties>
+								</Component>
+								<Component class="javax.swing.JMenuItem" name="menuCantineTarifSuppr">
+									<Constraints>
+										<LayoutConstraint/>
+									</Constraints>
+									<Events>
+									</Events>
+									<Properties>
+										<Property name="text" type="String" value="Supprimer le tarif de cantine selectionné"/>
+										<Property name="icon" type="Icon">
+											<Icon name="\icons\tarif_suppr.gif"/>
+										</Property>
+										<Property name="bounds" type="Rectangle">
+											<Rectangle value="[0, 0, 0, 0]"/>
+										</Property>
+									</Properties>
+								</Component>
+							</SubComponents>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuGestion">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Gestion"/>
+						<Property name="displayedMnemonicIndex" type="int" value="0"/>
+					</Properties>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuOutils">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Outils"/>
+						<Property name="displayedMnemonicIndex" type="int" value="0"/>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuOutilsGC">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuOutilsGCActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Garbage Collector"/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menutOutilsBD">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menutOutilsBDActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Connexion a la base..."/>
+							</Properties>
+						</Component>
+						<Component class="javax.swing.JMenuItem" name="menuLnF">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuLnFActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Configuration du LnF"/>
+							</Properties>
+						</Component>
+					</SubComponents>
+				</Component>
+				<Component class="javax.swing.JMenu" name="menuAide">
+					<Constraints>
+						<LayoutConstraint/>
+					</Constraints>
+					<Layout class="Grid">
+						<Property name="hgap" type="int" value="0"/>
+						<Property name="vgap" type="int" value="0"/>
+						<Property name="rows" type="int" value="1"/>
+						<Property name="columns" type="int" value="1"/>
+					</Layout>
+					<Events>
+					</Events>
+					<Properties>
+						<Property name="text" type="String" value="Aide"/>
+						<Property name="icon" type="Icon">
+							<Icon name="\icons\aide.gif"/>
+						</Property>
+						<Property name="preferredSize" type="Dimension">
+							<Dimension value="[55, 19]"/>
+						</Property>
+						<Property name="bounds" type="Rectangle">
+							<Rectangle value="[446, 0, 55, 21]"/>
+						</Property>
+					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuAideJava">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuAideJavaActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="A propos de Java..."/>
+							</Properties>
+						</Component>
+					</SubComponents>
+				</Component>
+			</SubComponents>
+		</Component></ExtraComponents>
+<NonVisualComponents>
+		<Component class="java.lang.Object" name="object1">
+			<Constraints>
+				<LayoutConstraint/>
+			</Constraints>
+			<Properties>
+			</Properties>
+		</Component></NonVisualComponents>
+	<Component class="javax.swing.JFrame" name="EcoleApp">
+		<Constraints>
+			<LayoutConstraint/>
+		</Constraints>
+		<Layout class="Grid">
+			<Property name="hgap" type="int" value="0"/>
+			<Property name="vgap" type="int" value="0"/>
+			<Property name="rows" type="int" value="1"/>
+			<Property name="columns" type="int" value="1"/>
+		</Layout>
+		<Events>
+			<EventHandler event="windowClosing" listener="java.awt.event.WindowListener" handler="EcoleAppWindowClosing"/>
+			<EventHandler event="componentShown" listener="java.awt.event.ComponentListener" handler="EcoleAppComponentShown"/>
+		</Events>
+		<Properties>
+			<Property name="defaultCloseOperation" type="int" value="3"/>
+			<Property name="defaultLookAndFeelDecorated" type="boolean" value="false"/>
+			<Property name="title" type="String" value="GEDEL - Gestion Des Elèves"/>
+			<Property name="name" type="String" value="Gestion des élèves"/>
+			<Property name="size" type="Dimension">
+				<Dimension value="[620, 560]"/>
+			</Property>
+			<Property name="bounds" type="Rectangle">
+				<Rectangle value="[0, 0, 620, 560]"/>
+			</Property>
+		</Properties>
+		<SubComponents>
+			<Component class="javax.swing.JPanel" name="jPanel1">
+				<Constraints>
+					<LayoutConstraint/>
+				</Constraints>
+				<Layout class="Border">
+					<Property name="hgap" type="int" value="0"/>
+					<Property name="vgap" type="int" value="0"/>
+				</Layout>
+				<Events>
+				</Events>
+				<Properties>
+				</Properties>
+				<SubComponents>
+					<Component class="javax.swing.JLabel" name="jStatusBar">
+						<Constraints>
+							<Constraint direction="South"/>
+							<LayoutConstraint>
+								<Property name="direction" type="String" value="South"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Layout class="Border">
+							<Property name="hgap" type="int" value="0"/>
+							<Property name="vgap" type="int" value="0"/>
+						</Layout>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="jLabel1"/>
+							<Property name="border" class="javax.swing.border.EtchedBorder">
+								<Property name="etchType" type="int" value="1"/>
+								<Property name="highlightColor" value="null"/>
+								<Property name="shadowColor" value="null"/>
+							</Property>
+							<Property name="name" type="String" value="statusBar"/>
+						</Properties>
+						<SubComponents>
+							<Component class="javax.swing.JProgressBar" name="jProgressBar">
+								<Constraints>
+									<Constraint direction="East"/>
+									<LayoutConstraint>
+										<Property name="direction" type="String" value="East"/>
+									</LayoutConstraint>
+								</Constraints>
+								<Events>
+								</Events>
+								<Properties>
+									<Property name="value" type="int" value="0"/>
+									<Property name="stringPainted" type="boolean" value="false"/>
+									<Property name="indeterminate" type="boolean" value="false"/>
+									<Property name="preferredSize" type="Dimension">
+										<Dimension value="[88, 15]"/>
+									</Property>
+									<Property name="debugGraphicsOptions" type="int" value="-1"/>
+									<Property name="doubleBuffered" type="boolean" value="false"/>
+									<Property name="bounds" type="Rectangle">
+										<Rectangle value="[530, 2, 88, 16]"/>
+									</Property>
+								</Properties>
+							</Component>
+						</SubComponents>
+					</Component>
+					<Component class="javax.swing.JToolBar" name="jToolBar">
+						<Constraints>
+							<Constraint direction="North"/>
+							<LayoutConstraint>
+								<Property name="direction" type="String" value="North"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="preferredSize" type="Dimension">
+								<Dimension value="[426, 21]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[0, 0, 620, 21]"/>
+							</Property>
+						</Properties>
+					</Component>
+					<Component class="javax.swing.JPanel" name="jPanel2">
+						<Constraints>
+							<Constraint direction="Center"/>
+							<LayoutConstraint>
+								<Property name="direction" type="String" value="Center"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Layout class="Border">
+							<Property name="hgap" type="int" value="0"/>
+							<Property name="vgap" type="int" value="0"/>
+						</Layout>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[0, 21, 620, 496]"/>
+							</Property>
+						</Properties>
+						<SubComponents>
+							<Component class="javax.swing.JSplitPane" name="jSplitPane1">
+								<Constraints>
+									<Constraint direction="Center"/>
+									<LayoutConstraint>
+										<Property name="direction" type="String" value="Center"/>
+									</LayoutConstraint>
+								</Constraints>
+								<Events>
+								</Events>
+								<Properties>
+									<Property name="dividerLocation" type="int" value="250"/>
+								</Properties>
+								<SubComponents>
+									<Component class="javax.swing.JScrollPane" name="jScrollPanGauche">
+										<Constraints>
+											<Constraint position="left"/>
+											<Constraint class="java.lang.String"/>
+											<LayoutConstraint class="java.lang.String">
+												<Property name="position" type="String" value="left"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="verticalScrollBarPolicy" type="int" value="20"/>
+											<Property name="background" type="Color">
+												<Color red="80" green="80" blue="80"/>
+											</Property>
+											<Property name="preferredSize" type="Dimension">
+												<Dimension value="[418, 118]"/>
+											</Property>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[1, 1, 418, 494]"/>
+											</Property>
+										</Properties>
+										<SubComponents>
+											<Component class="javax.swing.JPanel" name="jPanelGauche">
+												<Constraints>
+													<LayoutConstraint/>
+												</Constraints>
+												<Layout class="Anchor">
+												</Layout>
+												<Events>
+												</Events>
+												<Properties>
+													<Property name="preferredSize" type="Dimension">
+														<Dimension value="[195, 473]"/>
+													</Property>
+													<Property name="bounds" type="Rectangle">
+														<Rectangle value="[0, 0, 246, 491]"/>
+													</Property>
+												</Properties>
+												<SubComponents>
+													<Component class="javax.swing.JPanel" name="panelEleves">
+														<Constraints>
+															<Constraint direction="North"/>
+															<Constraint class="com.cloudgarden.layout.AnchorConstraint"/>
+															<LayoutConstraint class="com.cloudgarden.layout.AnchorConstraint">
+																<Property name="top" type="int" value="0"/>
+																<Property name="bottom" type="int" value="317"/>
+																<Property name="left" type="int" value="0"/>
+																<Property name="right" type="int" value="5"/>
+																<Property name="topType" type="int" value="2"/>
+																<Property name="bottomType" type="int" value="0"/>
+																<Property name="rightType" type="int" value="2"/>
+																<Property name="leftType" type="int" value="2"/>
+															</LayoutConstraint>
+														</Constraints>
+														<Layout class="GridBag">
+															<Property name="columnWidths" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="rowHeights" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="columnWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="rowWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="columns" type="int" value="2"/>
+															<Property name="rows" type="int" value="2"/>
+														</Layout>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="visible" type="boolean" value="true"/>
+															<Property name="preferredSize" type="Dimension">
+																<Dimension value="[240, 80]"/>
+															</Property>
+															<Property name="border" class="javax.swing.border.TitledBorder">
+																<Property name="border"/>
+																<Property name="title" type="String" value="Elèves"/>
+																<Property name="titleJustification" type="int" value="4"/>
+																<Property name="titlePosition" type="int" value="2"/>
+																<Property name="titleFont" type="Font">
+																<Font name="MS Sans Serif" size="11" style="0" strikeout="false" underline="false"/>
+															</Property>
+																<Property name="titleColor" type="Color">
+																<Color red="0" green="0" blue="0"/>
+															</Property>
+															</Property>
+															<Property name="bounds" type="Rectangle">
+																<Rectangle value="[0, 0, 410, 80]"/>
+															</Property>
+														</Properties>
+														<SubComponents>
+															<Component class="javax.swing.JComboBox" name="cbEleves">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="0"/>
+																		<Property name="gridwidth" type="int" value="2"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="2"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 5, 5, 5]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="cbElevesActionPerformed"/>
+																</Events>
+																<Properties>
+																	<Property name="maximumRowCount" type="int" value="20"/>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bElevesAtelier">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="1"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 5, 5, 5]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Atelier"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\atelier.gif"/>
+																	</Property>
+																	<Property name="horizontalTextPosition" type="int" value="11"/>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bElevesCantine">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 5, 5, 5]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																	<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="bElevesCantineActionPerformed"/>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Cantine"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\cantine.gif"/>
+																	</Property>
+																	<Property name="opaque" type="boolean" value="false"/>
+																	<Property name="doubleBuffered" type="boolean" value="true"/>
+																	<Property name="name" type="String" value=""/>
+																</Properties>
+															</Component>
+														</SubComponents>
+													</Component>
+													<Component class="javax.swing.JPanel" name="panelClasses">
+														<Constraints>
+															<Constraint direction="South"/>
+															<Constraint class="com.cloudgarden.layout.AnchorConstraint"/>
+															<LayoutConstraint class="com.cloudgarden.layout.AnchorConstraint">
+																<Property name="top" type="int" value="170"/>
+																<Property name="bottom" type="int" value="1001"/>
+																<Property name="left" type="int" value="2"/>
+																<Property name="right" type="int" value="981"/>
+																<Property name="topType" type="int" value="1"/>
+																<Property name="bottomType" type="int" value="0"/>
+																<Property name="rightType" type="int" value="1"/>
+																<Property name="leftType" type="int" value="1"/>
+															</LayoutConstraint>
+														</Constraints>
+														<Layout class="GridBag">
+															<Property name="columnWidths" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="rowHeights" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="columnWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="rowWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="columns" type="int" value="2"/>
+															<Property name="rows" type="int" value="2"/>
+														</Layout>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="visible" type="boolean" value="true"/>
+															<Property name="preferredSize" type="Dimension">
+																<Dimension value="[240, 90]"/>
+															</Property>
+															<Property name="border" class="javax.swing.border.TitledBorder">
+																<Property name="border"/>
+																<Property name="title" type="String" value="Classes"/>
+																<Property name="titleJustification" type="int" value="4"/>
+																<Property name="titlePosition" type="int" value="2"/>
+																<Property name="titleFont" type="Font">
+																<Font name="MS Sans Serif" size="11" style="0" strikeout="false" underline="false"/>
+															</Property>
+																<Property name="titleColor" type="Color">
+																<Color red="0" green="0" blue="0"/>
+															</Property>
+															</Property>
+															<Property name="bounds" type="Rectangle">
+																<Rectangle value="[0, 83, 407, 90]"/>
+															</Property>
+														</Properties>
+														<SubComponents>
+															<Component class="javax.swing.JComboBox" name="cbClasses">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="0"/>
+																		<Property name="gridwidth" type="int" value="2"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="2"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 23, 396, 25]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bClassesListeEleves">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Liste élèves"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\eleve.gif"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bClassesListeAtelier">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="1"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="10"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Liste ateliers"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\atelier.gif"/>
+																	</Property>
+																	<Property name="horizontalTextPosition" type="int" value="11"/>
+																</Properties>
+															</Component>
+														</SubComponents>
+													</Component>
+													<Component class="javax.swing.JPanel" name="panelAteliers">
+														<Constraints>
+															<Constraint direction="South"/>
+															<Constraint class="com.cloudgarden.layout.AnchorConstraint"/>
+															<LayoutConstraint class="com.cloudgarden.layout.AnchorConstraint">
+																<Property name="top" type="int" value="360"/>
+																<Property name="bottom" type="int" value="1001"/>
+																<Property name="left" type="int" value="2"/>
+																<Property name="right" type="int" value="981"/>
+																<Property name="topType" type="int" value="1"/>
+																<Property name="bottomType" type="int" value="0"/>
+																<Property name="rightType" type="int" value="1"/>
+																<Property name="leftType" type="int" value="1"/>
+															</LayoutConstraint>
+														</Constraints>
+														<Layout class="GridBag">
+															<Property name="columnWidths" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="rowHeights" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="columnWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="rowWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="columns" type="int" value="2"/>
+															<Property name="rows" type="int" value="2"/>
+														</Layout>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="visible" type="boolean" value="true"/>
+															<Property name="preferredSize" type="Dimension">
+																<Dimension value="[240, 90]"/>
+															</Property>
+															<Property name="border" class="javax.swing.border.TitledBorder">
+																<Property name="border"/>
+																<Property name="title" type="String" value="Ateliers"/>
+																<Property name="titleJustification" type="int" value="4"/>
+																<Property name="titlePosition" type="int" value="2"/>
+																<Property name="titleFont" type="Font">
+																<Font name="MS Sans Serif" size="11" style="0" strikeout="false" underline="false"/>
+															</Property>
+																<Property name="titleColor" type="Color">
+																<Color red="0" green="0" blue="0"/>
+															</Property>
+															</Property>
+															<Property name="bounds" type="Rectangle">
+																<Rectangle value="[0, 176, 407, 90]"/>
+															</Property>
+														</Properties>
+														<SubComponents>
+															<Component class="javax.swing.JComboBox" name="cbAteliers">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="0"/>
+																		<Property name="gridwidth" type="int" value="2"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="2"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 23, 397, 25]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="jButton5">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Modifier atelier"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\atelier_modif.gif"/>
+																	</Property>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 55, 139, 26]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="jButton6">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="1"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="10"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Liste d'élèves"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\eleve.gif"/>
+																	</Property>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[238, 55, 132, 26]"/>
+																	</Property>
+																</Properties>
+															</Component>
+														</SubComponents>
+													</Component>
+													<Component class="javax.swing.JPanel" name="panelTarifsAteliers">
+														<Constraints>
+															<Constraint direction="South"/>
+															<Constraint class="com.cloudgarden.layout.AnchorConstraint"/>
+															<LayoutConstraint class="com.cloudgarden.layout.AnchorConstraint">
+																<Property name="top" type="int" value="550"/>
+																<Property name="bottom" type="int" value="1001"/>
+																<Property name="left" type="int" value="2"/>
+																<Property name="right" type="int" value="981"/>
+																<Property name="topType" type="int" value="1"/>
+																<Property name="bottomType" type="int" value="0"/>
+																<Property name="rightType" type="int" value="1"/>
+																<Property name="leftType" type="int" value="1"/>
+															</LayoutConstraint>
+														</Constraints>
+														<Layout class="GridBag">
+															<Property name="columnWidths" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="rowHeights" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="columnWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="rowWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="columns" type="int" value="2"/>
+															<Property name="rows" type="int" value="2"/>
+														</Layout>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="visible" type="boolean" value="true"/>
+															<Property name="preferredSize" type="Dimension">
+																<Dimension value="[240, 90]"/>
+															</Property>
+															<Property name="border" class="javax.swing.border.TitledBorder">
+																<Property name="border"/>
+																<Property name="title" type="String" value="Tarifs Ateliers"/>
+																<Property name="titleJustification" type="int" value="4"/>
+																<Property name="titlePosition" type="int" value="2"/>
+																<Property name="titleFont" type="Font">
+																<Font name="MS Sans Serif" size="11" style="0" strikeout="false" underline="false"/>
+															</Property>
+																<Property name="titleColor" type="Color">
+																<Color red="0" green="0" blue="0"/>
+															</Property>
+															</Property>
+															<Property name="bounds" type="Rectangle">
+																<Rectangle value="[0, 270, 407, 90]"/>
+															</Property>
+														</Properties>
+														<SubComponents>
+															<Component class="javax.swing.JComboBox" name="cbTarifsAteliers">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="0"/>
+																		<Property name="gridwidth" type="int" value="2"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="2"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 23, 397, 25]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bTarifsAteliersModifTarif">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Modif. tarif"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\tarif_modif.gif"/>
+																	</Property>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 55, 114, 26]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bTarifsAteliersSupprTarif">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="1"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="10"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Suppr. tarif"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\tarif_suppr.gif"/>
+																	</Property>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[243, 55, 117, 26]"/>
+																	</Property>
+																</Properties>
+															</Component>
+														</SubComponents>
+													</Component>
+													<Component class="javax.swing.JPanel" name="panelTarifsCantine">
+														<Constraints>
+															<Constraint direction="South"/>
+															<Constraint class="com.cloudgarden.layout.AnchorConstraint"/>
+															<LayoutConstraint class="com.cloudgarden.layout.AnchorConstraint">
+																<Property name="top" type="int" value="741"/>
+																<Property name="bottom" type="int" value="1001"/>
+																<Property name="left" type="int" value="2"/>
+																<Property name="right" type="int" value="981"/>
+																<Property name="topType" type="int" value="1"/>
+																<Property name="bottomType" type="int" value="0"/>
+																<Property name="rightType" type="int" value="1"/>
+																<Property name="leftType" type="int" value="1"/>
+															</LayoutConstraint>
+														</Constraints>
+														<Layout class="GridBag">
+															<Property name="columnWidths" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="rowHeights" type="IntegerArray">
+															<IntegerArray value="[ 1,1 ]"/>
+														</Property>
+															<Property name="columnWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="rowWeights" type="DoubleArray">
+															<DoubleArray value="[ 0.1,0.1 ]"/>
+														</Property>
+															<Property name="columns" type="int" value="2"/>
+															<Property name="rows" type="int" value="2"/>
+														</Layout>
+														<Events>
+														</Events>
+														<Properties>
+															<Property name="preferredSize" type="Dimension">
+																<Dimension value="[240, 90]"/>
+															</Property>
+															<Property name="border" class="javax.swing.border.TitledBorder">
+																<Property name="border"/>
+																<Property name="title" type="String" value="Tarifs Cantine"/>
+																<Property name="titleJustification" type="int" value="4"/>
+																<Property name="titlePosition" type="int" value="2"/>
+																<Property name="titleFont" type="Font">
+																<Font name="MS Sans Serif" size="11" style="0" strikeout="false" underline="false"/>
+															</Property>
+																<Property name="titleColor" type="Color">
+																<Color red="0" green="0" blue="0"/>
+															</Property>
+															</Property>
+															<Property name="bounds" type="Rectangle">
+																<Rectangle value="[0, 363, 407, 90]"/>
+															</Property>
+														</Properties>
+														<SubComponents>
+															<Component class="javax.swing.JComboBox" name="cbTarifsCantine">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="0"/>
+																		<Property name="gridwidth" type="int" value="2"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="2"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="visible" type="boolean" value="true"/>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 23, 397, 25]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bTarifsCantineModif">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="0"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="17"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Modif. tarif"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\tarif_modif.gif"/>
+																	</Property>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[5, 55, 114, 26]"/>
+																	</Property>
+																</Properties>
+															</Component>
+															<Component class="javax.swing.JButton" name="bTarifCantineSuppr">
+																<Constraints>
+																	<Constraint class="java.awt.GridBagConstraints"/>
+																	<LayoutConstraint class="java.awt.GridBagConstraints">
+																		<Property name="gridx" type="int" value="1"/>
+																		<Property name="gridy" type="int" value="1"/>
+																		<Property name="gridwidth" type="int" value="1"/>
+																		<Property name="gridheight" type="int" value="1"/>
+																		<Property name="weightx" type="double" value="0.0"/>
+																		<Property name="weighty" type="double" value="0.0"/>
+																		<Property name="anchor" type="int" value="10"/>
+																		<Property name="fill" type="int" value="0"/>
+																		<Property name="insets" type="Insets">
+																		<Insets value="[0, 0, 0, 0]"/>
+																	</Property>
+																		<Property name="ipadx" type="int" value="0"/>
+																		<Property name="ipady" type="int" value="0"/>
+																	</LayoutConstraint>
+																</Constraints>
+																<Events>
+																</Events>
+																<Properties>
+																	<Property name="text" type="String" value="Suppr. tarif"/>
+																	<Property name="icon" type="Icon">
+																		<Icon name="\icons\tarif_suppr.gif"/>
+																	</Property>
+																	<Property name="bounds" type="Rectangle">
+																		<Rectangle value="[243, 55, 117, 26]"/>
+																	</Property>
+																</Properties>
+															</Component>
+														</SubComponents>
+													</Component>
+												</SubComponents>
+											</Component>
+										</SubComponents>
+									</Component>
+									<Component class="javax.swing.JScrollPane" name="jScrollPanDroite">
+										<Constraints>
+											<Constraint position="right"/>
+											<Constraint class="java.lang.String"/>
+											<LayoutConstraint class="java.lang.String">
+												<Property name="position" type="String" value="right"/>
+											</LayoutConstraint>
+										</Constraints>
+										<Events>
+										</Events>
+										<Properties>
+											<Property name="verticalScrollBarPolicy" type="int" value="20"/>
+											<Property name="preferredSize" type="Dimension">
+												<Dimension value="[149, 126]"/>
+											</Property>
+											<Property name="bounds" type="Rectangle">
+												<Rectangle value="[429, 1, 190, 494]"/>
+											</Property>
+										</Properties>
+									</Component>
+								</SubComponents>
+							</Component>
+						</SubComponents>
+					</Component>
+				</SubComponents>
+			</Component>
+		</SubComponents>
+	</Component>
+</Form>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form style="Swing" ide="eclipse" builder="jigloo" version="2.7.2">
+<NonVisualComponents>
+		<Component class="java.lang.Object" name="object1">
+			<Constraints>
+				<LayoutConstraint/>
+			</Constraints>
+			<Properties>
+			</Properties>
+		</Component></NonVisualComponents>
+	<Component class="javax.swing.JButton" name="JButtonOK">
+		<Constraints>
+			<Constraint direction="East"/>
+			<LayoutConstraint/>
+		</Constraints>
+		<Events>
+			<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="rootActionPerformed"/>
+		</Events>
+		<Properties>
+			<Property name="text" type="String" value="O K"/>
+			<Property name="horizontalTextPosition" type="int" value="11"/>
+			<Property name="icon" type="Icon">
+				<Icon name="\icons\ok.gif"/>
+			</Property>
+			<Property name="bounds" type="Rectangle">
+				<Rectangle value="[0, 0, 74, 26]"/>
+			</Property>
+		</Properties>
+	</Component>
+</Form>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form style="Swing" ide="eclipse" builder="jigloo" version="2.7.2">
+<NonVisualComponents>
+		<Component class="java.lang.Object" name="object1">
+			<Constraints>
+				<LayoutConstraint/>
+			</Constraints>
+			<Properties>
+			</Properties>
+		</Component></NonVisualComponents>
+	<Component class="javax.swing.JFrame" name="FrameException">
+		<Constraints>
+			<LayoutConstraint/>
+		</Constraints>
+		<Layout class="Border">
+			<Property name="hgap" type="int" value="0"/>
+			<Property name="vgap" type="int" value="0"/>
+		</Layout>
+		<Events>
+		</Events>
+		<Properties>
+			<Property name="defaultCloseOperation" type="int" value="2"/>
+			<Property name="title" type="String" value="Fenêtre d'erreur"/>
+			<Property name="name" type="String" value="NAME ICI"/>
+			<Property name="size" type="Dimension">
+				<Dimension value="[500, 250]"/>
+			</Property>
+			<Property name="enabled" type="boolean" value="true"/>
+			<Property name="bounds" type="Rectangle">
+				<Rectangle value="[0, 0, 500, 250]"/>
+			</Property>
+		</Properties>
+		<SubComponents>
+			<Component class="javax.swing.JScrollPane" name="jScrollPane1">
+				<Constraints>
+					<Constraint direction="Center"/>
+					<LayoutConstraint>
+						<Property name="direction" type="String" value="Center"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="horizontalScrollBarPolicy" type="int" value="30"/>
+					<Property name="verticalScrollBarPolicy" type="int" value="20"/>
+					<Property name="autoscrolls" type="boolean" value="false"/>
+				</Properties>
+				<SubComponents>
+					<Component class="javax.swing.JEditorPane" name="editorPanelMessage">
+						<Constraints>
+							<Constraint direction="Center"/>
+							<LayoutConstraint/>
+						</Constraints>
+						<Events>
+						</Events>
+						<Properties>
+							<Property name="contentType" type="String" value="text/plain"/>
+							<Property name="text" type="String" value="Entrez votre texte ici"/>
+							<Property name="editable" type="boolean" value="false"/>
+							<Property name="preferredSize" type="Dimension">
+								<Dimension value="[368, 213]"/>
+							</Property>
+							<Property name="border" class="javax.swing.border.SoftBevelBorder">
+								<Property name="bevelType" type="int" value="1"/>
+								<Property name="highlightOuterColor" value="null"/>
+								<Property name="highlightInnerColor" value="null"/>
+								<Property name="shadowOuterColor" value="null"/>
+								<Property name="shadowInnerColor" value="null"/>
+							</Property>
+							<Property name="debugGraphicsOptions" type="int" value="4"/>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[0, 0, 497, 219]"/>
+							</Property>
+						</Properties>
+					</Component>
+				</SubComponents>
+			</Component>
+			<Component class="javax.swing.JPanel" name="pannelForButton">
+				<Constraints>
+					<Constraint direction="South"/>
+					<LayoutConstraint>
+						<Property name="direction" type="String" value="South"/>
+					</LayoutConstraint>
+				</Constraints>
+				<Layout class="Border">
+					<Property name="hgap" type="int" value="0"/>
+					<Property name="vgap" type="int" value="0"/>
+				</Layout>
+				<Events>
+				</Events>
+				<Properties>
+					<Property name="preferredSize" type="Dimension">
+						<Dimension value="[368, 28]"/>
+					</Property>
+					<Property name="bounds" type="Rectangle">
+						<Rectangle value="[0, 222, 500, 28]"/>
+					</Property>
+				</Properties>
+				<SubComponents>
+					<Component class="ecole.gui.elements.JButtonOK" name="jButtonOK1">
+						<Constraints>
+							<Constraint direction="East"/>
+							<LayoutConstraint>
+								<Property name="direction" type="String" value="East"/>
+							</LayoutConstraint>
+						</Constraints>
+						<Events>
+							<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="jButtonOK1ActionPerformed"/>
+						</Events>
+						<Properties>
+							<Property name="text" type="String" value="O K"/>
+							<Property name="preferredSize" type="Dimension">
+								<Dimension value="[74, 21]"/>
+							</Property>
+							<Property name="bounds" type="Rectangle">
+								<Rectangle value="[426, 0, 74, 28]"/>
+							</Property>
+						</Properties>
+					</Component>
+				</SubComponents>
+			</Component>
+		</SubComponents>
+	</Component>
+</Form>
