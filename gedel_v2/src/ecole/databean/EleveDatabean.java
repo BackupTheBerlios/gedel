@@ -194,5 +194,9 @@ public final class EleveDatabean extends GenericDatabean {
     {
     	return this.nom + " " + this.prenom;
     }
-	
+
+    public String toString()
+    {
+        return "id="+id+" " + nom + " " + this.prenom;	
+    }
 }

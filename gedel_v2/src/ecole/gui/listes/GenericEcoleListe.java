@@ -16,8 +16,9 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
-import ecole.gui.elements.TableSorter;
+import de.qfs.lib.gui.SortedTableHelper;
 
 /**
  * GenericEcoleListe . Cette classe est une classe générique d'affichage d'un tableau de type JTable<br>
@@ -26,15 +27,16 @@ import ecole.gui.elements.TableSorter;
  */
 public abstract class GenericEcoleListe extends AbstractTableModel
 {
-
+    private JTable table;
     /** Données du tableau **/
     private Object[] _data;
     private int nbColumns = 0;
     public String[] columnNames = null;
+    SortedTableHelper helper;
 
     public int selectedRow = 0;
 
-    GenericEcoleListe()
+    public GenericEcoleListe()
     {
     }
 
@@ -86,6 +88,10 @@ public abstract class GenericEcoleListe extends AbstractTableModel
      */
     public Object getValueAt(int rowIndex, int columnIndex)
     {
+        if (columnIndex == 0)
+        {
+           // System.out.println("index "+rowIndex + " " +_data[rowIndex].toString());
+        }
         if (columnIndex < this.nbColumns)
         {
             Object d = getValueField(_data[rowIndex], columnIndex);
@@ -133,9 +139,9 @@ public abstract class GenericEcoleListe extends AbstractTableModel
      */
     public JTable getTable()
     {
-        TableSorter sorter = new TableSorter(this);
-        JTable table = new JTable(sorter);
-        sorter.setTableHeader(table.getTableHeader());
+
+        table = new JTable(this);             
+
         int width;
 
         // Desactivation de la derniere colonne
@@ -162,7 +168,7 @@ public abstract class GenericEcoleListe extends AbstractTableModel
             }
         }
         table.getColumn("").setCellRenderer(new DummyRenderer());
-        
+
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // Ajoute les listener pour déclencher les actions
@@ -178,27 +184,25 @@ public abstract class GenericEcoleListe extends AbstractTableModel
             }
         });
 
+       
         ListSelectionModel rowSM = table.getSelectionModel();
         rowSM.addListSelectionListener(new ListSelectionListener()
         {
             public void valueChanged(ListSelectionEvent e)
             {
-                //Ignore extra messages.
-                if (e.getValueIsAdjusting())
-                    return;
-
-                ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-                if (lsm.isSelectionEmpty())
+                if (!e.getValueIsAdjusting())
                 {
-
-                }
-                else
-                {
-                    callSelectItem(lsm);
+                    int row = table.getSelectedRow();
+                    
+                    if (row == -1) return;
+                    int idx = helper.getSortedTableModel().getMappedRow(row);
+                    callSelectItem(idx);
                 }
             }
         });
 
+
+        helper = new SortedTableHelper (table);
         return table;
     }
 
@@ -208,10 +212,15 @@ public abstract class GenericEcoleListe extends AbstractTableModel
      * @author jerome forestier @ sqli
      * @date 30 sept. 2004
      */
-    protected void callSelectItem(ListSelectionModel listener)
+    protected void callSelectItem(int idx)
     {
-        this.selectedRow = listener.getMinSelectionIndex();
-        itemSelected(this.selectedRow, this.getSelectedItems());
+        this.selectedRow = idx;
+        itemSelected(this.selectedRow, this._data[idx]);
+    }
+    
+    protected void callSelectItem(int idx, Object obj)
+    {
+        
     }
 
     /**
@@ -222,7 +231,9 @@ public abstract class GenericEcoleListe extends AbstractTableModel
      */
     protected void callDoubleClick(MouseEvent e)
     {
-        itemDoubleClicked(this.getSelectedIndex(), this.getSelectedItems());
+        int idx = this.getSelectedIndex();
+        idx = helper.getSortedTableModel().getMappedRow(idx);
+        itemDoubleClicked(idx, this._data[idx]);
     }
 
     /**
@@ -233,7 +244,9 @@ public abstract class GenericEcoleListe extends AbstractTableModel
      */
     private Object getSelectedItems()
     {
-        return this._data[this.selectedRow];
+        int idx = this.getSelectedIndex();
+        idx = helper.getSortedTableModel().getMappedRow(idx);
+        return this._data[idx];
     }
 
     /**

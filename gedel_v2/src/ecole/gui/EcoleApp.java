@@ -45,6 +45,7 @@ import com.cloudgarden.layout.AnchorLayout;
 import com.jgoodies.plaf.FontSizeHints;
 import com.jgoodies.plaf.Options;
 
+import de.qfs.lib.gui.SortedTableHelper;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
@@ -62,6 +63,7 @@ import ecole.gui.config.DialogConfig;
 import ecole.gui.eleve.DialogEleve;
 import ecole.gui.eleve.FicheEleve;
 import ecole.gui.listes.EleveTable;
+import ecole.gui.listes.EleveTable_old;
 import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.FrameException;
 import ecole.gui.predefinedframe.SplashScreen;
@@ -1385,10 +1387,38 @@ public class EcoleApp extends javax.swing.JFrame
             if (null != c)
             {
                 GUITools.setCursorWait(this);
+                
+                /* 
+                EleveTable_old eleveTable = new EleveTable_old();
+                eleveTable.parClasse(c);
+                
+                TableSorter sorter = new TableSorter(eleveTable); //ADDED THIS
+                JTable table = new JTable(sorter);             //NEW
+                sorter.setTableHeader(table.getTableHeader()); //ADDED THIS
+                jScrollPanDroite.setViewportView(table);
+                */
+                /*
+                EleveTable_old eleveTable = new EleveTable_old();
+                eleveTable.parClasse(c);
+                GTableModel model = new GTableModel();
+                model.setDataVector(eleveTable.getData(), eleveTable.getColumnIdentifiers());
+                model.addColumn(eleveTable.getColumnIdentifiers());                
+                JTable table = new JTable(model);
+                model.addMouseListenerToHeaderInTable(table);
+                */
+                /*
+                EleveTable_old eleveTable = new EleveTable_old();
+                eleveTable.parClasse(c);
+                JTable table = eleveTable.getTable();
+                SortedTableHelper helper = new SortedTableHelper (table);
+                helper.prepareTable();
+                */
                 EleveTable eleveTable = new EleveTable();
                 eleveTable.parClasse(c);
-                //JTable table = new JTable(eleveTable);
-                jScrollPanDroite.setViewportView(eleveTable.getTable());
+                JTable table = eleveTable.getTable();
+                SortedTableHelper helper = new SortedTableHelper (table);
+                helper.prepareTable();
+                jScrollPanDroite.setViewportView(table);                
             }
         }catch(Exception e)
         {
