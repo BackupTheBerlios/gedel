@@ -8,5 +8,14 @@ package ecole.databean;
  * les champs de la BD avec les objets java.
  * @author Jerome
  */
-public class GenericDatabean {
+public abstract class GenericDatabean {
+    
+    /**
+     * Doit retourner pour le bean, la clé unique. Null si aucune clé n'existe.
+     * En général, c'est un ID sous forme de string.
+     * @return la clé primaire
+     * @author jerome forestier @ sqli
+     * @date 1 oct. 2004
+     */
+    abstract String getPrimaryKey();
 }

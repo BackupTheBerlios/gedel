@@ -5,7 +5,7 @@
             use="true" notree="false" nonavbar="false" noindex="false"
             splitindex="true" author="true" version="true"
             nodeprecatedlist="false" nodeprecated="false"
-            packagenames="com.cloudgarden.layout,test,ecole.databean,ecole.config,ecole.gui.predefinedframe,ecole.db,ecole,ecole.gui.config,ecole.gui,ecole.gui.elements,ecole.utils,ecole.gui.classe,ecole.gui.eleve,ecole.utils.logger,ecole.datametier,ecole.gui.utils,ecole.gui.cantine"
+            packagenames="com.cloudgarden.layout,ecole.gui.listes,ecole.databean,ecole.config,test,ecole.gui.predefinedframe,ecole.db,ecole,ecole.gui.config,ecole.gui.listes.renderer,ecole.gui,ecole.gui.elements,ecole.utils,ecole.gui.classe,ecole.gui.eleve,ecole.utils.logger,ecole.datametier,ecole.gui.utils,ecole.exceptions,ecole.gui.cantine"
             sourcepath="..\src"
             classpath="..\bin;..\lib\mysql-connector-java-3.0.14-production-bin.jar;..\lib\smartjcommon_1.4.jar;..\lib\smartjprint_1.4.1.jar;..\lib\jcalendar.jar;..\lib\looks-1.2.2.jar;D:\_DEV\ide\eclipse\plugins\org.eclipse.swt.win32_2.1.3\ws\win32\swt.jar" doctitle="GEDEL JAVADOC"/>
     </target>

@@ -72,5 +72,13 @@ public class TarifAtelierDatabean extends GenericDatabean
 	{
 		tarif_nom = string;
 	}
+    
+    /**
+     * Retourne la clé primaire sous forme de string
+     */
+    String getPrimaryKey()
+    {
+        return "" + this.getId();
+    }
 
 }

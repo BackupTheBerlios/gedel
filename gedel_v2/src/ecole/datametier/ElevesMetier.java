@@ -20,7 +20,8 @@ import ecole.db.DBTools;
  */
 public class ElevesMetier extends GenericMetier
 {
-
+    public final static String SEXE_H = "H";
+    public final static String SEXE_F = "F";
 	public ElevesMetier()
 	{
 		super();
@@ -72,16 +73,17 @@ public class ElevesMetier extends GenericMetier
 	}
 	
 	/**
-	 * Retourne le sexe de l'eleve passé en parametre
+	 * Retourne le sexe de l'eleve passé en parametre (SEXE_H ou SEXE_H)
 	 * @param e
 	 * @return "H" ou "F" ou null 
 	 * @author jemore
 	 */
 	public final static String getSexe(EleveDatabean e)
 	{
-		if (e.getSexe() == '\0') return "";
-		else
-			return ""+e.getSexe();
+        String sexe = "" + e.getSexe();
+        if (SEXE_H.equals(sexe))    return SEXE_H;
+        if (SEXE_F.equals(sexe))    return SEXE_F;
+        return "";
 	}
 
     /**
@@ -163,7 +165,7 @@ public class ElevesMetier extends GenericMetier
     public List getElevesByClasse(int classeid) throws SQLException
     {
         List res = new ArrayList();
-        PreparedStatement pst = prepareStatement("select * from eleve where classeid=?");
+        PreparedStatement pst = prepareStatement("select * from eleve where classeid=? order by nom");
         pst.setInt(1, classeid);
         ResultSet rs = pst.executeQuery();
         while(rs.next())

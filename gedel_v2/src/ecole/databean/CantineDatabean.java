@@ -128,4 +128,12 @@ public class CantineDatabean extends GenericDatabean
         isAffecte = b;
     }
 
+    /**
+     * Retourne la clé primaire sous forme de string
+     */
+    String getPrimaryKey()
+    {
+        return null;
+    }
+
 }

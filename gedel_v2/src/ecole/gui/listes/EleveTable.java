@@ -15,51 +15,39 @@ import javax.swing.table.TableColumn;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
 import ecole.datametier.ElevesMetier;
-import ecole.gui.listes.renderer.*;
+import ecole.gui.EcoleApp;
+import ecole.gui.elements.TableSorter;
+import ecole.gui.listes.renderer.DateFormatRenderer;
+import ecole.gui.listes.renderer.SexeRenderer;
 import ecole.utils.DateTools;
+
 
 /**
  * EleveTable
  * @author jerome forestier @ sqli
  */
-public class EleveTable extends GenericEcoleListe
+public class EleveTable extends GenericEcoleTable
 {
-    /** Composant metier pour extraire les données **/
-    private ElevesMetier metier = new ElevesMetier();
-    
-    private static final String[] COLUMN_NAMES = new String[] { "Nom", "Prenom", "Sexe", "Date de naissance" }; 
-    
-    
-    public EleveTable()
+    private EcoleApp ecoleApp;
+    /**
+     * @param app
+     */
+    public EleveTable(EcoleApp app)
     {
-        super();
-        this.columnNames = COLUMN_NAMES;
+        this();
+        this.ecoleApp = app;
     }
 
     /**
-     * Effectue une recherche des eleves par classes
-     * @param c ClasseDatabean (seul le champs id doit etre reseigné)
-     * @throws SQLException
-     * @author jerome forestier @ sqli
-     * @date 29 sept. 2004
+     * @param columnNames
      */
-    public void parClasse(ClasseDatabean c) throws SQLException
+    public EleveTable()
     {
-        List listEleve = metier.getElevesByClasse(c.getId());
-        this.setData(listEleve.toArray()); // Tableau de EleveDatabean
-    }
-    
-    
-    /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleListe#getColumnCount()
-     */
-    public int getNumberOfColumns()
-    {
-        return  columnNames.length;
+        super(new String[] {"Nom", "Prénom", "Sexe", "Date"});
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleListe#getValueField(java.lang.Object, int)
+     * @see ecole.gui.listes.GenericEcoleTable#getValueField(java.lang.Object, int)
      */
     public Object getValueField(Object object, int fieldIndex)
     {
@@ -74,9 +62,8 @@ public class EleveTable extends GenericEcoleListe
         }
     }
 
-
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleListe#getColumnWidth(javax.swing.table.TableColumn)
+     * @see ecole.gui.listes.GenericEcoleTable#getColumnWidth(int)
      */
     public int getColumnWidth(int columnIndex)
     {
@@ -87,11 +74,15 @@ public class EleveTable extends GenericEcoleListe
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleListe#getColumnRenderer(javax.swing.table.TableColumn, int)
+     * @see ecole.gui.listes.GenericEcoleTable#getColumnRenderer(javax.swing.table.TableColumn, int)
      */
-    public TableCellRenderer getColumnRenderer(TableColumn col, int i)
+    public TableCellRenderer getColumnRenderer(TableColumn col, int columnIndex)
     {
-       if (i == 3) // Colonne Date
+        if (columnIndex == 2) // Colonne Sexe
+        {
+            return new SexeRenderer();
+        }
+        if (columnIndex == 3) // Colonne Date
        {
            return new DateFormatRenderer(DateTools.SDF_D2M2Y4);
        }
@@ -99,25 +90,60 @@ public class EleveTable extends GenericEcoleListe
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleListe#itemDoubleClicked(int, java.lang.Object)
+    /**
+     * Charge la liste avec les eleves inscrit dans la classe spécifié
+     * @param classeDatabean (seul le champs id est obligatoire)
+     * @throws SQLException Si base de données HS ou erreur. 
+     * @author jerome forestier @ sqli
+     * @date 1 oct. 2004
      */
-    public void itemDoubleClicked(int idx, Object dataSelected)
+    public void parClasse(ClasseDatabean classeDatabean) throws SQLException
     {
-        System.out.println("Double clique sur " + idx + " " + dataSelected);
+        ElevesMetier metier = new ElevesMetier(); 
+        List listEleve = metier.getElevesByClasse(classeDatabean.getId());
+        this.setData(listEleve.toArray()); // Tableau de EleveDatabean
+        
+    }
+    
+     /* (non-Javadoc)
+     * @see ecole.gui.listes.GenericEcoleTable#handleDoubleClick(int, java.lang.Object)
+     */
+    public void handleDoubleClick(int indexSelected, Object objectSelected)
+    {
+        EleveDatabean e = (EleveDatabean)objectSelected;
+        //System.out.println("click " + e);
+        ecoleApp.selectEleve(e.getId());
         
     }
 
     /* (non-Javadoc)
-     * @see ecole.gui.listes.GenericEcoleListe#itemSelected(int, java.lang.Object)
+     * @see ecole.gui.listes.GenericEcoleTable#handleSelected(int, java.lang.Object)
      */
-    public void itemSelected(int idx, Object dataSelected)
+    public void handleSelected(int indexSelected, Object objectSelected)
     {
-        System.out.println("Selection " + idx + " " + ElevesMetier.getNomPrenom((EleveDatabean)dataSelected));
-        
+        /*
+        EleveDatabean e = (EleveDatabean)objectSelected;
+        System.out.println("select " + e);
+        ecoleApp.selectEleve(e.getId());
+        */
     }
 
+    /* (non-Javadoc)
+     * Colonne de tri initial (Nom)
+     * @see ecole.gui.listes.GenericEcoleTable#getIntialSortedColumn()
+     */
+    public int getIntialSortedColumn()
+    {        
+        return 0; 
+    }
 
-
-
+    /* (non-Javadoc)
+     * ordre de tri initial
+     * @see ecole.gui.listes.GenericEcoleTable#getIntialSortedOrder()
+     */
+    public int getIntialSortedOrder()
+    {
+        
+        return TableSorter.ASCENDING;
+    }
 }

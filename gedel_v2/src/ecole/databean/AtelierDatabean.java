@@ -87,4 +87,12 @@ public class AtelierDatabean extends GenericDatabean
 		type = c;
 	}
 
+    /**
+     * Retourne la clé primaire sous forme de string
+     */
+    String getPrimaryKey()
+    {
+        return "" + this.getId();
+    }
+
 }

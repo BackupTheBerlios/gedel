@@ -199,4 +199,13 @@ public final class EleveDatabean extends GenericDatabean {
     {
         return "id="+id+" " + nom + " " + this.prenom;	
     }
+    
+    /**
+     * Retourne la clé primaire sous forme de string
+     */
+    String getPrimaryKey()
+    {
+        return "" + this.getId();
+    }
+    
 }

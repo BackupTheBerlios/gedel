@@ -70,4 +70,12 @@ public class ClasseDatabean extends GenericDatabean
 	{
 		return this.hashCode() + " id=" + id + "; nom=" + classe_nom + "; inst="+instituteur;
 	}
+
+    /**
+     * Retourne la clé primaire sous forme de string
+     */
+    String getPrimaryKey()
+    {
+        return "" + this.getId();
+    }
 }

@@ -15,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DebugGraphics;
@@ -31,7 +32,6 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -45,7 +45,6 @@ import com.cloudgarden.layout.AnchorLayout;
 import com.jgoodies.plaf.FontSizeHints;
 import com.jgoodies.plaf.Options;
 
-import de.qfs.lib.gui.SortedTableHelper;
 import ecole.databean.CantineDatabean;
 import ecole.databean.ClasseDatabean;
 import ecole.databean.EleveDatabean;
@@ -57,13 +56,13 @@ import ecole.datametier.GenericMetier;
 import ecole.datametier.TarifsAteliersMetier;
 import ecole.datametier.TarifsCantinesMetier;
 import ecole.db.DatabaseConnection;
+import ecole.exceptions.NonUniquePrimaryKeyException;
 import ecole.gui.cantine.DialogCantine;
 import ecole.gui.classe.DialogClasse;
 import ecole.gui.config.DialogConfig;
 import ecole.gui.eleve.DialogEleve;
 import ecole.gui.eleve.FicheEleve;
 import ecole.gui.listes.EleveTable;
-import ecole.gui.listes.EleveTable_old;
 import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.FrameException;
 import ecole.gui.predefinedframe.SplashScreen;
@@ -188,6 +187,8 @@ public class EcoleApp extends javax.swing.JFrame
 	 */
 	private List listEleves;
     private List listClasses;
+    //private Map mapEleves; // map de EleveDatabean, dont la clé est l'ID (sous forme de String)
+    //private Map mapClasses; // map de ClasseDatabean, dont la clé est l'ID (sous forme de String)
 
 	/**
 	* Initializes the GUI.
@@ -1029,7 +1030,7 @@ public class EcoleApp extends javax.swing.JFrame
 			IllegalAccessException,
 			InvocationTargetException,
 			NoSuchMethodException,
-			SQLException
+			SQLException, NonUniquePrimaryKeyException
 	{
 		GUITools.setCursorWait(this);
 		ElevesMetier metier = new ElevesMetier();
@@ -1041,6 +1042,8 @@ public class EcoleApp extends javax.swing.JFrame
 			metier.getAll(),
 			metier.getClass(),
 			"getNomPrenom");
+        // Transformation de la liste en Map
+        //mapEleves = DatabeanTools.createMapFromList(listEleves);
 		metier = null;
 		GUITools.setCursorNormal(this);
 	}
@@ -1052,7 +1055,7 @@ public class EcoleApp extends javax.swing.JFrame
             IllegalAccessException,
             InvocationTargetException,
             NoSuchMethodException,
-            SQLException
+            SQLException, NonUniquePrimaryKeyException
     {
         GUITools.setCursorWait(this);
             ClassesMetier metier = new ClassesMetier();
@@ -1065,7 +1068,8 @@ public class EcoleApp extends javax.swing.JFrame
                 metier.getClass(),
                 "getClasseNom");
             metier = null;
-
+            // Transformation de la liste en Map
+            //mapClasses = DatabeanTools.createMapFromList(listClasses);
         GUITools.setCursorNormal(this);
     }    
 
@@ -1351,14 +1355,13 @@ public class EcoleApp extends javax.swing.JFrame
 	        {
 	        	GUITools.setCursorWait(this);
 	        	// Quel est la classe de cet eleve ?
-	        	ClassesMetier metier = new ClassesMetier();	        	
 	        	int classe_id = e.getClasseid();
-	        	ClasseDatabean c = metier.getClasseByClasseId(classe_id);
-	        	
+	        	//ClasseDatabean c = metier.getClasseByClasseId(classe_id);
+	        	selectClasse(classe_id);
 	            FicheEleve fiche = new FicheEleve(e);
 	            JEditorPane ficheEdit = fiche.getEditorPanel();
 	            jScrollPanDroite.setViewportView(ficheEdit);
-	            GUITools.setCursorNormal(this);           
+                setStatus("Fiche de l'élève " + e.getNomPrenom());
 	        }
 		}catch(Exception e)
 		{
@@ -1387,38 +1390,10 @@ public class EcoleApp extends javax.swing.JFrame
             if (null != c)
             {
                 GUITools.setCursorWait(this);
-                
-                /* 
-                EleveTable_old eleveTable = new EleveTable_old();
-                eleveTable.parClasse(c);
-                
-                TableSorter sorter = new TableSorter(eleveTable); //ADDED THIS
-                JTable table = new JTable(sorter);             //NEW
-                sorter.setTableHeader(table.getTableHeader()); //ADDED THIS
-                jScrollPanDroite.setViewportView(table);
-                */
-                /*
-                EleveTable_old eleveTable = new EleveTable_old();
-                eleveTable.parClasse(c);
-                GTableModel model = new GTableModel();
-                model.setDataVector(eleveTable.getData(), eleveTable.getColumnIdentifiers());
-                model.addColumn(eleveTable.getColumnIdentifiers());                
-                JTable table = new JTable(model);
-                model.addMouseListenerToHeaderInTable(table);
-                */
-                /*
-                EleveTable_old eleveTable = new EleveTable_old();
-                eleveTable.parClasse(c);
-                JTable table = eleveTable.getTable();
-                SortedTableHelper helper = new SortedTableHelper (table);
-                helper.prepareTable();
-                */
-                EleveTable eleveTable = new EleveTable();
-                eleveTable.parClasse(c);
-                JTable table = eleveTable.getTable();
-                SortedTableHelper helper = new SortedTableHelper (table);
-                helper.prepareTable();
-                jScrollPanDroite.setViewportView(table);                
+                EleveTable table = new EleveTable(this);
+                table.parClasse(c);
+                jScrollPanDroite.setViewportView(table.getTable());
+                setStatus("Liste des élèves de la classe " + c.getClasse_nom());
             }
         }catch(Exception e)
         {
@@ -1436,4 +1411,38 @@ public class EcoleApp extends javax.swing.JFrame
 	protected void bClassesListeElevesActionPerformed(ActionEvent evt){
 		menuClasseListeEleveActionPerformed(evt);
 	}
+    /**
+     * @param eleve_id
+     * @author jerome forestier @ sqli
+     * @date 1 oct. 2004
+     */
+    public void selectEleve(int eleve_id)
+    {
+        int idx = 0;
+        Iterator i = listEleves.iterator();
+        while (i.hasNext())
+        {
+            if (((EleveDatabean)i.next()).getId() == eleve_id)
+            {
+                cbEleves.setSelectedIndex(idx);
+                break;
+            }
+            idx ++;
+        }
+    }
+    
+    public void selectClasse(int classe_id)
+    {
+        int idx = 0;
+        Iterator i = listClasses.iterator();
+        while (i.hasNext())
+        {
+            if (((ClasseDatabean)i.next()).getId() == classe_id)
+            {
+                cbClasses.setSelectedIndex(idx);
+                break;
+            }
+            idx ++;
+        }        
+    }
 }
