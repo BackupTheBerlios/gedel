@@ -176,4 +176,39 @@ public class ElevesMetier extends MetierGeneric
         pst.close();
         return res;
     }
+    
+    /**
+     * Liste des élèves inscrit dans une classe, en renseignant dans le bean
+     * le nb d'atelier auxquels l'elève est inscrit. Seul ID, Nom, Prenom est renseigné dans
+     * l'EleveDatabean
+     * @param classeid id de la classe
+     * @return List de EleveDatabean
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
+    public List getElevesAndNumberOfAtelierAtelierByClasse(int classeid) throws SQLException
+    {
+/**
+select eleve.id, count(atelier.atelier_id) from eleve
+left join atelier on eleve.id = atelier.eleve_id
+where eleve.classeid=7
+group by eleve.id
+*/
+        List res = new ArrayList();
+        PreparedStatement pst = prepareStatement("select " +            " eleve.id, eleve.nom, eleve.prenom, count(atelier.atelier_id) nb_atelier" +            " from eleve" +            " left join atelier on eleve.id = atelier.eleve_id " +            " where eleve.classeid=?" +            " group by eleve.id"             ); 
+        pst.setInt(1, classeid);
+        ResultSet rs = pst.executeQuery();
+        while(rs.next())
+        {
+            EleveDatabean e = new EleveDatabean();
+            e.setId(rs.getInt("id"));
+            e.setNom(rs.getString("nom"));
+            e.setPrenom(rs.getString("prenom"));
+            e.setNbAtelierInscrit(rs.getInt("nb_atelier"));
+            res.add(e);
+        }
+        rs.close();
+        pst.close();
+        return res;                
+    }
 }

@@ -66,6 +66,7 @@ import ecole.gui.dialog.ClasseDialog;
 import ecole.gui.dialog.ConfigDialog;
 import ecole.gui.dialog.EleveDialog;
 import ecole.gui.fiches.EleveFiche;
+import ecole.gui.listes.EleveAtelierListe;
 import ecole.gui.listes.EleveListe;
 import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.FrameException;
@@ -649,6 +650,11 @@ public class EcoleApp extends javax.swing.JFrame
 			menuClasseListeEleveAtelier.setText("Liste des élèves pour la classe sélectionnée + les ateliers");
 			menuClasseListeEleveAtelier.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/atelier.gif")));
 			menuClasses.add(menuClasseListeEleveAtelier);
+			menuClasseListeEleveAtelier.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuClasseListeEleveAtelierActionPerformed(evt);
+				}
+			});
 	
 			menuAteliers.setText("Ateliers");
 			menuAteliers.setDisplayedMnemonicIndex(0);
@@ -1292,13 +1298,13 @@ public class EcoleApp extends javax.swing.JFrame
             {
                 ClasseDatabean nouvel_classe = ClasseDialog.getInstance().modifClasse(this, c);
                 if (null != nouvel_classe)
-                {
-                    c = null;
+                {                    
                     GUITools.setCursorWait(this);
                     ClassesMetier metier = new ClassesMetier();
                     metier.update(nouvel_classe);
                     operationTermine("Classe " + c.getClasse_nom() + " modifiée");                    
                     reloadListClasses();
+                    cbClasses.setSelectedIndex(idx);
                 }
             }
         } catch (Exception e)
@@ -1614,7 +1620,7 @@ public class EcoleApp extends javax.swing.JFrame
 
 	/** Auto-generated event handler method */
 	protected void jButton5ActionPerformed(ActionEvent evt){
-		menuAtelierSupprActionPerformed(evt);
+		menuAtelierModifActionPerformed(evt);
 	}
 
 	/**
@@ -1659,5 +1665,34 @@ public class EcoleApp extends javax.swing.JFrame
 	/** Auto-generated event handler method */
 	protected void bElevesAtelierActionPerformed(ActionEvent evt){
 		menuElevesInscrireActionPerformed(evt);
+	}
+
+	/**
+     * Liste d'élève par classe + atelier
+	 */
+	protected void menuClasseListeEleveAtelierActionPerformed(ActionEvent evt){
+        try
+        {
+            int idx = cbClasses.getSelectedIndex(); // Index classe selectionnée
+            if (-1 == idx) return;
+            ClasseDatabean c = (ClasseDatabean) listClasses.get(idx);
+            if (null != c)
+            {
+                GUITools.setCursorWait(this);
+                EleveAtelierListe table = new EleveAtelierListe(this);
+                table.parClasse(c);
+                jScrollPanDroite.setViewportView(table.getTable());
+                setStatus("Liste des élèves de la classe " + c.getClasse_nom() +", avec leurs ateliers");
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            setStatus(e.getMessage());
+            FrameException.showException(e);
+        }
+        finally
+        {
+            GUITools.setCursorNormal(this);
+        }       
 	}
 }

@@ -171,8 +171,9 @@ public class AteliersMetier extends MetierGeneric
 
     /**
      * Met a jour (ajoute ou supprime) les ateliers auxquels un eleve est inscrit.
-     * On commence par enelver tout les ateliers auxquels l'eleve est inscrit, pui
+     * On commence par enelver tout les ateliers auxquels l'eleve est inscrit, puis
      * on ajoute seulement ceux présent dans la liste.
+     * Si l'atelier est de type Etude, le nbr de jours indiqué est nbrJours. Sinon, c'est 1.
      * @param listAtelierChoisi une liste de AtelierDatabean
      * @param eleve l'eleve a inscire
      * @author jerome forestier @ sqli
@@ -197,7 +198,10 @@ public class AteliersMetier extends MetierGeneric
             pst.setString(n++, tarifAtelier.getTarif_nom());
             pst.setDouble(n++, tarifAtelier.getPrix());
             pst.setDate(n++, DBTools.JavaDateToSqlDate(dateValidite));
-            pst.setInt(n++, nbrJours);
+            if (atelier.isEtude())
+                pst.setInt(n++, nbrJours);
+            else
+                pst.setInt(n++, 1);
             pst.executeUpdate();
             pst.close();
         }

@@ -152,10 +152,14 @@ public class EleveFiche
         String str = "";
         List listAtelierInscrit = ateliersInscrit.getListAtelierDatabean();
         Iterator i = listAtelierInscrit.iterator();
+        int j = 0;
         while (i.hasNext())
         {
             AtelierDatabean atelier = (AtelierDatabean)i.next(); 
-            str += atelier.getAtelier_nom() + ", ";
+            str += atelier.getAtelier_nom() + " (" + atelier.getJour()+"), ";
+            if (j % 3 == 2)
+                str += "<br>";           
+            j++;
         }
         if (!"".equals(str))
         {

@@ -329,6 +329,7 @@
 								<LayoutConstraint/>
 							</Constraints>
 							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuClasseListeEleveAtelierActionPerformed"/>
 							</Events>
 							<Properties>
 								<Property name="text" type="String" value="Liste des élèves pour la classe sélectionnée + les ateliers"/>
@@ -851,8 +852,8 @@
 								<SubComponents>
 									<Component class="javax.swing.JScrollPane" name="jScrollPanGauche">
 										<Constraints>
-											<Constraint position="left"/>
 											<Constraint class="java.lang.String"/>
+											<Constraint position="left"/>
 											<LayoutConstraint class="java.lang.String">
 												<Property name="position" type="String" value="left"/>
 											</LayoutConstraint>
@@ -1624,8 +1625,8 @@
 									</Component>
 									<Component class="javax.swing.JScrollPane" name="jScrollPanDroite">
 										<Constraints>
-											<Constraint position="right"/>
 											<Constraint class="java.lang.String"/>
+											<Constraint position="right"/>
 											<LayoutConstraint class="java.lang.String">
 												<Property name="position" type="String" value="right"/>
 											</LayoutConstraint>

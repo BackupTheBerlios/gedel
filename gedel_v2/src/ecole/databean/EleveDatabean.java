@@ -26,6 +26,8 @@ public final class EleveDatabean extends DatabeanGeneric {
     private	int		classeid;	// int 10
     private	Date	dateentree; // datetime
     
+    private int     nbAtelierInscrit;
+    
     public static final char SEXE_H = 'H';
     public static final char SEXE_F = 'F';
     	
@@ -208,4 +210,24 @@ public final class EleveDatabean extends DatabeanGeneric {
         return "" + this.getId();
     }
     
+    /**
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
+    public int getNbAtelierInscrit()
+    {
+        return nbAtelierInscrit;
+    }
+
+    /**
+     * @param i
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
+    public void setNbAtelierInscrit(int i)
+    {
+        nbAtelierInscrit = i;
+    }
+
 }

@@ -40,16 +40,17 @@ public class AtelierInscriptionDialog extends DialogGeneric
 {
     // Libellé des champs de saisie
     private final static JLabel[] LABELS = 
-        { new JLabel("Ateliers"), new JLabel("Tarif"), new JLabel("Date de validité "), new JLabel("Nombre de jours ") };
+        { new JLabel("Ateliers"), new JLabel("Tarif"), new JLabel("Date de validité "), new JLabel("Nombre de jours "), new JLabel("  Remarque") };
 
     // Champs de saisie (non static, car certains sont dynamique
     private JPanel panelCBatelier = new JPanel(); // Contiendra les checkbox des ateliers dispo
     private JComboBox cbTarif = new JComboBox();  // Contiendra les différents tarifs dispo
     private static JDateChooser dateValidite = new JDateChooser();
     private static JSpinner nbJours = new JSpinner();
+    private static JLabel remarque = new JLabel("Les ateliers autres que \"Etude\" auront un nb de jours à 1");
 
     private  JComponent[] COMPONENTS = 
-        {panelCBatelier, cbTarif, dateValidite, nbJours};
+        {panelCBatelier, cbTarif, dateValidite, nbJours, remarque};
         
     private List listTarifAtelier; // List de TarifsAtelierDatabean, present dans la combo
     private List listAtelier ; // List de AtelierDatabean
@@ -238,5 +239,4 @@ public class AtelierInscriptionDialog extends DialogGeneric
         else
             return null;
     }
-
 }
