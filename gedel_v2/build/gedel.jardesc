@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+    <jar path="D:/eclipse/workspace/gedel_v2/build/gedel.jar"/>
+    <options overwrite="false" compress="true" exportErrors="true"
+        exportWarnings="true" saveDescription="true"
+        descriptionLocation="/gedel_v2/build/gedel.jardesc"
+        useSourceFolders="false" buildIfNeeded="true"/>
+    <manifest manifestVersion="1.0" usesManifest="true"
+        reuseManifest="false" saveManifest="true"
+        generateManifest="true"
+        manifestLocation="/gedel_v2/build/manif.mft" mainClassHandleIdentifier="=gedel_v2/src&lt;ecole.gui{EcoleApp.java[EcoleApp">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true">
+        <javaElement handleIdentifier="=gedel_v2/src"/>
+    </selectedElements>
+</jardesc>
