@@ -3,7 +3,7 @@
  *
  * 
  */
-package ecole.gui.fiche;
+package ecole.gui.fiches;
 
 import java.sql.SQLException;
 

@@ -65,7 +65,7 @@ import ecole.gui.dialog.CantineDialog;
 import ecole.gui.dialog.ClasseDialog;
 import ecole.gui.dialog.ConfigDialog;
 import ecole.gui.dialog.EleveDialog;
-import ecole.gui.fiche.EleveFiche;
+import ecole.gui.fiches.EleveFiche;
 import ecole.gui.listes.EleveListe;
 import ecole.gui.predefinedframe.DialogAlert;
 import ecole.gui.predefinedframe.FrameException;

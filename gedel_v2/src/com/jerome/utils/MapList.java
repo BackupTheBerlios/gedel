@@ -19,7 +19,7 @@ import java.util.*;
  * Iterator i_key = ml.iteratorValue();
  * Iterator i_val = ml.iteratorKey();
  * Map m = ml.getMap();
- * List l = ml.getList();
+ * List l = ml.getListValue();
  * </code>
  * @author jerome forestier @ sqli
  */
@@ -30,21 +30,18 @@ public class MapList
     
     private List listValue; // Liste d'objet
     private List listKey; // List d'objet 
+    
     /**
-     * 
+     * Crée une MapList vide, de capacité initiale de 10
      */
     public MapList()
     {
-        super();        
-        mapKeyValue = new HashMap();
-        mapIdx = new HashMap();
-        listKey = new ArrayList();
-        listValue = new ArrayList();
+        this(10);
     }
     
     /**
-     * 
-     * @param initSize
+     * Crée une MapList avec une capacité initiale indiqué
+     * @param initSize Capacité initiale
      */
     public MapList(int initSize)
     {
@@ -55,6 +52,13 @@ public class MapList
         listValue = new ArrayList(initSize);
     }
     
+    /**
+     * Retourne la position de la clé dans la liste
+     * @param key
+     * @return -1 si n'existe pas
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
     private int getKeyIndexInList(Object key)
     {
         Object o = mapIdx.get(key);
@@ -125,20 +129,70 @@ public class MapList
         if (-1 == idx) return null;
         return getValueAt(idx);
     }
+
     
+    /**
+     * Retourne si un element o existe dans la liste des valeurs.
+     * @param o element whose presence in this list is to be tested. 
+     */
+    boolean contains(Object o)
+    {
+        return mapKeyValue.get(o) != null;
+    }
+
+    /**
+     * Retourne un iterator sur les valeurs de la MapList
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */        
     public Iterator iteratorValue()
     {
         return listValue.iterator();
     }
     
+    /**
+     * Retourne un iterator sur les clés de la MapList
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
     public Iterator iteratorKey()
     {
         return listKey.iterator();
     }
     
+    /**
+     * Retourne le liste des valeurs de la MapList
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
     public List getListValue()
     {
         return listValue;
+    }
+    
+    /**
+     * Retourne la map des clés/valeurs
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
+    public Map getMap()
+    {
+        return mapKeyValue;
+    }
+    
+    /**
+     * Retourne la liste des clé 
+     * @return
+     * @author jerome forestier @ sqli
+     * @date 8 oct. 2004
+     */
+    public List getListKey()
+    {
+        return listKey;
     }
     
     
