@@ -139,4 +139,45 @@ public final class ComboBoxFiller
 		}
 		cb.setVisible(true);
 	}
+    
+/**
+     *
+     * Ajoute a une combobox avec le contenu d'une liste, 
+     * sur laquelle on applique une methode static particuliere, retournant un string, et qui
+     * doit etre contenu dans la classe displayClass, et nommée methodToInvoke.
+     * Si la List Items contient des objets de différents type, autant de méthode
+     * d'affichage sont appelées.
+     * @param cb composant combobox
+     * @param items la List d'objet que l'on veut mettre dans la combo
+     * @param displayClass Classe d'affichage
+     * @param methodToInvoke Methode statique a appeler, pour chaque objet contenu dans la liste Items 
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException la methode a appliquer n'est pas défini pour le type de l'objet de la liste
+     * @author jemore
+     */
+    public final static void appendItems(
+        JComboBox cb,
+        List items,
+        Class displayClass,
+        String methodToInvoke
+        ) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, SecurityException, NoSuchMethodException
+    {
+        cb.setVisible(false);        
+        String s = "";      
+        for (Iterator i = items.iterator(); i.hasNext();)
+        {           
+            Object o = (Object) i.next();   
+            // Get the method visitFoo(Foo foo)
+            Method m = displayClass.getMethod(
+                methodToInvoke,
+                new Class[] { o.getClass() });
+            // Try to invoke visitFoo(Foo foo)
+            s = (String) m.invoke(
+                displayClass, 
+                new Object[] { o });
+            cb.addItem(s);
+        }
+        cb.setVisible(true);
+    }    
 }

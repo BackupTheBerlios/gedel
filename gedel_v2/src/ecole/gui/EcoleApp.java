@@ -69,6 +69,7 @@ import ecole.gui.dialog.EleveDialog;
 import ecole.gui.dialog.TarifAtelierDialog;
 import ecole.gui.dialog.TarifCantineDialog;
 import ecole.gui.fiches.EleveFiche;
+import ecole.gui.gestion.BilanPanel;
 import ecole.gui.listes.EleveAtelierClasseListe;
 import ecole.gui.listes.EleveAtelierListe;
 import ecole.gui.listes.EleveListe;
@@ -78,6 +79,8 @@ import ecole.gui.predefinedframe.SplashScreen;
 import ecole.gui.utils.Callbacker;
 import ecole.gui.utils.ComboBoxFiller;
 import ecole.gui.utils.GUITools;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 import ecole.utils.logger.Logger;
 
 
@@ -105,6 +108,8 @@ import ecole.utils.logger.Logger;
 
 public class EcoleApp extends javax.swing.JFrame
 {
+	private JPanel panelGestionBilan;
+	private JMenuItem menuGestionBilan;
 	private EleveDatabean currentEleve;
 	private JMenuItem menuLnF;
 	private JMenuItem menutOutilsBD;
@@ -212,6 +217,7 @@ public class EcoleApp extends javax.swing.JFrame
 			jStatusBar = new JLabel();
 			jProgressBar = new JProgressBar();
 			jToolBar = new JToolBar();
+			panelGestionBilan = new JPanel();
 			jPanel2 = new JPanel();
 			jSplitPane1 = new JSplitPane();
 			jScrollPanGauche = new JScrollPane();
@@ -246,9 +252,10 @@ public class EcoleApp extends javax.swing.JFrame
 			thisLayout.setColumns(1);
 			this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			this.setDefaultLookAndFeelDecorated(false);
+			this.setResizable(true);
 			this.setTitle("GEDEL - Gestion Des Elèves");
 			this.setName("Gestion des élèves");
-			this.setSize(new java.awt.Dimension(627,587));
+			this.setSize(new java.awt.Dimension(767,587));
 			this.addWindowListener( new WindowAdapter() {
 				public void windowClosing(WindowEvent evt) {
 					EcoleAppWindowClosing(evt);
@@ -283,8 +290,15 @@ public class EcoleApp extends javax.swing.JFrame
 			jProgressBar.setDoubleBuffered(false);
 			jStatusBar.add(jProgressBar, BorderLayout.EAST);
 	
-			jToolBar.setPreferredSize(new java.awt.Dimension(426,21));
+			jToolBar.setPreferredSize(new java.awt.Dimension(620,30));
 			jPanel1.add(jToolBar, BorderLayout.NORTH);
+	
+			FlowLayout panelGestionBilanLayout = new FlowLayout();
+			panelGestionBilan.setLayout(panelGestionBilanLayout);
+			panelGestionBilanLayout.setAlignment(FlowLayout.CENTER);
+			panelGestionBilanLayout.setHgap(5);
+			panelGestionBilanLayout.setVgap(5);
+			jToolBar.add(panelGestionBilan);
 	
 			BorderLayout jPanel2Layout = new BorderLayout();
 			jPanel2.setLayout(jPanel2Layout);
@@ -357,7 +371,7 @@ public class EcoleApp extends javax.swing.JFrame
 			panelClasses.setVisible(true);
 			panelClasses.setPreferredSize(new java.awt.Dimension(240,90));
 			panelClasses.setBorder(new TitledBorder(null, "Classes", TitledBorder.LEADING, TitledBorder.TOP, new java.awt.Font("MS Sans Serif",0,11), new java.awt.Color(0,0,0)));
-			panelClasses.setBounds(new java.awt.Rectangle(0,83,407,90));
+			panelClasses.setBounds(new java.awt.Rectangle(0,81,407,90));
 			jPanelGauche.add(panelClasses, new AnchorConstraint(170,981, 1001, 2, 1, 1, 0, 1));
 	
 			cbClasses.setVisible(true);
@@ -391,7 +405,7 @@ public class EcoleApp extends javax.swing.JFrame
 			panelAteliers.setVisible(true);
 			panelAteliers.setPreferredSize(new java.awt.Dimension(240,90));
 			panelAteliers.setBorder(new TitledBorder(null, "Ateliers", TitledBorder.LEADING, TitledBorder.TOP, new java.awt.Font("MS Sans Serif",0,11), new java.awt.Color(0,0,0)));
-			panelAteliers.setBounds(new java.awt.Rectangle(0,176,407,90));
+			panelAteliers.setBounds(new java.awt.Rectangle(0,173,407,90));
 			jPanelGauche.add(panelAteliers, new AnchorConstraint(360,981, 1001, 2, 1, 1, 0, 1));
 	
 			cbAteliers.setVisible(true);
@@ -424,7 +438,7 @@ public class EcoleApp extends javax.swing.JFrame
 			panelTarifsAteliers.setVisible(true);
 			panelTarifsAteliers.setPreferredSize(new java.awt.Dimension(240,90));
 			panelTarifsAteliers.setBorder(new TitledBorder(null, "Tarifs Ateliers", TitledBorder.LEADING, TitledBorder.TOP, new java.awt.Font("MS Sans Serif",0,11), new java.awt.Color(0,0,0)));
-			panelTarifsAteliers.setBounds(new java.awt.Rectangle(0,270,407,90));
+			panelTarifsAteliers.setBounds(new java.awt.Rectangle(0,265,407,90));
 			jPanelGauche.add(panelTarifsAteliers, new AnchorConstraint(550,981, 1001, 2, 1, 1, 0, 1));
 	
 			cbTarifsAteliers.setVisible(true);
@@ -456,7 +470,7 @@ public class EcoleApp extends javax.swing.JFrame
 			panelTarifsCantineLayout.rowWeights = new double[] {0.1,0.1};
 			panelTarifsCantine.setPreferredSize(new java.awt.Dimension(240,90));
 			panelTarifsCantine.setBorder(new TitledBorder(null, "Tarifs Cantine", TitledBorder.LEADING, TitledBorder.TOP, new java.awt.Font("MS Sans Serif",0,11), new java.awt.Color(0,0,0)));
-			panelTarifsCantine.setBounds(new java.awt.Rectangle(0,363,407,90));
+			panelTarifsCantine.setBounds(new java.awt.Rectangle(0,357,407,90));
 			jPanelGauche.add(panelTarifsCantine, new AnchorConstraint(741,981, 1001, 2, 1, 1, 0, 1));
 	
 			cbTarifsCantine.setVisible(true);
@@ -529,6 +543,7 @@ public class EcoleApp extends javax.swing.JFrame
 			menuCantineTarifModif = new JMenuItem();
 			menuCantineTarifSuppr = new JMenuItem();
 			menuGestion = new JMenu();
+			menuGestionBilan = new JMenuItem();
 			menuOutils = new JMenu();
 			menuOutilsGC = new JMenuItem();
 			menutOutilsBD = new JMenuItem();
@@ -828,6 +843,14 @@ public class EcoleApp extends javax.swing.JFrame
 			menuGestion.setText("Gestion");
 			menuGestion.setDisplayedMnemonicIndex(0);
 			jMenuBar1.add(menuGestion);
+	
+			menuGestionBilan.setText("Bilan");
+			menuGestion.add(menuGestionBilan);
+			menuGestionBilan.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					menuGestionBilanActionPerformed(evt);
+				}
+			});
 	
 			menuOutils.setText("Outils");
 			menuOutils.setDisplayedMnemonicIndex(0);
@@ -2064,5 +2087,43 @@ public class EcoleApp extends javax.swing.JFrame
 	/** Auto-generated event handler method */
 	protected void menuCantineTarifSupprActionPerformed(ActionEvent evt){
 		bTarifCantineSupprActionPerformed(evt);
+	}
+    
+    /**
+     * Crée le panneau de bouton, dans la tool bar, pour la gestion du bilan.
+     * 
+     * @author jerome forestier @ sqli
+     * @date 12 oct. 2004
+     */
+    private void createPanelGestionBilan()
+    {
+        panelGestionBilan.removeAll();
+        JComboBox comboTable = new JComboBox();
+        
+        comboTable.setToolTipText("Sélectionnez une sauvegarde");
+        comboTable.setEditable(false);
+        
+        
+        JButton sauver = new JButton("Sauver");
+        sauver.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/save.gif")));
+       
+        
+        JButton effacer = new JButton("Effacer");
+        effacer.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/clear.gif")));
+        
+        
+        //jToolBar.addSeparator();
+        panelGestionBilan.add(comboTable);
+        panelGestionBilan.add(sauver);
+        panelGestionBilan.add(effacer);
+        jToolBar.add(panelGestionBilan);
+        jToolBar.updateUI();
+    }
+
+	/** Auto-generated event handler method */
+	protected void menuGestionBilanActionPerformed(ActionEvent evt){
+		createPanelGestionBilan();
+        BilanPanel bilan = new BilanPanel();
+        jScrollPanDroite.setViewportView(bilan);
 	}
 }

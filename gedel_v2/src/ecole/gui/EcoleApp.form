@@ -625,6 +625,19 @@
 						<Property name="text" type="String" value="Gestion"/>
 						<Property name="displayedMnemonicIndex" type="int" value="0"/>
 					</Properties>
+					<SubComponents>
+						<Component class="javax.swing.JMenuItem" name="menuGestionBilan">
+							<Constraints>
+								<LayoutConstraint/>
+							</Constraints>
+							<Events>
+								<EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" handler="menuGestionBilanActionPerformed"/>
+							</Events>
+							<Properties>
+								<Property name="text" type="String" value="Bilan"/>
+							</Properties>
+						</Component>
+					</SubComponents>
 				</Component>
 				<Component class="javax.swing.JMenu" name="menuOutils">
 					<Constraints>
@@ -737,13 +750,14 @@
 		<Properties>
 			<Property name="defaultCloseOperation" type="int" value="3"/>
 			<Property name="defaultLookAndFeelDecorated" type="boolean" value="false"/>
+			<Property name="resizable" type="boolean" value="true"/>
 			<Property name="title" type="String" value="GEDEL - Gestion Des Elèves"/>
 			<Property name="name" type="String" value="Gestion des élèves"/>
 			<Property name="size" type="Dimension">
-				<Dimension value="[620, 560]"/>
+				<Dimension value="[760, 560]"/>
 			</Property>
 			<Property name="bounds" type="Rectangle">
-				<Rectangle value="[0, 0, 620, 560]"/>
+				<Rectangle value="[0, 0, 760, 560]"/>
 			</Property>
 		</Properties>
 		<SubComponents>
@@ -802,7 +816,7 @@
 									<Property name="debugGraphicsOptions" type="int" value="-1"/>
 									<Property name="doubleBuffered" type="boolean" value="false"/>
 									<Property name="bounds" type="Rectangle">
-										<Rectangle value="[530, 2, 88, 16]"/>
+										<Rectangle value="[670, 2, 88, 16]"/>
 									</Property>
 								</Properties>
 							</Component>
@@ -819,12 +833,28 @@
 						</Events>
 						<Properties>
 							<Property name="preferredSize" type="Dimension">
-								<Dimension value="[426, 21]"/>
+								<Dimension value="[620, 30]"/>
 							</Property>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[0, 0, 620, 21]"/>
+								<Rectangle value="[0, 0, 760, 30]"/>
 							</Property>
 						</Properties>
+						<SubComponents>
+							<Component class="javax.swing.JPanel" name="panelGestionBilan">
+								<Constraints>
+									<LayoutConstraint/>
+								</Constraints>
+								<Layout class="Flow">
+									<Property name="alignment" type="int" value="1"/>
+									<Property name="hgap" type="int" value="5"/>
+									<Property name="vgap" type="int" value="5"/>
+								</Layout>
+								<Events>
+								</Events>
+								<Properties>
+								</Properties>
+							</Component>
+						</SubComponents>
 					</Component>
 					<Component class="javax.swing.JPanel" name="jPanel2">
 						<Constraints>
@@ -841,7 +871,7 @@
 						</Events>
 						<Properties>
 							<Property name="bounds" type="Rectangle">
-								<Rectangle value="[0, 21, 620, 496]"/>
+								<Rectangle value="[0, 30, 760, 487]"/>
 							</Property>
 						</Properties>
 						<SubComponents>
@@ -860,8 +890,8 @@
 								<SubComponents>
 									<Component class="javax.swing.JScrollPane" name="jScrollPanGauche">
 										<Constraints>
-											<Constraint position="left"/>
 											<Constraint class="java.lang.String"/>
+											<Constraint position="left"/>
 											<LayoutConstraint class="java.lang.String">
 												<Property name="position" type="String" value="left"/>
 											</LayoutConstraint>
@@ -877,7 +907,7 @@
 												<Dimension value="[418, 118]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[1, 1, 418, 494]"/>
+												<Rectangle value="[1, 1, 418, 485]"/>
 											</Property>
 										</Properties>
 										<SubComponents>
@@ -894,7 +924,7 @@
 														<Dimension value="[195, 473]"/>
 													</Property>
 													<Property name="bounds" type="Rectangle">
-														<Rectangle value="[0, 0, 246, 491]"/>
+														<Rectangle value="[0, 0, 246, 482]"/>
 													</Property>
 												</Properties>
 												<SubComponents>
@@ -1094,7 +1124,7 @@
 															</Property>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[0, 83, 407, 90]"/>
+																<Rectangle value="[0, 81, 407, 90]"/>
 															</Property>
 														</Properties>
 														<SubComponents>
@@ -1238,7 +1268,7 @@
 															</Property>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[0, 176, 407, 90]"/>
+																<Rectangle value="[0, 173, 407, 90]"/>
 															</Property>
 														</Properties>
 														<SubComponents>
@@ -1387,7 +1417,7 @@
 															</Property>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[0, 270, 407, 90]"/>
+																<Rectangle value="[0, 265, 407, 90]"/>
 															</Property>
 														</Properties>
 														<SubComponents>
@@ -1535,7 +1565,7 @@
 															</Property>
 															</Property>
 															<Property name="bounds" type="Rectangle">
-																<Rectangle value="[0, 363, 407, 90]"/>
+																<Rectangle value="[0, 357, 407, 90]"/>
 															</Property>
 														</Properties>
 														<SubComponents>
@@ -1639,8 +1669,8 @@
 									</Component>
 									<Component class="javax.swing.JScrollPane" name="jScrollPanDroite">
 										<Constraints>
-											<Constraint position="right"/>
 											<Constraint class="java.lang.String"/>
+											<Constraint position="right"/>
 											<LayoutConstraint class="java.lang.String">
 												<Property name="position" type="String" value="right"/>
 											</LayoutConstraint>
@@ -1653,7 +1683,7 @@
 												<Dimension value="[149, 126]"/>
 											</Property>
 											<Property name="bounds" type="Rectangle">
-												<Rectangle value="[429, 1, 190, 494]"/>
+												<Rectangle value="[429, 1, 330, 485]"/>
 											</Property>
 										</Properties>
 									</Component>
